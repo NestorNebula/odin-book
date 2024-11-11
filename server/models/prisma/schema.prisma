@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int            @id @default(autoincrement())
+  username          String         @unique @db.VarChar(15)
+  email             String         @unique @db.VarChar(255)
+  password          String?        @db.VarChar(255)
+  loginMethod       LoginMethod
+  profile           Profile?
+  following         User[]         @relation("UserFollows")
+  followers         User[]         @relation("UserFollows")
+  posts             Post[]
+  interactions      Interaction[]
+  chats             Chat[]
+  messages          Message[]
+  notifications     Notification[] @relation("NotificationToUser")
+  notificationsSent Notification[] @relation("NotificationFromUser")
+}
+
+model Profile {
+  displayName  String   @db.VarChar(50)
+  avatar       String?  @db.VarChar(255)
+  background   String?  @db.VarChar(255)
+  bio          String?  @db.VarChar(160)
+  website      String?  @db.VarChar(100)
+  location     String?  @db.VarChar(30)
+  creationDate DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int      @unique
+}
+
+model Post {
+  id              Int            @id @default(autoincrement())
+  content         String?        @db.VarChar(280)
+  file            String?        @db.VarChar(255)
+  creationDate    DateTime       @default(now())
+  type            PostType
+  comments        Post[]         @relation("PostComment")
+  commentedPost   Post?          @relation("PostComment", fields: [commentedPostId], references: [id])
+  commentedPostId Int
+  interactions    Interaction[]
+  notifications   Notification[]
+  user            User           @relation(fields: [userId], references: [id])
+  userId          Int
+}
+
+model Interaction {
+  creationDate DateTime        @default(now())
+  type         InteractionType
+  user         User            @relation(fields: [userId], references: [id])
+  userId       Int
+  post         Post            @relation(fields: [postId], references: [id])
+  postId       Int
+
+  @@unique([type, userId, postId])
+}
+
+model Message {
+  id           Int      @id @default(autoincrement())
+  content      String?
+  file         String?  @db.VarChar(255)
+  creationDate DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int
+  chat         Chat     @relation(fields: [chatId], references: [id])
+  chatId       Int
+}
+
+model Chat {
+  id           Int       @id @default(autoincrement())
+  creationDate DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  users        User[]
+  messages     Message[]
+}
+
+model Notification {
+  id               Int              @id @default(autoincrement())
+  notificationType NotificationType
+  seen             Boolean          @default(false)
+  notifiedUser     User             @relation("NotificationToUser", fields: [notifiedUserId], references: [id])
+  notifiedUserId   Int
+  notifierUser     User             @relation("NotificationFromUser", fields: [notifierUserId], references: [id])
+  notifierUserId   Int
+  post             Post?            @relation(fields: [postId], references: [id])
+  postId           Int
+}
+
+enum LoginMethod {
+  PASSWORD
+  GITHUB
+}
+
+enum PostType {
+  POST
+  COMMENT
+}
+
+enum InteractionType {
+  LIKE
+  REPOST
+  BOOKMARK
+}
+
+enum NotificationType {
+  FOLLOW
+  COMMENT
+  LIKE
+  REPOST
+}
