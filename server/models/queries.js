@@ -37,6 +37,13 @@ const findUserByUsermail = async (usermail) => {
   return user;
 };
 
+const findUserById = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+  return user;
+};
+
 // Profile
 
 // Post
@@ -49,4 +56,4 @@ const findUserByUsermail = async (usermail) => {
 
 // Notification
 
-module.exports = { findOrCreateUser, findUserByUsermail };
+module.exports = { findOrCreateUser, findUserByUsermail, findUserById };
