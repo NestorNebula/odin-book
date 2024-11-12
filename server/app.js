@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const Sperror = require('sperror');
+const routes = require('./routes/routes');
+
+app.use('/auth', routes.auth);
+app.use('/users', routes.user);
+app.use('/posts', routes.post);
 
 app.use((req, res, next) => {
   next(new Sperror('Not Found', "Couldn't found requested resource.", 404));
