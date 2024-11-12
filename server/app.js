@@ -3,9 +3,34 @@ const app = express();
 require('dotenv').config();
 const Sperror = require('sperror');
 const routes = require('./routes/routes');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+
+app.use(
+  cookieSession({
+    secret: process.env.COOKIE_SECRET,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    partitioned: true,
+    sameSite: 'none',
+    secure: true,
+    httpOnly: true,
+  })
+);
 require('./helpers/passport/config');
 
 app.use('/auth', routes.auth);
+app.use(passport.session());
+app.use((req, res, next) => {
+  if (!req.user)
+    return next(
+      new Sperror(
+        'Unauthorized',
+        'Authentication is needed to access this data.',
+        401
+      )
+    );
+  next();
+});
 app.use('/users', routes.user);
 app.use('/posts', routes.post);
 
