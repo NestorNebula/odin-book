@@ -21,8 +21,15 @@ router.get(
   '/signin/github/callback',
   passport.authenticate('github', {
     successRedirect: process.env.ORIGIN,
-    failWithError,
+    failWithError: true,
   })
+);
+router.get(
+  '/signin/guest',
+  passport.authenticate('guest', { failWithError: true }),
+  (req, res) => {
+    res.json({ success: true });
+  }
 );
 router.get('/logout', controller.logOut);
 
