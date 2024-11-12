@@ -23,6 +23,20 @@ const findOrCreateUser = async (username, email) => {
   return user;
 };
 
+const findUserByUsermail = async (usermail) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      loginMethod: 'PASSWORD',
+      OR: [{ username: usermail }, { email: usermail }],
+    },
+    select: {
+      id: true,
+      password: true,
+    },
+  });
+  return user;
+};
+
 // Profile
 
 // Post
@@ -35,4 +49,4 @@ const findOrCreateUser = async (username, email) => {
 
 // Notification
 
-module.exports = { findOrCreateUser };
+module.exports = { findOrCreateUser, findUserByUsermail };
