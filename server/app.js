@@ -3,6 +3,7 @@ const app = express();
 require('dotenv').config();
 const Sperror = require('sperror');
 const routes = require('./routes/routes');
+require('./helpers/passport/config');
 
 app.use('/auth', routes.auth);
 app.use('/users', routes.user);
