@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "jest --watch *.js --detectOpenHandles"
+    "test": "export NODE_ENV=test && jest --watch *.js --detectOpenHandles",
+    "dev": "export NODE_ENV=development && node app.js"
   },
   "repository": {
     "type": "git",
