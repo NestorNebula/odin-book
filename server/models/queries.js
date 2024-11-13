@@ -78,6 +78,25 @@ const findUserByUsername = async (username) => {
   return user;
 };
 
+const __findFullUserByUsername = async (username) => {
+  if (!isUsingTestDb) return;
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { username },
+    include: {
+      profile: true,
+      following: true,
+      followers: true,
+      posts: true,
+      interactions: true,
+      chats: true,
+      messages: true,
+      notifications: true,
+      notificationsSent: true,
+    },
+  });
+  return user;
+};
+
 const createUser = async (username, email, password) => {
   const user = await prisma.user.create({
     data: {
@@ -100,22 +119,6 @@ const createUser = async (username, email, password) => {
   return user;
 };
 
-const getFullUserByUsername = async (username) => {
-  const user = await prisma.user.findUniqueOrThrow({
-    where: { username },
-    include: {
-      profile: true,
-      following: true,
-      followers: true,
-      posts: true,
-      interactions: true,
-      chats: true,
-      messages: true,
-      notifications: true,
-      notificationsSent: true,
-    },
-  });
-};
 // Profile
 
 // Post
@@ -130,7 +133,7 @@ const getFullUserByUsername = async (username) => {
 
 // Table resets (only for test db)
 
-const deleteUsers = async () => {
+const __deleteUsers = async () => {
   if (!isUsingTestDb) return;
   await prisma.profile.deleteMany({});
   await prisma.user.deleteMany({});
@@ -141,6 +144,7 @@ module.exports = {
   findUserByUsermail,
   findUserById,
   findUserByUsername,
+  __findFullUserByUsername,
   createUser,
-  deleteUsers,
+  __deleteUsers,
 };

@@ -47,7 +47,7 @@ const populateDb = async (data) => {
 };
 
 const emptyDb = async () => {
-  await prisma.deleteUsers();
+  await prisma.__deleteUsers();
 };
 
 module.exports = { data, populateDb, emptyDb };
