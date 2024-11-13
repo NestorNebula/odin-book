@@ -23,6 +23,10 @@ const validateUser = [
       const existingUser = await prisma.findUserByUsermail(email);
       if (existingUser) throw new Error('Email already taken.');
     }),
+  body('password')
+    .trim()
+    .isLength({ min: 8 })
+    .withMessage('Password must have at least 8 characters.'),
 ];
 
 module.exports = { validateUser };
