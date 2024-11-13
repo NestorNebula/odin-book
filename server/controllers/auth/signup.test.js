@@ -39,9 +39,9 @@ describe('sign up', () => {
       .type('form')
       .expect(400)
       .then((res) => {
-        expect(res.body.errors).not.ToBeNull();
+        expect(res.body.errors).not.toBeNull();
         expect(res.body.errors[0].msg).toMatch(/15 characters/i);
-        expect(res.body.errors[1].msg).toMatch(/email format/i);
+        expect(res.body.errors[1].msg).toMatch(/valid email/i);
       });
   });
 });
