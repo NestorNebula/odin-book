@@ -97,7 +97,7 @@ const __findFullUserByUsername = async (username) => {
   return user;
 };
 
-const findUsers = async (username, limit = 100) => {
+const findUsers = async (limit = 100) => {
   const users = await prisma.user.findMany({
     select: { id: true, username: true, profile: true, followers: true },
     take: limit,
