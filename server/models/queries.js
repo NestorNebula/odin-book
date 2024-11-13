@@ -60,6 +60,22 @@ const findUserById = async (id) => {
   return user;
 };
 
+const createUser = async (username, email, password) => {
+  const user = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password,
+      profile: {
+        create: {
+          displayName: username,
+        },
+      },
+    },
+  });
+  return user;
+};
+
 // Profile
 
 // Post
@@ -72,4 +88,9 @@ const findUserById = async (id) => {
 
 // Notification
 
-module.exports = { findOrCreateUser, findUserByUsermail, findUserById };
+module.exports = {
+  findOrCreateUser,
+  findUserByUsermail,
+  findUserById,
+  createUser,
+};
