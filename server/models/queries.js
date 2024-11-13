@@ -1,9 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
-const databaseUrl =
-  process.env.NODE_ENV === 'test'
-    ? process.env.TEST_DATABASE_URL
-    : process.env.DATABASE_URL;
+const isUsingTestDb = process.env.NODE_ENV === 'test';
+const databaseUrl = isUsingTestDb
+  ? process.env.TEST_DATABASE_URL
+  : process.env.DATABASE_URL;
 
 const prisma = new PrismaClient({
   datasources: {
@@ -88,9 +88,17 @@ const createUser = async (username, email, password) => {
 
 // Notification
 
+// Table resets (only for test db)
+
+const deleteUsers = async () => {
+  if (!isUsingTestDb) return;
+  await prisma.user.deleteMany({});
+};
+
 module.exports = {
   findOrCreateUser,
   findUserByUsermail,
   findUserById,
   createUser,
+  deleteUsers,
 };
