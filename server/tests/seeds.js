@@ -23,7 +23,13 @@ const getFakeGitHubUser = () => {
 };
 
 const data = {
-  users: [getFakeLocalUser(), getFakeGitHubUser(), getFakeGitHubUser()],
+  users: [
+    getFakeLocalUser(),
+    getFakeLocalUser(),
+    getFakeGitHubUser(),
+    getFakeGitHubUser(),
+    getFakeLocalUser(),
+  ],
 };
 
 const populateDb = async (data) => {
