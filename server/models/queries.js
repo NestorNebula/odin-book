@@ -97,6 +97,39 @@ const __findFullUserByUsername = async (username) => {
   return user;
 };
 
+const findUsers = async (username, limit = 100) => {
+  const users = await prisma.user.findMany({
+    select: { id: true, username: true, profile: true, followers: true },
+    take: limit,
+  });
+  return users;
+};
+
+const findNonFollowedUsers = async (id, limit = 100) => {
+  const users = await prisma.user.findMany({
+    where: {
+      followers: {
+        every: { id: { not: id } },
+      },
+    },
+    select: { id: true, username: true, profile: true, followers: true },
+    take: limit,
+  });
+  return users;
+};
+
+const findUsersBySearch = async (search, limit = 100) => {
+  const users = await prisma.user.findMany({
+    where: {
+      OR: [
+        { username: { contains: search } },
+        { profile: { displayName: { contains: search } } },
+      ],
+    },
+  });
+  return users;
+};
+
 const createUser = async (username, email, password) => {
   const user = await prisma.user.create({
     data: {
@@ -145,6 +178,9 @@ module.exports = {
   findUserById,
   findUserByUsername,
   __findFullUserByUsername,
+  findUsers,
+  findNonFollowedUsers,
+  findUsersBySearch,
   createUser,
   __deleteUsers,
 };
