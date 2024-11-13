@@ -3,7 +3,10 @@ const router = require('../../routes/user');
 const prisma = require('../../models/queries');
 
 const mockUser = data.users[0];
-const user = await prisma.__findFullUserByUsername(mockUser.username);
+let user = null;
+beforeAll(async () => {
+  user = await prisma.__findFullUserByUsername(mockUser.username);
+});
 app.use(async (req, res, next) => {
   req.user = { id: user.id };
   next();
