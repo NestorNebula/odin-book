@@ -66,6 +66,7 @@ const createUser = async (username, email, password) => {
       username,
       email,
       password,
+      loginMethod: 'PASSWORD',
       profile: {
         create: {
           displayName: username,
