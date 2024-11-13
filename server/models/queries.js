@@ -93,6 +93,7 @@ const createUser = async (username, email, password) => {
 
 const deleteUsers = async () => {
   if (!isUsingTestDb) return;
+  await prisma.profile.deleteMany({});
   await prisma.user.deleteMany({});
 };
 
