@@ -100,6 +100,22 @@ const createUser = async (username, email, password) => {
   return user;
 };
 
+const getFullUserByUsername = async (username) => {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { username },
+    include: {
+      profile: true,
+      following: true,
+      followers: true,
+      posts: true,
+      interactions: true,
+      chats: true,
+      messages: true,
+      notifications: true,
+      notificationsSent: true,
+    },
+  });
+};
 // Profile
 
 // Post
