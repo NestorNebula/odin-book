@@ -56,6 +56,11 @@ const findUserByUsermail = async (usermail) => {
 const findUserById = async (id) => {
   const user = await prisma.user.findUnique({
     where: { id },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+    },
   });
   return user;
 };
@@ -64,6 +69,10 @@ const findUserByUsername = async (username) => {
   const user = await prisma.user.findUnique({
     where: {
       username,
+    },
+    select: {
+      id: true,
+      username: true,
     },
   });
   return user;
@@ -81,6 +90,11 @@ const createUser = async (username, email, password) => {
           displayName: username,
         },
       },
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
     },
   });
   return user;
