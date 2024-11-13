@@ -10,7 +10,7 @@ const validateUser = [
     .isLength({ min: 4, max: 15 })
     .withMessage('Username must have between 4 and 15 characters.')
     .custom(async (username) => {
-      const existingUser = await prisma.findUserByUsermail(username);
+      const existingUser = await prisma.findUserByUsername(username);
       if (existingUser) throw new Error('Username already taken.');
     }),
   body('email')
