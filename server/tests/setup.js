@@ -11,4 +11,6 @@ afterAll(async () => {
   await emptyDb();
 });
 
+app.use(express.urlencoded({ extended: false }));
+
 module.exports = { request, app, data };
