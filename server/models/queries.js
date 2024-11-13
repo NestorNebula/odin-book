@@ -28,6 +28,11 @@ const findOrCreateUser = async (username, email) => {
       username,
       email,
       loginMethod: 'GITHUB',
+      profile: {
+        create: {
+          displayName: username,
+        },
+      },
     },
     select: { id: true },
   });
