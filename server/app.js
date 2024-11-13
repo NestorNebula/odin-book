@@ -5,7 +5,11 @@ const Sperror = require('sperror');
 const routes = require('./routes/routes');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   cookieSession({
     secret: process.env.COOKIE_SECRET,
