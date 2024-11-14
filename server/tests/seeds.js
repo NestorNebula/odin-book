@@ -33,17 +33,18 @@ const data = {
 };
 
 const populateDb = async (data) => {
-  data.users.forEach(async (user) => {
+  for (let i = 0; i < data.users.length; i++) {
+    const users = await prisma.findUsers();
+    if (users.length !== i) {
+      throw new Error('Error when populating db.');
+    }
+    const user = data.users[i];
     if (user.password) {
-      await prisma.createUser(
-        user.username,
-        user.email,
-        bcrypt.hashSync(user.password, 10)
-      );
+      await prisma.createUser(user.username, user.email, user.password);
     } else {
       await prisma.findOrCreateUser(user.username, user.email);
     }
-  });
+  }
 };
 
 const emptyDb = async () => {
