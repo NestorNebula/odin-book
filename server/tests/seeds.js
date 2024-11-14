@@ -24,7 +24,7 @@ const getFakeGitHubUser = () => {
 
 const data = {
   users: [
-    getFakeLocalUser(),
+    getFakeGitHubUser(),
     getFakeLocalUser(),
     getFakeGitHubUser(),
     getFakeGitHubUser(),
