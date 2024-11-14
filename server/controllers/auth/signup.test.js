@@ -30,7 +30,6 @@ describe('sign up', () => {
       .type('form')
       .expect(400)
       .then((res) => {
-        console.log(res.body);
         expect(res.body.errors).not.toBeNull();
         expect(res.body.errors[0].msg).toMatch(/username already taken/i);
         expect(res.body.errors[1].msg).toMatch(/email already taken/i);
