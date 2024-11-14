@@ -1,19 +1,16 @@
 const { request, app, data } = require('../../tests/setup');
 const router = require('../../routes/user');
 const prisma = require('../../models/queries');
+const { setReqUser, getReqUser } = require('../../tests/reqUser');
 
-let user = null;
-beforeAll(async () => {
-  user = await prisma.__findFullUserByUsername(data.users[0].username);
+beforeAll(() => {
+  setReqUser(app, data);
+  app.use('/', router);
 });
-app.use((req, res, next) => {
-  req.user = user;
-  next();
-});
-app.use('/', router);
 
 describe('getUser', () => {
-  it('returns existing user', () => {
+  it('returns existing user', async () => {
+    const user = await getReqUser(data);
     return request(app)
       .get(`/${user.id}`)
       .then((res) => {
@@ -21,9 +18,10 @@ describe('getUser', () => {
       });
   });
 
-  it('returns 404 when trying to get a non-existing user', (done) => {
-    request(app)
+  it('returns 404 when trying to get a non-existing user', async () => {
+    const user = await getReqUser(data);
+    return request(app)
       .get(`/${user.id - 1}`)
-      .expect(404, done);
+      .expect(404);
   });
 });

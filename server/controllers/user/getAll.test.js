@@ -1,20 +1,15 @@
 const { request, app, data } = require('../../tests/setup');
 const router = require('../../routes/user');
 const prisma = require('../../models/queries');
+const { setReqUser, getReqUser } = require('../../tests/reqUser');
 
-const mockUser = data.users[0];
-let user = null;
-beforeAll(async () => {
-  user = await prisma.__findFullUserByUsername(mockUser.username);
+beforeAll(() => {
+  setReqUser(app, data);
+  app.use('/', router);
 });
-app.use(async (req, res, next) => {
-  req.user = { id: user.id };
-  next();
-});
-app.use('/', router);
 
 describe('getAllUsers', () => {
-  it('returns all users', () => {
+  it('returns all users', async () => {
     return request(app)
       .get('/')
       .then((res) => {
@@ -27,7 +22,8 @@ describe('getAllUsers', () => {
       });
   });
 
-  it('it only returns non-followed users on query', () => {
+  it('it only returns non-followed users on query', async () => {
+    const user = await getReqUser(data);
     return request(app)
       .get('/')
       .query({ omit: 'friends' })
@@ -40,7 +36,7 @@ describe('getAllUsers', () => {
       });
   });
 
-  it('only returns users matching search query', () => {
+  it('only returns users matching search query', async () => {
     return request(app)
       .get('/')
       .query({ search: data.users[1].username })
