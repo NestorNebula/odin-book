@@ -5,7 +5,9 @@ require('./guest');
 const prisma = require('../../models/queries');
 
 passport.serializeUser((user, done) => {
-  return user.id ? done(null, { id: user.id }) : done(null, { guest: true });
+  return user.id
+    ? done(null, { id: user.id })
+    : done(null, { id: 0, guest: true });
 });
 
 passport.deserializeUser(async (user, done) => {
