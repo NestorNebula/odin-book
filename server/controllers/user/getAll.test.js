@@ -1,10 +1,8 @@
 const { request, app, data } = require('../../tests/setup');
 const router = require('../../routes/user');
-const prisma = require('../../models/queries');
-const { setReqUser, getReqUser } = require('../../tests/reqUser');
+const { getReqUser } = require('../../tests/reqUser');
 
 beforeAll(() => {
-  setReqUser(app, data);
   app.use('/', router);
 });
 
