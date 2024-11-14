@@ -22,10 +22,15 @@ describe('sign up', () => {
   it('returns 400 and errors when trying to create an account with data already taken', () => {
     return request(app)
       .post('/signup')
-      .send({ username: data.users[0].username, email: data.users[0].email })
+      .send({
+        username: data.users[0].username,
+        email: data.users[1].email,
+        password: 'securepassword',
+      })
       .type('form')
       .expect(400)
       .then((res) => {
+        console.log(res.body);
         expect(res.body.errors).not.toBeNull();
         expect(res.body.errors[0].msg).toMatch(/username already taken/i);
         expect(res.body.errors[1].msg).toMatch(/email already taken/i);
@@ -35,7 +40,11 @@ describe('sign up', () => {
   it('returns 400 and errors when submitting incorrect data', () => {
     return request(app)
       .post('/signup')
-      .send({ username: 'averylongusername', email: 'incorrectemail' })
+      .send({
+        username: 'averylongusername',
+        email: 'incorrectemail',
+        password: 'securepassword',
+      })
       .type('form')
       .expect(400)
       .then((res) => {
