@@ -160,6 +160,14 @@ const createUser = async (username, email, password) => {
   return user;
 };
 
+const updateUser = async (id, username, email, password) => {
+  const user = await prisma.user.update({
+    where: { id },
+    data: { username, email, password },
+  });
+  return user;
+};
+
 // Profile
 
 // Post
@@ -190,5 +198,6 @@ module.exports = {
   findNonFollowedUsers,
   findUsersBySearch,
   createUser,
+  updateUser,
   __deleteUsers,
 };
