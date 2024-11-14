@@ -24,6 +24,6 @@ describe('getUser', () => {
   it('returns 404 when trying to get a non-existing user', (done) => {
     request(app)
       .get(`/${user.id - 1}`)
-      .expect(404);
+      .expect(404, done);
   });
 });
