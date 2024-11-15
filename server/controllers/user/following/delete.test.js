@@ -18,16 +18,19 @@ describe('deleteFollowing', () => {
 
   it('returns user with following after successful unfollow', async () => {
     const user = await getReqUser(data);
-    request(app)
-      .post(`/${user.id}/following`)
-      .send({ userId: user.id + 1 })
-      .type('form');
     return request(app)
-      .delete(`/${user.id}/following`)
+      .post(`/${user.id}/following`)
       .send({ userId: user.id + 1 })
       .type('form')
       .then((res) => {
-        expect(res.body.user.following.length).toBeNull();
+        expect(res.body.user.following.length).toBe(1);
+        return request(app)
+          .delete(`/${user.id}/following`)
+          .send({ userId: user.id + 1 })
+          .type('form')
+          .then((res) => {
+            expect(res.body.user.following.length).toBe(0);
+          });
       });
   });
 });
