@@ -9,11 +9,13 @@ describe('postFollowing', () => {
   it('returns user with following after successful follow', async () => {
     return request(app)
       .post(`/${data.users[0].id}/following`)
-      .send({ userId: data.users[0].id + 1 })
+      .send({ userId: data.users[0].id + 2 })
       .type('form')
       .expect(200)
       .then((res) => {
-        expect(res.body.user.following.length).toBe(1);
+        expect(res.body.user.following.length).toBe(
+          data.users[0].following.length + 1
+        );
       });
   });
 
