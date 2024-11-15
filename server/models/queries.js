@@ -358,6 +358,37 @@ const createChat = async (userOneId, userTwoId) => {
 
 // Notification
 
+const createNotification = async (notifierId, notifiedId, type, postId) => {
+  const notification =
+    type === 'FOLLOW'
+      ? await prisma.notification.create({
+          data: {
+            notifierUser: {
+              connect: { id: notifierId },
+            },
+            notifiedUser: {
+              connect: { id: notifiedId },
+            },
+            notificationType: 'FOLLOW',
+          },
+        })
+      : await prisma.notification.create({
+          data: {
+            notifierUser: {
+              connect: { id: notifierId },
+            },
+            notifiedUser: {
+              connect: { id: notifiedId },
+            },
+            notificationType: type,
+            post: {
+              connect: { id: postId },
+            },
+          },
+        });
+  return notification;
+};
+
 // Table resets (only for test db)
 
 const __deleteUsers = async () => {
@@ -392,5 +423,6 @@ module.exports = {
   createInteraction,
   createMessage,
   createChat,
+  createNotification,
   __deleteUsers,
 };
