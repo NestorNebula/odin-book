@@ -1,6 +1,5 @@
 const { request, app, data } = require('../../tests/setup');
 const router = require('../../routes/user');
-const { getReqUser } = require('../../tests/reqUser');
 
 beforeAll(() => {
   app.use('/', router);
@@ -21,13 +20,12 @@ describe('getAllUsers', () => {
   });
 
   it('it only returns non-followed users on query', async () => {
-    const user = await getReqUser(data);
     return request(app)
       .get('/')
       .query({ omit: 'friends' })
       .then((res) => {
         expect(
-          user.following.every((usr) =>
+          data.users[0].following.every((usr) =>
             res.body.users.every((u) => u.username !== usr.username)
           )
         ).toBeTruthy();

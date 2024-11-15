@@ -1,6 +1,5 @@
 const { request, app, data } = require('../../../../tests/setup');
 const router = require('../../../../routes/user');
-const { getReqUser } = require('../../../../tests/reqUser');
 
 beforeAll(() => {
   app.use('/', router);
@@ -8,7 +7,7 @@ beforeAll(() => {
 
 describe('getAllFollowingPosts', () => {
   it('returns all following posts when user follows only one user', async () => {
-    const user = await getReqUser(data);
+    const user = data.users[0];
     return request(app)
       .post(`/${user.id}/following`)
       .send({ userId: user.id + 1 })
@@ -27,7 +26,7 @@ describe('getAllFollowingPosts', () => {
   });
 
   it('returns all following posts when user follow multiple users', async () => {
-    const user = await getReqUser(data);
+    const user = data.users[0];
     return request(app)
       .post(`/${user.id}/following`)
       .send({ userId: user.id + 2 })

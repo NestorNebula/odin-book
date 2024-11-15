@@ -1,6 +1,5 @@
 const { request, app, data } = require('../../tests/setup');
 const router = require('../../routes/user');
-const { getReqUser } = require('../../tests/reqUser');
 
 beforeAll(() => {
   app.use('/', router);
@@ -8,18 +7,16 @@ beforeAll(() => {
 
 describe('getUser', () => {
   it('returns existing user', async () => {
-    const user = await getReqUser(data);
     return request(app)
-      .get(`/${user.id}`)
+      .get(`/${data.users[0].id}`)
       .then((res) => {
-        expect(res.body.user.username).toBe(user.username);
+        expect(res.body.user.username).toBe(data.users[0].username);
       });
   });
 
-  it('returns 404 when trying to get a non-existing user', async () => {
-    const user = await getReqUser(data);
-    return request(app)
-      .get(`/${user.id - 1}`)
-      .expect(404);
+  it('returns 404 when trying to get a non-existing user', (done) => {
+    request(app)
+      .get(`/${data.users[0].id - 1}`)
+      .expect(404, done);
   });
 });

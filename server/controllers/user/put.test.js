@@ -1,6 +1,5 @@
 const { app, request, data } = require('../../tests/setup');
 const router = require('../../routes/user');
-const { getReqUser } = require('../../tests/reqUser');
 
 beforeAll(() => {
   app.use('/', router);
@@ -8,9 +7,8 @@ beforeAll(() => {
 
 describe('putUser', () => {
   it('returns 400 and error when submitting incorrect data', async () => {
-    const user = await getReqUser(data);
     return request(app)
-      .put(`/${user.id}`)
+      .put(`/${data.users[0].id}`)
       .send({ username: 'new' })
       .type('form')
       .expect(400)
@@ -20,9 +18,8 @@ describe('putUser', () => {
   });
 
   it('returns 400 and error when github user try to update his email', async () => {
-    const user = await getReqUser(data);
     return request(app)
-      .put(`/${user.id}`)
+      .put(`/${data.users[0].id}`)
       .send({ email: 'mynew@email.com' })
       .type('form')
       .expect(400)
@@ -32,18 +29,16 @@ describe('putUser', () => {
   });
 
   it('returns 403 when trying to update another user', async () => {
-    const user = await getReqUser(data);
     return request(app)
-      .put(`/${user.id + 1}`)
+      .put(`/${data.users[0].id + 1}`)
       .send({ username: 'new' })
       .type('form')
       .expect(403);
   });
 
   it('returns user after successful update', async () => {
-    const user = await getReqUser(data);
     return request(app)
-      .put(`/${user.id}`)
+      .put(`/${data.users[0].id}`)
       .send({ username: 'newusername' })
       .type('form')
       .then((res) => {

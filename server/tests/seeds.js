@@ -58,6 +58,10 @@ const populateUsers = async (data) => {
     } else {
       await prisma.findOrCreateUser(user.username, user.email);
     }
+    data.users[i] = await prisma.__findFullUserByUsername(
+      data.users[i].username
+    );
+    if (!data.users[i]) throw new Error('Error when populating db.');
   }
 };
 
