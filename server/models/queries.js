@@ -234,6 +234,18 @@ const disconnectUserFollowing = async (userId, userToUnfollowId) => {
   return user;
 };
 
+const findUserFollowingPosts = async (userId) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
+    },
+    orderBy: {
+      creationDate: 'desc',
+    },
+  });
+  return posts;
+};
+
 // Post
 
 const createPost = async (userId, content, file) => {
@@ -293,6 +305,7 @@ module.exports = {
   updateProfile,
   connectUserFollowing,
   disconnectUserFollowing,
+  findUserFollowingPosts,
   createPost,
   createPostComment,
   __deleteUsers,
