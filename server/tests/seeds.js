@@ -39,11 +39,7 @@ const data = {
     getFakeLocalUser(),
   ],
   posts: [],
-};
-
-const populateDb = async (data) => {
-  await populateUsers(data);
-  await populatePosts(data);
+  follows: [],
 };
 
 const populateUsers = async (data) => {
@@ -67,7 +63,7 @@ const populateUsers = async (data) => {
 
 const populatePosts = async (data) => {
   for (let i = 0; i < data.users.length; i++) {
-    const user = await prisma.__findFullUserByUsername(data.users[i].username);
+    const user = data.users[i];
     if (!user) throw new Error('Error when populating db.');
     const post = getFakePost(user.id);
     const postedPost = await prisma.createPost(
@@ -78,6 +74,27 @@ const populatePosts = async (data) => {
     if (!postedPost) throw new Error('Error when populating db.');
     data.posts.push(postedPost);
   }
+};
+
+const populateFollows = async (data) => {
+  for (let i = 0; i < data.users.length; i++) {
+    const user = data.users[i];
+    if (i > 0) {
+      await prisma.connectUserFollowing(user.id, user.id - 1);
+      data.follows.push({ followed: data.users[i - 1], following: { user } });
+    }
+    if (i < data.users.length - 1) {
+      await prisma.connectUserFollowing(user.id, user.id + 1);
+      data.follows.push({ followed: data.users[i + 1], following: { user } });
+    }
+  }
+};
+
+const populateDb = async (data) => {
+  await populateUsers(data);
+  await populatePosts(data);
+  await populateFollows(data);
+  data.users = await prisma.__findFullUsers();
 };
 
 const emptyDb = async () => {
