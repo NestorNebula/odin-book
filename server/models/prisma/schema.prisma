@@ -46,7 +46,7 @@ model Post {
   type            PostType
   comments        Post[]         @relation("PostComment")
   commentedPost   Post?          @relation("PostComment", fields: [commentedPostId], references: [id])
-  commentedPostId Int
+  commentedPostId Int?
   interactions    Interaction[]
   notifications   Notification[]
   user            User           @relation(fields: [userId], references: [id])
@@ -92,7 +92,7 @@ model Notification {
   notifierUser     User             @relation("NotificationFromUser", fields: [notifierUserId], references: [id])
   notifierUserId   Int
   post             Post?            @relation(fields: [postId], references: [id])
-  postId           Int
+  postId           Int?
 }
 
 enum LoginMethod {
