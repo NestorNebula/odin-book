@@ -307,6 +307,21 @@ const createPostComment = async (userId, postId, content, file) => {
 
 // Interaction
 
+const createInteraction = async (userId, postId, type) => {
+  const interaction = await prisma.interaction.create({
+    data: {
+      user: {
+        connect: { id: userId },
+      },
+      post: {
+        connect: { id: postId },
+      },
+      type,
+    },
+  });
+  return interaction;
+};
+
 // Message
 
 // Chat
@@ -341,5 +356,6 @@ module.exports = {
   findUserFollowingPosts,
   createPost,
   createPostComment,
+  createInteraction,
   __deleteUsers,
 };
