@@ -217,6 +217,23 @@ const connectUserFollowing = async (userId, userToFollowId) => {
   return user;
 };
 
+const disconnectUserFollowing = async (userId, userToUnfollowId) => {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      following: {
+        disconnect: {
+          id: userToUnfollowId,
+        },
+      },
+    },
+    select: {
+      following: true,
+    },
+  });
+  return user;
+};
+
 // Post
 
 // Interaction
@@ -249,5 +266,6 @@ module.exports = {
   findProfile,
   updateProfile,
   connectUserFollowing,
+  disconnectUserFollowing,
   __deleteUsers,
 };
