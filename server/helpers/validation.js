@@ -31,6 +31,7 @@ const validateUser = [
 
 const validateUserUpdate = [
   body('username')
+    .optional()
     .trim()
     .escape()
     .blacklist('<>@')
@@ -43,13 +44,13 @@ const validateUserUpdate = [
       if (existingUser) throw new Error('Username already taken.');
     }),
   body('email')
+    .optional()
     .trim()
     .blacklist('<>')
     .isEmail()
     .withMessage("Email isn't a valid email.")
     .normalizeEmail()
     .custom(async (email, { req }) => {
-      if (!email) return;
       const user = await prisma.findUserById(req.user.id);
       if (user.loginMethod === 'GITHUB') {
         throw new Error("Users logged with GitHub can't update their email.");
@@ -58,6 +59,7 @@ const validateUserUpdate = [
       if (existingUser) throw new Error('Email already taken.');
     }),
   body('password')
+    .optional()
     .trim()
     .isLength({ min: 8 })
     .withMessage('Password must have at least 8 characters.'),
