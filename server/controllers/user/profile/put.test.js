@@ -41,8 +41,8 @@ describe('putProfile', () => {
       .type('form')
       .expect(400)
       .then((res) => {
-        expect(res.body.errors[0]).toMatch(/50 characters/i);
-        expect(res.body.errors[1]).toMatch(/url is'nt valid/i);
+        expect(res.body.errors[0].msg).toMatch(/50 characters/i);
+        expect(res.body.errors[1].msg).toMatch(/url isn't valid/i);
       });
   });
 
