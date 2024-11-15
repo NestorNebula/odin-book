@@ -42,6 +42,7 @@ const data = {
   interactions: [],
   chats: [],
   messages: [],
+  notifications: [],
 };
 
 const populateUsers = async (data) => {
@@ -83,11 +84,11 @@ const populateFollows = async (data) => {
     const user = data.users[i];
     if (i > 0) {
       await prisma.connectUserFollowing(user.id, user.id - 1);
-      data.follows.push({ followed: data.users[i - 1], following: { user } });
+      data.follows.push({ followed: data.users[i - 1], following: user });
     }
     if (i < data.users.length - 1) {
       await prisma.connectUserFollowing(user.id, user.id + 1);
-      data.follows.push({ followed: data.users[i + 1], following: { user } });
+      data.follows.push({ followed: data.users[i + 1], following: user });
     }
   }
 };
@@ -148,6 +149,30 @@ const populateMessages = async (data) => {
   }
 };
 
+const populateNotifications = async (data) => {
+  for (let i = 0; i < data.follows.length; i++) {
+    const notification = await prisma.createNotification(
+      data.follows[i].following.id,
+      data.follows[i].followed.id,
+      'FOLLOW'
+    );
+    data.notifications.push(notification);
+  }
+  for (let i = 0; i < data.interactions.length; i++) {
+    if (data.interactions[i].type !== 'BOOKMARK') {
+      const post = data.posts.find((p) => p.id === data.interactions[i].postId);
+      if (!post) throw new Error('Error when populating db.');
+      const notification = await prisma.createNotification(
+        data.interactions[i].userId,
+        post.userId,
+        data.interactions[i].type,
+        post.id
+      );
+      data.notifications.push(notification);
+    }
+  }
+};
+
 const populateDb = async (data) => {
   await populateUsers(data);
   await populatePosts(data);
@@ -155,6 +180,7 @@ const populateDb = async (data) => {
   await populateInteractions(data);
   await populateChats(data);
   await populateMessages(data);
+  await populateNotifications(data);
   data.users = await prisma.__findFullUsers();
 };
 
