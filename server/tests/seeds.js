@@ -1,6 +1,5 @@
 const { faker } = require('@faker-js/faker');
 const prisma = require('../models/queries');
-const bcrypt = require('bcrypt');
 
 const getFakeUser = () => {
   const username = faker.person.firstName().toLowerCase();
@@ -40,6 +39,7 @@ const data = {
   ],
   posts: [],
   follows: [],
+  interactions: [],
 };
 
 const populateUsers = async (data) => {
@@ -90,10 +90,42 @@ const populateFollows = async (data) => {
   }
 };
 
+const populateInteractions = async (data) => {
+  for (let i = 0; i < data.users.length; i++) {
+    for (let j = 0; j < data.posts.length; j++) {
+      const user = data.users[i];
+      const post = data.posts[j];
+      if (Number.isInteger(j / 3)) {
+        const interaction = await prisma.createInteraction(
+          user.id,
+          post.id,
+          'BOOKMARK'
+        );
+        data.interactions.push(interaction);
+      }
+      if (Number.isInteger(j / 2)) {
+        const interaction = await prisma.createInteraction(
+          user.id,
+          post.id,
+          'REPOST'
+        );
+        data.interactions.push(interaction);
+      }
+      const interaction = await prisma.createInteraction(
+        user.id,
+        post.id,
+        'LIKE'
+      );
+      data.interactions.push(interaction);
+    }
+  }
+};
+
 const populateDb = async (data) => {
   await populateUsers(data);
   await populatePosts(data);
   await populateFollows(data);
+  await populateInteractions(data);
   data.users = await prisma.__findFullUsers();
 };
 
