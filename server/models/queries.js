@@ -112,6 +112,24 @@ const findUsers = async (limit) => {
   return users;
 };
 
+const __findFullUsers = async () => {
+  if (!isUsingTestDb) return;
+  const users = await prisma.user.findMany({
+    include: {
+      profile: true,
+      following: true,
+      followers: true,
+      posts: true,
+      interactions: true,
+      chats: true,
+      messages: true,
+      notifications: true,
+      notificationsSent: true,
+    },
+  });
+  return users;
+};
+
 const findNonFollowedUsers = async (id, limit) => {
   const users = await prisma.user.findMany({
     where: {
@@ -311,6 +329,7 @@ module.exports = {
   findUserByUsername,
   __findFullUserByUsername,
   findUsers,
+  __findFullUsers,
   findNonFollowedUsers,
   findUsersBySearch,
   createUser,
