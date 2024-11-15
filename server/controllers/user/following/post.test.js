@@ -12,6 +12,7 @@ describe('postFollowing', () => {
     return request(app)
       .post(`/${user.id}/following`)
       .send({ userId: user.id + 1 })
+      .type('form')
       .expect(200)
       .then((res) => {
         expect(res.body.user.following.length).toBe(1);
@@ -23,6 +24,7 @@ describe('postFollowing', () => {
     return request(app)
       .post(`/${user.id + 1}/following`)
       .send({ userId: user.id })
+      .type('form')
       .expect(403);
   });
 
@@ -31,6 +33,7 @@ describe('postFollowing', () => {
     return request(app)
       .post(`/${user.id}/following`)
       .send({ userId: user.id - 1 })
+      .type('form')
       .expect(404);
   });
 });
