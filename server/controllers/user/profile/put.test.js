@@ -10,7 +10,7 @@ describe('putProfile', () => {
   it('returns profile after successful update', async () => {
     const user = await getReqUser(data);
     return request(app)
-      .post(`/${user.id}/profile`)
+      .put(`/${user.id}/profile`)
       .send({
         displayName: 'My new Name',
         avatar: '',
@@ -28,7 +28,7 @@ describe('putProfile', () => {
   it('returns 400 with error when submitting incorrect data', async () => {
     const user = await getReqUser(data);
     return request(app)
-      .post(`/${user.id}/profile`)
+      .put(`/${user.id}/profile`)
       .send({
         displayName:
           "My new and very long displayName. This shouldn't be valid.",
@@ -49,7 +49,7 @@ describe('putProfile', () => {
   it("returns 403 when trying to update another user's profile", async () => {
     const user = await getReqUser(data);
     return request(app)
-      .post(`/${user.id + 1}/profile`)
+      .put(`/${user.id + 1}/profile`)
       .send({
         displayName: 'My new Name',
         avatar: '',
