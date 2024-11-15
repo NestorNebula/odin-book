@@ -332,6 +332,7 @@ const createInteraction = async (userId, postId, type) => {
 
 const __deleteUsers = async () => {
   if (!isUsingTestDb) return;
+  await prisma.interaction.deleteMany({});
   await prisma.post.deleteMany({});
   await prisma.profile.deleteMany({});
   await prisma.user.deleteMany({});
