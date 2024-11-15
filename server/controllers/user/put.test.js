@@ -7,17 +7,6 @@ beforeAll(() => {
 });
 
 describe('putUser', () => {
-  it('returns user after successful update', async () => {
-    const user = await getReqUser(data);
-    return request(app)
-      .put(`/${user.id}`)
-      .send({ username: 'newusername' })
-      .type('form')
-      .then((res) => {
-        expect(res.body.user.username).toBe('newusername');
-      });
-  });
-
   it('returns 400 and error when submitting incorrect data', async () => {
     const user = await getReqUser(data);
     return request(app)
@@ -49,5 +38,16 @@ describe('putUser', () => {
       .send({ username: 'new' })
       .type('form')
       .expect(403);
+  });
+
+  it('returns user after successful update', async () => {
+    const user = await getReqUser(data);
+    return request(app)
+      .put(`/${user.id}`)
+      .send({ username: 'newusername' })
+      .type('form')
+      .then((res) => {
+        expect(res.body.user.username).toBe('newusername');
+      });
   });
 });
