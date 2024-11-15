@@ -24,6 +24,9 @@ const putUser = [
       req.body.email || user.email,
       password
     );
+    if (!updatedUser) {
+      return next(new Sperror('Server Error', "Couldn't update user", 500));
+    }
     res.json({ user: updatedUser });
   },
 ];
