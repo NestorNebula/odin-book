@@ -200,6 +200,23 @@ const updateProfile = async (
   return profile;
 };
 
+const connectUserFollowing = async (userId, userToFollowId) => {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      following: {
+        connect: {
+          id: userToFollowId,
+        },
+      },
+    },
+    select: {
+      following: true,
+    },
+  });
+  return user;
+};
+
 // Post
 
 // Interaction
@@ -231,5 +248,6 @@ module.exports = {
   updateUser,
   findProfile,
   updateProfile,
+  connectUserFollowing,
   __deleteUsers,
 };
