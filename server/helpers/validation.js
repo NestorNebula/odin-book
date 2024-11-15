@@ -65,4 +65,36 @@ const validateUserUpdate = [
     .withMessage('Password must have at least 8 characters.'),
 ];
 
-module.exports = { validateUser, validateUserUpdate };
+const validateProfileUpdate = [
+  body('displayName')
+    .optional()
+    .trim()
+    .blacklist('<>')
+    .notEmpty()
+    .withMessage("Display Name can't be empty.")
+    .isLength({ max: 50 })
+    .withMessage('Display Name must not have more than 50 characters.'),
+  body('avatar')
+    .optional()
+    .isURL({ protocols: ['https'], require_valid_protocol: true }),
+  body('background')
+    .optional()
+    .isURL({ protocols: ['https'], require_valid_protocol: true }),
+  body('bio')
+    .optional()
+    .trim()
+    .blacklist('<>')
+    .isLength({ max: 160 })
+    .withMessage('Bio cannot exceed 160 characters.'),
+  body('website')
+    .optional()
+    .isURL({ protocols: ['https'], require_valid_protocol: true })
+    .isLength({ max: 100 })
+    .withMessage("Website URL can't have more than 100 characters."),
+  body('location')
+    .optional()
+    .isLength({ max: 30 })
+    .withMessage("Location can't exceed 30 characters."),
+];
+
+module.exports = { validateUser, validateUserUpdate, validateProfileUpdate };
