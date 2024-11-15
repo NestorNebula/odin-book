@@ -67,7 +67,6 @@ const validateUserUpdate = [
 
 const validateProfileUpdate = [
   body('displayName')
-    .optional()
     .trim()
     .blacklist('<>')
     .notEmpty()
@@ -75,24 +74,30 @@ const validateProfileUpdate = [
     .isLength({ max: 50 })
     .withMessage('Display Name must not have more than 50 characters.'),
   body('avatar')
-    .optional()
-    .isURL({ protocols: ['https'], require_valid_protocol: true }),
+    .optional({ values: 'falsy' })
+    .isURL({ protocols: ['https'], require_valid_protocol: true })
+    .withMessage("Avatar URL isn't valid."),
   body('background')
-    .optional()
-    .isURL({ protocols: ['https'], require_valid_protocol: true }),
+    .optional({ values: 'falsy' })
+    .isURL({
+      protocols: ['https'],
+      require_valid_protocol: true,
+    })
+    .withMessage("Background Image URL isn't valid."),
   body('bio')
-    .optional()
+    .optional({ values: 'falsy' })
     .trim()
     .blacklist('<>')
     .isLength({ max: 160 })
     .withMessage('Bio cannot exceed 160 characters.'),
   body('website')
-    .optional()
+    .optional({ values: 'falsy' })
     .isURL({ protocols: ['https'], require_valid_protocol: true })
+    .withMessage("Website URL isn't valid.")
     .isLength({ max: 100 })
     .withMessage("Website URL can't have more than 100 characters."),
   body('location')
-    .optional()
+    .optional({ values: 'falsy' })
     .isLength({ max: 30 })
     .withMessage("Location can't exceed 30 characters."),
 ];
