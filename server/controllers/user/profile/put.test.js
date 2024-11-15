@@ -11,7 +11,14 @@ describe('putProfile', () => {
     const user = await getReqUser(data);
     return request(app)
       .post(`/${user.id}/profile`)
-      .send({ displayName: 'My new Name' })
+      .send({
+        displayName: 'My new Name',
+        avatar: '',
+        background: '',
+        bio: '',
+        website: '',
+        location: 'United States',
+      })
       .type('form')
       .then((res) => {
         expect(res.body.profile.displayName).toBe('My new Name');
@@ -25,11 +32,17 @@ describe('putProfile', () => {
       .send({
         displayName:
           "My new and very long displayName. This shouldn't be valid.",
+        avatar: 'http://aninvalidurl.com',
+        background: '',
+        bio: 'A very short bio.',
+        website: '',
+        location: 'Canada',
       })
       .type('form')
       .expect(400)
       .then((res) => {
         expect(res.body.errors[0]).toMatch(/50 characters/i);
+        expect(res.body.errors[1]).toMatch(/url is'nt valid/i);
       });
   });
 
@@ -37,7 +50,14 @@ describe('putProfile', () => {
     const user = await getReqUser(data);
     return request(app)
       .post(`/${user.id + 1}/profile`)
-      .send({ displayName: 'My new Name' })
+      .send({
+        displayName: 'My new Name',
+        avatar: '',
+        background: '',
+        bio: '',
+        website: '',
+        location: 'Italy',
+      })
       .type('form')
       .expect(403);
   });
