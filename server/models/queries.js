@@ -242,6 +242,20 @@ const findUserFollowingPosts = async (userId) => {
     orderBy: {
       creationDate: 'desc',
     },
+    include: {
+      user: {
+        select: { username: true, profile: true },
+      },
+      interactions: {
+        select: { type: true, userId: true },
+      },
+      comments: true,
+      commentedPost: {
+        include: {
+          user: { select: { username: true, id: true, profile: true } },
+        },
+      },
+    },
   });
   return posts;
 };
