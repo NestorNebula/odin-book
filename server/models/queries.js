@@ -273,6 +273,7 @@ const createPostComment = async (userId, postId, content, file) => {
 
 const __deleteUsers = async () => {
   if (!isUsingTestDb) return;
+  await prisma.post.deleteMany({});
   await prisma.profile.deleteMany({});
   await prisma.user.deleteMany({});
 };
