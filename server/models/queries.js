@@ -349,6 +349,9 @@ const createChat = async (userOneId, userTwoId) => {
         connect: [{ id: userOneId }, { id: userTwoId }],
       },
     },
+    include: {
+      users: { select: { id: true } },
+    },
   });
   return chat;
 };
