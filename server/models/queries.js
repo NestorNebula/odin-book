@@ -324,6 +324,22 @@ const createInteraction = async (userId, postId, type) => {
 
 // Message
 
+const createMessage = async (userId, chatId, content, file) => {
+  const message = await prisma.message.create({
+    data: {
+      user: {
+        connect: { id: userId },
+      },
+      chat: {
+        connect: { id: chatId },
+      },
+      content,
+      file,
+    },
+  });
+  return message;
+};
+
 // Chat
 
 const createChat = async (userOneId, userTwoId) => {
@@ -343,6 +359,7 @@ const createChat = async (userOneId, userTwoId) => {
 
 const __deleteUsers = async () => {
   if (!isUsingTestDb) return;
+  await prisma.message.deleteMany({});
   await prisma.chat.deleteMany({});
   await prisma.interaction.deleteMany({});
   await prisma.post.deleteMany({});
@@ -370,6 +387,7 @@ module.exports = {
   createPost,
   createPostComment,
   createInteraction,
+  createMessage,
   createChat,
   __deleteUsers,
 };
