@@ -18,8 +18,9 @@ describe('getAllFollowingPosts', () => {
           .get(`/${user.id}/following/posts`)
           .then((res) => {
             expect(res.body.posts.length).toBe(
-              data.posts.filter((p) => p.id >= user.id && p.id < user.id + 2)
-                .length
+              data.posts.filter(
+                (p) => p.userId >= user.id && p.userId < user.id + 2
+              ).length
             );
           });
       });
@@ -36,8 +37,9 @@ describe('getAllFollowingPosts', () => {
           .get(`/${user.id}/following/posts`)
           .then((res) => {
             expect(res.body.posts.length).toBe(
-              data.posts.filter((p) => p.id >= user.id && p.id <= user.id + 2)
-                .length
+              data.posts.filter(
+                (p) => p.userId >= user.id && p.userId <= user.id + 2
+              ).length
             );
           });
       });

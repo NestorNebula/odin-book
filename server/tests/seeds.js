@@ -38,7 +38,7 @@ const data = {
     getFakeGitHubUser(),
     getFakeLocalUser(),
   ],
-  post: [],
+  posts: [],
 };
 
 const populateDb = async (data) => {
@@ -72,6 +72,7 @@ const populatePosts = async (data) => {
       post.file
     );
     if (!postedPost) throw new Error('Error when populating db.');
+    data.posts.push(postedPost);
   }
 };
 
