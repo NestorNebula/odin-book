@@ -236,6 +236,31 @@ const disconnectUserFollowing = async (userId, userToUnfollowId) => {
 
 // Post
 
+const createPost = async (userId, content, file) => {
+  const post = await prisma.post.create({
+    data: {
+      user: { connect: { id: userId } },
+      content,
+      file,
+      type: 'POST',
+    },
+  });
+  return post;
+};
+
+const createPostComment = async (userId, postId, content, file) => {
+  const postComment = await prisma.post.create({
+    data: {
+      user: { connect: { id: userId } },
+      commentedPost: { connect: { id: postId } },
+      content,
+      file,
+      type: 'COMMENT',
+    },
+  });
+  return postComment;
+};
+
 // Interaction
 
 // Message
@@ -267,5 +292,7 @@ module.exports = {
   updateProfile,
   connectUserFollowing,
   disconnectUserFollowing,
+  createPost,
+  createPostComment,
   __deleteUsers,
 };
