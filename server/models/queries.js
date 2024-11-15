@@ -170,6 +170,13 @@ const updateUser = async (id, username, email, password) => {
 
 // Profile
 
+const findProfile = async (userId) => {
+  const profile = await prisma.profile.findUnique({
+    where: { userId },
+  });
+  return profile;
+};
+
 // Post
 
 // Interaction
@@ -199,5 +206,6 @@ module.exports = {
   findUsersBySearch,
   createUser,
   updateUser,
+  findProfile,
   __deleteUsers,
 };
