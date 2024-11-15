@@ -22,6 +22,14 @@ const getFakeGitHubUser = () => {
   return user;
 };
 
+const getFakePost = (user) => {
+  return {
+    content: faker.lorem.paragraph(),
+    file: null,
+    userId: user.id,
+  };
+};
+
 const data = {
   users: [
     getFakeGitHubUser(),
@@ -30,9 +38,15 @@ const data = {
     getFakeGitHubUser(),
     getFakeLocalUser(),
   ],
+  post: [],
 };
 
 const populateDb = async (data) => {
+  await populateUsers(data);
+  await populatePosts(data);
+};
+
+const populateUsers = async (data) => {
   for (let i = 0; i < data.users.length; i++) {
     const users = await prisma.findUsers();
     if (users.length !== i) {
@@ -44,6 +58,20 @@ const populateDb = async (data) => {
     } else {
       await prisma.findOrCreateUser(user.username, user.email);
     }
+  }
+};
+
+const populatePosts = async (data) => {
+  for (let i = 0; i < data.users.length; i++) {
+    const user = await prisma.__findFullUserByUsername(data.users[i].username);
+    if (!user) throw new Error('Error when populating db.');
+    const post = getFakePost(user.id);
+    const postedPost = await prisma.createPost(
+      user.id,
+      post.content,
+      post.file
+    );
+    if (!postedPost) throw new Error('Error when populating db.');
   }
 };
 
