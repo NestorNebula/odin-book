@@ -177,6 +177,29 @@ const findProfile = async (userId) => {
   return profile;
 };
 
+const updateProfile = async (
+  userId,
+  displayName,
+  avatar,
+  background,
+  bio,
+  website,
+  location
+) => {
+  const profile = await prisma.profile.update({
+    where: { userId },
+    data: {
+      displayName,
+      avatar,
+      background,
+      bio,
+      website,
+      location,
+    },
+  });
+  return profile;
+};
+
 // Post
 
 // Interaction
@@ -207,5 +230,6 @@ module.exports = {
   createUser,
   updateUser,
   findProfile,
+  updateProfile,
   __deleteUsers,
 };
