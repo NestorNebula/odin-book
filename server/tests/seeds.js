@@ -40,6 +40,8 @@ const data = {
   posts: [],
   follows: [],
   interactions: [],
+  chats: [],
+  messages: [],
 };
 
 const populateUsers = async (data) => {
@@ -121,11 +123,38 @@ const populateInteractions = async (data) => {
   }
 };
 
+const populateChats = async (data) => {
+  for (let i = 0; i < data.users.length; i++) {
+    if (i < data.users.length - 1) {
+      const chat = await prisma.createChat(
+        data.users[i].id,
+        data.users[i + 1].id
+      );
+      data.chats.push(chat);
+    } else {
+      const chat = await prisma.createChat(data.users[i].id, data.users[0].id);
+      data.chats.push(chat);
+    }
+  }
+};
+
+const populateMessages = async (data) => {
+  for (let i = 0; i < data.chats.length; i++) {
+    const message = await prisma.createMessage(
+      data.chats[i].users[0].id,
+      data.chats[i].id
+    );
+    data.messages.push(message);
+  }
+};
+
 const populateDb = async (data) => {
   await populateUsers(data);
   await populatePosts(data);
   await populateFollows(data);
   await populateInteractions(data);
+  await populateChats(data);
+  await populateMessages(data);
   data.users = await prisma.__findFullUsers();
 };
 
