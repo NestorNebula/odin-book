@@ -356,6 +356,23 @@ const createChat = async (userOneId, userTwoId) => {
   return chat;
 };
 
+const findChats = async (userId) => {
+  const chats = await prisma.chat.findMany({
+    where: { users: { some: { id: userId } } },
+    include: {
+      users: { select: { id: true, username: true, profile: true } },
+      messages: {
+        include: {
+          user: { select: { id: true, username: true, profile: true } },
+        },
+        orderBy: { creationDate: 'desc' },
+      },
+    },
+    orderBy: { updatedAt: 'desc' },
+  });
+  return chats;
+};
+
 // Notification
 
 const createNotification = async (notifierId, notifiedId, type, postId) => {
@@ -446,6 +463,7 @@ module.exports = {
   createInteraction,
   createMessage,
   createChat,
+  findChats,
   createNotification,
   findNotifications,
   updateNotifications,
