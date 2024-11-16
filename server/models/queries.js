@@ -186,38 +186,6 @@ const updateUser = async (id, username, email, password) => {
   return user;
 };
 
-// Profile
-
-const findProfile = async (userId) => {
-  const profile = await prisma.profile.findUnique({
-    where: { userId },
-  });
-  return profile;
-};
-
-const updateProfile = async (
-  userId,
-  displayName,
-  avatar,
-  background,
-  bio,
-  website,
-  location
-) => {
-  const profile = await prisma.profile.update({
-    where: { userId },
-    data: {
-      displayName,
-      avatar,
-      background,
-      bio,
-      website,
-      location,
-    },
-  });
-  return profile;
-};
-
 const connectUserFollowing = async (userId, userToFollowId) => {
   const user = await prisma.user.update({
     where: { id: userId },
@@ -276,6 +244,38 @@ const findUserFollowingPosts = async (userId) => {
     },
   });
   return posts;
+};
+
+// Profile
+
+const findProfile = async (userId) => {
+  const profile = await prisma.profile.findUnique({
+    where: { userId },
+  });
+  return profile;
+};
+
+const updateProfile = async (
+  userId,
+  displayName,
+  avatar,
+  background,
+  bio,
+  website,
+  location
+) => {
+  const profile = await prisma.profile.update({
+    where: { userId },
+    data: {
+      displayName,
+      avatar,
+      background,
+      bio,
+      website,
+      location,
+    },
+  });
+  return profile;
 };
 
 // Post
