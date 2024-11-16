@@ -10,7 +10,7 @@ describe('putAllNotifications', () => {
     return request(app)
       .put(`/${data.users[0].id}/notifications`)
       .then((res) => {
-        expect(res.notifications.every((n) => !!n.seen)).toBeTruthy();
+        expect(res.body.notifications.every((n) => !!n.seen)).toBeTruthy();
       });
   });
 
