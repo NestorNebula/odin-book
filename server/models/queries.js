@@ -393,6 +393,7 @@ const createNotification = async (notifierId, notifiedId, type, postId) => {
 
 const __deleteUsers = async () => {
   if (!isUsingTestDb) return;
+  await prisma.notification.deleteMany({});
   await prisma.message.deleteMany({});
   await prisma.chat.deleteMany({});
   await prisma.interaction.deleteMany({});
