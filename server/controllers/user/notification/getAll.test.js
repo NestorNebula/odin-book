@@ -8,7 +8,7 @@ beforeAll(() => {
 describe('getAllNotifications', () => {
   it("returns user's notifications", async () => {
     const user = data.users[0];
-    request(app)
+    return request(app)
       .get(`/${user.id}/notifications`)
       .then((res) => {
         expect(res.body.notifications.length).toBe(user.notifications.length);
