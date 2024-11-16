@@ -252,7 +252,7 @@ const findUserFollowingReposts = async (userId) => {
       type: 'REPOST',
       OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
     },
-    orderBy: { creationDate },
+    orderBy: { creationDate: 'desc' },
     include: {
       user: {
         select: { id: true, username: true, profile: true },
