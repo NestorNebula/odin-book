@@ -12,7 +12,7 @@ describe('getAllInteractions', () => {
       .get(`/${user.id}/interactions`)
       .query({ type: 'LIKE' })
       .then((res) => {
-        expect(res.interactions.length).toBe(
+        expect(res.body.interactions.length).toBe(
           user.interactions.filter((i) => i.type === 'LIKE').length
         );
       });
@@ -24,7 +24,7 @@ describe('getAllInteractions', () => {
       .get(`/${user.id}/interactions`)
       .query({ type: 'BOOKMARK' })
       .then((res) => {
-        expect(res.interactions.length).toBe(
+        expect(res.body.interactions.length).toBe(
           user.interactions.filter((i) => i.type === 'BOOKMARK').length
         );
       });
