@@ -352,6 +352,14 @@ const createInteraction = async (userId, postId, type) => {
   return interaction;
 };
 
+const findInteractions = async (userId, type) => {
+  const interactions = await prisma.interaction.findMany({
+    where: { userId, type },
+    orderBy: { creationDate: 'desc' },
+  });
+  return interactions;
+};
+
 // Message
 
 const createMessage = async (userId, chatId, content, file) => {
@@ -492,6 +500,7 @@ module.exports = {
   createPost,
   createPostComment,
   createInteraction,
+  findInteractions,
   createMessage,
   createChat,
   findChats,
