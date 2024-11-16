@@ -3,7 +3,7 @@ const router = require('../../../routes/user');
 
 describe('putAllNotifications', () => {
   it('returns updated notifications', async () => {
-    request(app)
+    return request(app)
       .put(`/${data.users[0].id}/notifications`)
       .then((res) => {
         expect(res.notifications.every((n) => !!n.seen)).toBeTruthy();
