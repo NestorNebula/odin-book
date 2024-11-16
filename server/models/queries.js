@@ -389,6 +389,18 @@ const createNotification = async (notifierId, notifiedId, type, postId) => {
   return notification;
 };
 
+const findNotifications = async (userId) => {
+  const notifications = await prisma.notification.findMany({
+    where: { notifiedUserId: userId },
+    include: {
+      notifierUser: { select: { id: true, username: true, profile: true } },
+      post: { include: { user: true } },
+    },
+    orderBy: { creationDate: 'desc' },
+  });
+  return notifications;
+};
+
 // Table resets (only for test db)
 
 const __deleteUsers = async () => {
@@ -425,5 +437,6 @@ module.exports = {
   createMessage,
   createChat,
   createNotification,
+  findNotifications,
   __deleteUsers,
 };
