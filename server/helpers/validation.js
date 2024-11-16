@@ -97,9 +97,39 @@ const validateProfileUpdate = [
     .isLength({ max: 100 })
     .withMessage("Website URL can't have more than 100 characters."),
   body('location')
+    .trim()
+    .blacklist('<>')
     .optional({ values: 'falsy' })
     .isLength({ max: 30 })
     .withMessage("Location can't exceed 30 characters."),
 ];
 
-module.exports = { validateUser, validateUserUpdate, validateProfileUpdate };
+const validateMessage = [
+  body('content')
+    .trim()
+    .blacklist('<>')
+    .custom((content, { req }) => {
+      if (!content.length && !req.body.file) {
+        throw new Error("Content can't be empty when no file is provided.");
+      }
+      return true;
+    }),
+  body('file')
+    .optional({ values: 'falsy' })
+    .trim()
+    .blacklist('<>')
+    .isURL({ protocols: ['https'], require_valid_protocol: true })
+    .withMessage("File URL isn't valid")
+    .custom((file, { req }) => {
+      if (!file.length && !req.body.content) {
+        throw new Error("File can't be empty when no content is provided.");
+      }
+    }),
+];
+
+module.exports = {
+  validateUser,
+  validateUserUpdate,
+  validateProfileUpdate,
+  validateMessage,
+};
