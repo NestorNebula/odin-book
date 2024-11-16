@@ -230,7 +230,7 @@ const findUserFollowingPosts = async (userId) => {
     },
     include: {
       user: {
-        select: { username: true, profile: true },
+        select: { id: true, username: true, profile: true },
       },
       interactions: {
         select: { type: true, userId: true },
@@ -244,6 +244,38 @@ const findUserFollowingPosts = async (userId) => {
     },
   });
   return posts;
+};
+
+const findUserFollowingReposts = async (userId) => {
+  const reposts = await prisma.interaction.findMany({
+    where: {
+      type: 'REPOST',
+      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
+    },
+    orderBy: { creationDate },
+    include: {
+      user: {
+        select: { id: true, username: true, profile: true },
+      },
+      post: {
+        include: {
+          user: {
+            select: { id: true, username: true, profile: true },
+          },
+          interactions: {
+            select: { type: true, userId: true },
+          },
+          comments: true,
+          commentedPost: {
+            include: {
+              user: { select: { id: true, username: true, profile: true } },
+            },
+          },
+        },
+      },
+    },
+  });
+  return reposts;
 };
 
 // Profile
@@ -453,11 +485,12 @@ module.exports = {
   findUsersBySearch,
   createUser,
   updateUser,
-  findProfile,
-  updateProfile,
   connectUserFollowing,
   disconnectUserFollowing,
   findUserFollowingPosts,
+  findUserFollowingReposts,
+  findProfile,
+  updateProfile,
   createPost,
   createPostComment,
   createInteraction,
