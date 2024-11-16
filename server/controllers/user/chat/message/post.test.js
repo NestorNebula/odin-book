@@ -28,7 +28,7 @@ describe('postMessage', () => {
 
   it('returns 400 when no data is provided', (done) => {
     request(app)
-      .post(`/${user.id}/chats/${user.chats[0].id}/messages`)
+      .post(`/${data.users[0].id}/chats/${data.users[0].chats[0].id}/messages`)
       .expect(400, done);
   });
 });
