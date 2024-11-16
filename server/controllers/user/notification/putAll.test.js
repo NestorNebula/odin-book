@@ -1,6 +1,10 @@
 const { request, app, data } = require('../../../tests/setup');
 const router = require('../../../routes/user');
 
+beforeAll(() => {
+  app.use('/', router);
+});
+
 describe('putAllNotifications', () => {
   it('returns updated notifications', async () => {
     return request(app)
