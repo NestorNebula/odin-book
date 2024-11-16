@@ -403,7 +403,7 @@ const findNotifications = async (userId) => {
 
 const updateNotifications = async (userId) => {
   const notifications = await prisma.notification.updateMany({
-    where: { notifiedUserId: id },
+    where: { notifiedUserId: userId },
     data: {
       seen: true,
     },
