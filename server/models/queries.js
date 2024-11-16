@@ -401,6 +401,16 @@ const findNotifications = async (userId) => {
   return notifications;
 };
 
+const updateNotifications = async (userId) => {
+  const notifications = await prisma.notification.updateMany({
+    where: { notifiedUserId: id },
+    data: {
+      seen: true,
+    },
+  });
+  return notifications;
+};
+
 // Table resets (only for test db)
 
 const __deleteUsers = async () => {
@@ -438,5 +448,6 @@ module.exports = {
   createChat,
   createNotification,
   findNotifications,
+  updateNotifications,
   __deleteUsers,
 };
