@@ -87,6 +87,7 @@ model Notification {
   id               Int              @id @default(autoincrement())
   notificationType NotificationType
   seen             Boolean          @default(false)
+  creationDate     DateTime         @default(now())
   notifiedUser     User             @relation("NotificationToUser", fields: [notifiedUserId], references: [id])
   notifiedUserId   Int
   notifierUser     User             @relation("NotificationFromUser", fields: [notifierUserId], references: [id])
