@@ -162,6 +162,7 @@ const populateNotifications = async (data) => {
     if (data.interactions[i].type !== 'BOOKMARK') {
       const post = data.posts.find((p) => p.id === data.interactions[i].postId);
       if (!post) throw new Error('Error when populating db.');
+      if (data.interactions[i].userId === post.userId) continue;
       const notification = await prisma.createNotification(
         data.interactions[i].userId,
         post.userId,
