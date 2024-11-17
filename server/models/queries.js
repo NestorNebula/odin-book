@@ -218,64 +218,6 @@ const disconnectUserFollowing = async (userId, userToUnfollowId) => {
   return user;
 };
 
-const findUserFollowingPosts = async (userId) => {
-  const posts = await prisma.post.findMany({
-    where: {
-      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
-    },
-    orderBy: {
-      creationDate: 'desc',
-    },
-    include: {
-      user: {
-        select: { id: true, username: true, profile: true },
-      },
-      interactions: {
-        select: { type: true, userId: true },
-      },
-      comments: true,
-      commentedPost: {
-        include: {
-          user: { select: { username: true, id: true, profile: true } },
-        },
-      },
-    },
-  });
-  return posts;
-};
-
-const findUserFollowingReposts = async (userId) => {
-  const reposts = await prisma.interaction.findMany({
-    where: {
-      type: 'REPOST',
-      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
-    },
-    orderBy: { creationDate: 'desc' },
-    include: {
-      user: {
-        select: { id: true, username: true, profile: true },
-      },
-      post: {
-        include: {
-          user: {
-            select: { id: true, username: true, profile: true },
-          },
-          interactions: {
-            select: { type: true, userId: true },
-          },
-          comments: true,
-          commentedPost: {
-            include: {
-              user: { select: { id: true, username: true, profile: true } },
-            },
-          },
-        },
-      },
-    },
-  });
-  return reposts;
-};
-
 // Profile
 
 const findProfile = async (userId) => {
@@ -355,6 +297,32 @@ const findUserPosts = async (userId) => {
   return posts;
 };
 
+const findUserFollowingPosts = async (userId) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
+    },
+    orderBy: {
+      creationDate: 'desc',
+    },
+    include: {
+      user: {
+        select: { id: true, username: true, profile: true },
+      },
+      interactions: {
+        select: { type: true, userId: true },
+      },
+      comments: true,
+      commentedPost: {
+        include: {
+          user: { select: { username: true, id: true, profile: true } },
+        },
+      },
+    },
+  });
+  return posts;
+};
+
 // Interaction
 
 const createInteraction = async (userId, postId, type) => {
@@ -378,6 +346,59 @@ const findInteractions = async (userId, type) => {
     orderBy: { creationDate: 'desc' },
   });
   return interactions;
+};
+
+const findUserReposts = async (userId) => {
+  const reposts = await prisma.interaction.findMany({
+    where: { userId, type: 'REPOST' },
+    include: {
+      post: {
+        include: {
+          interactions: { select: { type: true, userId: true } },
+          comments: true,
+          commentedPost: {
+            include: {
+              user: { select: { id: true, username: true, profile: true } },
+            },
+          },
+        },
+      },
+    },
+    orderBy: { creationDate: 'desc' },
+  });
+  return reposts;
+};
+
+const findUserFollowingReposts = async (userId) => {
+  const reposts = await prisma.interaction.findMany({
+    where: {
+      type: 'REPOST',
+      OR: [{ userId }, { user: { followers: { some: { id: userId } } } }],
+    },
+    orderBy: { creationDate: 'desc' },
+    include: {
+      user: {
+        select: { id: true, username: true, profile: true },
+      },
+      post: {
+        include: {
+          user: {
+            select: { id: true, username: true, profile: true },
+          },
+          interactions: {
+            select: { type: true, userId: true },
+          },
+          comments: true,
+          commentedPost: {
+            include: {
+              user: { select: { id: true, username: true, profile: true } },
+            },
+          },
+        },
+      },
+    },
+  });
+  return reposts;
 };
 
 // Message
@@ -522,6 +543,7 @@ module.exports = {
   findUserPosts,
   createInteraction,
   findInteractions,
+  findUserReposts,
   createMessage,
   createChat,
   findChats,
