@@ -8,7 +8,7 @@ describe('getAllPosts', () => {
     return request(app)
       .get('/')
       .then((res) => {
-        expect(res.posts.length).toBe(data.posts.length);
+        expect(res.body.posts.length).toBe(data.posts.length);
       });
   });
 
@@ -28,7 +28,7 @@ describe('getAllPosts', () => {
       .get('/')
       .query({ search })
       .then((res) => {
-        expect(res.posts.length).toBe(
+        expect(res.body.posts.length).toBe(
           data.posts.filter(
             (p) =>
               regExp.test(p.content) ||
