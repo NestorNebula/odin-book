@@ -335,6 +335,26 @@ const createPostComment = async (userId, postId, content, file) => {
   return postComment;
 };
 
+const findUserPosts = async (userId) => {
+  const posts = await prisma.post.findMany({
+    where: { userId },
+    include: {
+      user: { select: { id: true, username: true, profile: true } },
+      interactions: true,
+      comments: true,
+      commentedPost: {
+        include: {
+          user: { select: { id: true, username: true, profile: true } },
+          interactions: true,
+          comments: true,
+        },
+      },
+    },
+    orderBy: { creationDate: 'desc' },
+  });
+  return posts;
+};
+
 // Interaction
 
 const createInteraction = async (userId, postId, type) => {
@@ -499,6 +519,7 @@ module.exports = {
   updateProfile,
   createPost,
   createPostComment,
+  findUserPosts,
   createInteraction,
   findInteractions,
   createMessage,
