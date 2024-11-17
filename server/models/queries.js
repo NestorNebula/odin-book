@@ -359,6 +359,25 @@ const findPosts = async () => {
   return posts;
 };
 
+const findPostsBySearch = async (search) => {
+  const posts = await prisma.post.findMany({
+    where: { content: { contains: search } },
+    include: {
+      user: { select: { id: true, username: true, profile: true } },
+      comments: true,
+      commentedPost: {
+        include: {
+          user: { select: { id: true, username: true, profile: true } },
+          interactions: true,
+          comments: true,
+        },
+      },
+    },
+    orderBy: [{ interactions: { _count: 'desc' } }, { creationDate: 'desc' }],
+  });
+  return posts;
+};
+
 const deletePost = async (id) => {
   await prisma.interaction.deleteMany({
     where: { postId: id },
@@ -592,6 +611,7 @@ module.exports = {
   findUserFollowingPosts,
   findUserFollowingReposts,
   findPosts,
+  findPostsBySearch,
   deletePost,
   createInteraction,
   findInteractions,
