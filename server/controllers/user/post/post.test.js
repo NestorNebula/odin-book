@@ -28,7 +28,7 @@ describe('postPost', () => {
       })
       .type('form')
       .then((res) => {
-        expect(res.body.comment.content).toBe('This is a post.');
+        expect(res.body.comment.content).toBe('This is a comment.');
         expect(res.body.comment.file).toBeNull();
         expect(res.body.comment.commentedPostId).toBe(user.posts[0].id);
       });
