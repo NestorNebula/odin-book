@@ -341,6 +341,19 @@ const findUserFollowingPosts = async (userId) => {
   return posts;
 };
 
+const deletePost = async (id) => {
+  await prisma.interaction.deleteMany({
+    where: { postId: id },
+  });
+  await prisma.notification.deleteMany({
+    where: { postId: id },
+  });
+  const post = await prisma.post.delete({
+    where: { id },
+  });
+  return post;
+};
+
 // Interaction
 
 const createInteraction = async (userId, postId, type) => {
@@ -560,6 +573,7 @@ module.exports = {
   findUserPosts,
   findUserFollowingPosts,
   findUserFollowingReposts,
+  deletePost,
   createInteraction,
   findInteractions,
   findUserReposts,
