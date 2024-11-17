@@ -476,6 +476,13 @@ const findUserFollowingReposts = async (userId) => {
   return reposts;
 };
 
+const deleteInteraction = async (postId, userId, type) => {
+  const interaction = await prisma.interaction.delete({
+    where: { type_userId_postId: { postId, userId, type } },
+  });
+  return interaction;
+};
+
 // Message
 
 const createMessage = async (userId, chatId, content, file) => {
@@ -623,6 +630,7 @@ module.exports = {
   createInteraction,
   findInteractions,
   findUserReposts,
+  deleteInteraction,
   createMessage,
   createChat,
   findChats,
