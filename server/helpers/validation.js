@@ -127,9 +127,34 @@ const validateMessage = [
     }),
 ];
 
+const validatePost = [
+  body('content')
+    .trim()
+    .blacklist('<>')
+    .isLength({ max: 280 })
+    .withMessage('Post cannot exceed 280 characters.')
+    .custom((content, { req }) => {
+      if (!content.length && !req.body.file) {
+        throw new Error("Content can't be empty when no file is provided.");
+      }
+      return true;
+    }),
+  body('file')
+    .optional({ values: 'falsy' })
+    .blacklist('<>')
+    .isURL({ protocols: ['https'], require_valid_protocol: true })
+    .withMessage("File URL isn't valid.")
+    .custom((file, { req }) => {
+      if (!file.length && !req.body.content) {
+        throw new Error("File can't be empty when no content is provided.");
+      }
+    }),
+];
+
 module.exports = {
   validateUser,
   validateUserUpdate,
   validateProfileUpdate,
   validateMessage,
+  validatePost,
 };
