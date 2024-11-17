@@ -341,7 +341,7 @@ const findUserFollowingPosts = async (userId) => {
   return posts;
 };
 
-const findPosts = async () => {
+const findPosts = async (limit) => {
   const posts = await prisma.post.findMany({
     include: {
       user: { select: { id: true, username: true, profile: true } },
@@ -355,13 +355,19 @@ const findPosts = async () => {
       },
     },
     orderBy: [{ interactions: { _count: 'desc' } }, { creationDate: 'desc' }],
+    take: limit,
   });
   return posts;
 };
 
-const findPostsBySearch = async (search) => {
+const findPostsBySearch = async (search, limit) => {
   const posts = await prisma.post.findMany({
-    where: { content: { contains: search } },
+    where: {
+      OR: [
+        { content: { contains: search } },
+        { user: { username: { contains: search } } },
+      ],
+    },
     include: {
       user: { select: { id: true, username: true, profile: true } },
       comments: true,
@@ -374,6 +380,7 @@ const findPostsBySearch = async (search) => {
       },
     },
     orderBy: [{ interactions: { _count: 'desc' } }, { creationDate: 'desc' }],
+    take: limit,
   });
   return posts;
 };
