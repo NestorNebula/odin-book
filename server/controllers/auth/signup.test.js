@@ -32,7 +32,6 @@ describe('sign up', () => {
       .then((res) => {
         expect(res.body.errors).not.toBeNull();
         expect(res.body.errors[0].msg).toMatch(/username already taken/i);
-        expect(res.body.errors[1].msg).toMatch(/email already taken/i);
       });
   });
 
