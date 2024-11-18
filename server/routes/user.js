@@ -18,6 +18,6 @@ router.get('/:userId/posts', controller.post.getAll);
 router.post('/:userId/posts', controller.post.post);
 router.delete('/:userId/posts/:postId', controller.post.delete);
 router.post('/:userId/images', controller.image.post);
-router.delete('/:userId/images/:imageId', controller.image.delete);
+router.delete('/:userId/images', controller.image.delete);
 
 module.exports = router;
