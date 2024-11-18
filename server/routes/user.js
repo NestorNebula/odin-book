@@ -17,5 +17,7 @@ router.get('/:userId/interactions', controller.interaction.getAll);
 router.get('/:userId/posts', controller.post.getAll);
 router.post('/:userId/posts', controller.post.post);
 router.delete('/:userId/posts/:postId', controller.post.delete);
+router.post('/:userId/images', controller.image.post);
+router.delete('/:userId/images/:imageId', controller.image.delete);
 
 module.exports = router;
