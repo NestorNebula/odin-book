@@ -27,6 +27,14 @@ const postInteraction = async (req, res, next) => {
     post.id,
     req.body.type
   );
+  if (req.body.type !== 'BOOKMARK') {
+    await prisma.createNotification(
+      req.user.id,
+      post.userId,
+      req.body.type,
+      post.id
+    );
+  }
   res.json({ interaction });
 };
 
