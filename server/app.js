@@ -1,5 +1,14 @@
 const express = require('express');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: process.env.ORIGIN,
+    credentials: true,
+  },
+});
 require('dotenv').config();
 const Sperror = require('sperror');
 const routes = require('./routes/routes');
@@ -33,6 +42,10 @@ app.use((req, res, next) => {
         401
       )
     );
+  io.on('connection', (socket) => {
+    socket.join(req.user.id);
+  });
+  req.io = io;
   next();
 });
 app.use('/users', routes.user);
@@ -54,6 +67,6 @@ app.use((err, req, res, next) => {
       });
 });
 
-app.listen(process.env.PORT, () =>
+httpServer.listen(process.env.PORT, () =>
   console.log(`App listening on PORT ${process.env.PORT}`)
 );
