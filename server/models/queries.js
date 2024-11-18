@@ -15,7 +15,7 @@ const prisma = new PrismaClient({
 
 // User
 
-const findOrCreateUser = async (username, email) => {
+const findOrCreateUser = async (username, email, avatar) => {
   const user = await prisma.user.upsert({
     where: {
       email_loginMethod: {
@@ -31,6 +31,7 @@ const findOrCreateUser = async (username, email) => {
       profile: {
         create: {
           displayName: username,
+          avatar,
         },
       },
     },

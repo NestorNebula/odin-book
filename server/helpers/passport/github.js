@@ -25,7 +25,8 @@ passport.use(
       }
       const user = await prisma.findOrCreateUser(
         username.toLowerCase(),
-        profile.email
+        profile.email,
+        profile.avatar_url
       );
       return done(null, user);
     }
