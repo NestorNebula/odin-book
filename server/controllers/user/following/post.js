@@ -16,6 +16,10 @@ const postFollowing = async (req, res, next) => {
     userToFollow.id
   );
   await prisma.createNotification(req.user.id, userToFollow.id, 'FOLLOW');
+  const io = req.io;
+  if (io) {
+    io.to(userToFollow.id).emit('notification');
+  }
   res.json({ user: updatedUser });
 };
 

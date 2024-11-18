@@ -34,6 +34,10 @@ const postInteraction = async (req, res, next) => {
       req.body.type,
       post.id
     );
+    const io = req.io;
+    if (io) {
+      io.to(post.userId).emit('notification');
+    }
   }
   res.json({ interaction });
 };

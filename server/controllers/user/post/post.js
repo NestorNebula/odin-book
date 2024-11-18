@@ -40,6 +40,10 @@ const postPost = [
         'COMMENT',
         post.id
       );
+      const io = req.io;
+      if (io) {
+        io.to(post.userId).emit('notification');
+      }
       return res.json({ comment });
     } else {
       const post = await prisma.createPost(
