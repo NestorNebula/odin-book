@@ -30,4 +30,11 @@ const uploadFile = async (file, path) => {
   }
 };
 
-module.exports = { uploadFile };
+const deleteFile = async (path) => {
+  const { data, error } = await supabase.storage.from('images').remove([path]);
+  return {
+    success: data && !error,
+  };
+};
+
+module.exports = { uploadFile, deleteFile };
