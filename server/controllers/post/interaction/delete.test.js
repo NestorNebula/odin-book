@@ -15,9 +15,9 @@ describe('deleteInteraction', () => {
       .send({ type: 'LIKE' })
       .type('form')
       .then((res) => {
-        expect(res.interaction.userId).toBe(data.users[0].id);
-        expect(res.interaction.postId).toBe(post.id);
-        expect(res.interactions.type).toBe('LIKE');
+        expect(res.body.interaction.userId).toBe(data.users[0].id);
+        expect(res.body.interaction.postId).toBe(post.id);
+        expect(res.body.interaction.type).toBe('LIKE');
       });
   });
 });
