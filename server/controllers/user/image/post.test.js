@@ -17,8 +17,8 @@ jest.mock('../../../helpers/supabase.js', () => {
 describe('postImage', () => {
   it('returns image url after successful upload', async () => {
     return request(app)
-      .post(`/${user.id}/images`)
-      .send({ type: 'photos', fileName: 'file', file: new ArrayBuffer(64) })
+      .post(`/${data.users[0].id}/images`)
+      .send({ type: 'photos', fileName: 'file', file: 'file' })
       .type('form')
       .then((res) => {
         expect(res.body.url).toBe('https://fakelink.com');
@@ -27,7 +27,7 @@ describe('postImage', () => {
 
   it('returns 400 when no file is provided', (done) => {
     request(app)
-      .post(`/${user.id}/images`)
+      .post(`/${data.users[0].id}/images`)
       .send({ type: 'photos', fileName: 'file' })
       .expect(400, done);
   });
