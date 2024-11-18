@@ -14,6 +14,8 @@ const getAllInteractions = require('./interaction/getAll');
 const getAllPosts = require('./post/getAll');
 const postPost = require('./post/post');
 const deletePost = require('./post/delete');
+const postImage = require('./image/post');
+const deleteImage = require('./image/delete');
 
 module.exports = {
   get: getUser,
@@ -47,5 +49,9 @@ module.exports = {
     getAll: getAllPosts,
     post: postPost,
     delete: deletePost,
+  },
+  image: {
+    post: postImage,
+    delete: deleteImage,
   },
 };
