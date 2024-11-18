@@ -2,6 +2,7 @@ const { validateProfileUpdate } = require('../../../helpers/validation');
 const { validationResult } = require('express-validator');
 const prisma = require('../../../models/queries');
 const Sperror = require('sperror');
+const { deleteFile } = require('../../../helpers/supabase');
 
 const putProfile = [
   validateProfileUpdate,
@@ -18,6 +19,28 @@ const putProfile = [
       return next(
         new Sperror('Not Found', "Couldn't find the profile to update.", 404)
       );
+    }
+    if (profile.avatar && profile.avatar !== req.body.avatar) {
+      const path = `avatars${profile.avatar.split('avatars')[1]}`;
+      const { success } = await deleteFile(path);
+      if (!success) {
+        return next(
+          new Sperror('Server Error', 'Error when deleting old avatar.', 500)
+        );
+      }
+    }
+    if (profile.background && profile.background !== req.body.background) {
+      const path = `backgrounds${profile.background.split('backgrounds')[1]}`;
+      const { success } = await deleteFile(path);
+      if (!success) {
+        return next(
+          new Sperror(
+            'Server Error',
+            'Error when deleting old background.',
+            500
+          )
+        );
+      }
     }
     const updatedProfile = await prisma.updateProfile(
       profile.userId,

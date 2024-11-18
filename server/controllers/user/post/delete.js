@@ -3,6 +3,7 @@ const Sperror = require('sperror');
 const {
   deletePostCommentsRecursively,
 } = require('../../../helpers/post-recursion');
+const { deleteFile } = require('../../../helpers/supabase');
 
 const deletePost = async (req, res, next) => {
   if (req.user.id !== +req.params.userId) {
@@ -20,6 +21,15 @@ const deletePost = async (req, res, next) => {
         400
       )
     );
+  }
+  if (post.file) {
+    const path = `photos${post.file.split('photos')[1]}`;
+    const { success } = await deleteFile(path);
+    if (!success) {
+      return next(
+        new Sperror('Server Error', 'Error when deleting post file.', 500)
+      );
+    }
   }
   const deletedPost = await deletePostCommentsRecursively(post);
   res.json({ post: deletedPost });
