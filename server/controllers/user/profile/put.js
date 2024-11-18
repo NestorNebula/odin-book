@@ -30,16 +30,18 @@ const putProfile = [
       }
     }
     if (profile.background && profile.background !== req.body.background) {
-      const path = `backgrounds${profile.background.split('backgrounds')[1]}`;
-      const { success } = await deleteFile(path);
-      if (!success) {
-        return next(
-          new Sperror(
-            'Server Error',
-            'Error when deleting old background.',
-            500
-          )
-        );
+      if (profile.background.includes('supabase')) {
+        const path = `backgrounds${profile.background.split('backgrounds')[1]}`;
+        const { success } = await deleteFile(path);
+        if (!success) {
+          return next(
+            new Sperror(
+              'Server Error',
+              'Error when deleting old background.',
+              500
+            )
+          );
+        }
       }
     }
     const updatedProfile = await prisma.updateProfile(
