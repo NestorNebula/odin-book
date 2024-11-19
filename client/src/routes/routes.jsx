@@ -1,7 +1,7 @@
 import App from '@/App';
 import Dashboard from '@pages/dashboard/Dashboard';
 import SignIn from '@pages/signin/SignIn';
-import { signInLoader } from '@loaders';
+import { dashboardLoader, signInLoader } from '@loaders';
 
 const routes = [
   {
@@ -11,6 +11,7 @@ const routes = [
       {
         index: true,
         element: <Dashboard />,
+        loader: dashboardLoader,
       },
       {
         path: '/signin',
