@@ -1,4 +1,4 @@
-import App from 'src/App';
+import App from '@/App';
 import Dashboard from '@pages/dashboard/Dashboard';
 import SignIn from '@pages/signin/SignIn';
 
