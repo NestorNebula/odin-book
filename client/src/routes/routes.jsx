@@ -1,6 +1,7 @@
 import App from '@/App';
 import Dashboard from '@pages/dashboard/Dashboard';
 import SignIn from '@pages/signin/SignIn';
+import { signInLoader } from '@loaders';
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
       {
         path: '/signin',
         element: <SignIn />,
+        loader: signInLoader,
       },
     ],
   },
