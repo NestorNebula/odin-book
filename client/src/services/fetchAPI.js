@@ -30,4 +30,4 @@ const fetchAPI = async ({ body, method, path, statusOnly }) => {
     : { result, error: false };
 };
 
-export { fetchAPI };
+export default fetchAPI;

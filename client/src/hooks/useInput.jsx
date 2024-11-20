@@ -17,4 +17,4 @@ const useInput = ({ initialValue = '', validate }) => {
   return { value, validation, updateValue };
 };
 
-export { useInput };
+export default useInput;

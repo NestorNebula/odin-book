@@ -1,5 +1,5 @@
 import { redirect } from 'react-router-dom';
-import { fetchAPI } from '@services/fetchAPI';
+import { fetchAPI } from '@services';
 
 const dashboardLoader = async () => {
   const userId = localStorage.getItem('id');
