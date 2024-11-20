@@ -13,7 +13,7 @@ describe('Input', () => {
       />
     );
     expect(screen.queryByLabelText(/value/i)).not.toBeNull();
-    expect(screen.queryByText(/4\/50/)).not.toBeNull();
+    expect(screen.queryByText('4 / 50')).not.toBeNull();
   });
 
   it('renders error message when message is provided', () => {
