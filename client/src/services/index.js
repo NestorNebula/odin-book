@@ -1,4 +1,4 @@
 import fetchAPI from './fetchAPI';
-import inputValidation from './inputValidation';
+import validationChains from './validationChains';
 
-export { fetchAPI, inputValidation };
+export { fetchAPI, validationChains };
