@@ -1,6 +1,6 @@
 import { useInput } from '@hooks';
 import { validationChains } from '@services';
-import { Input, SubmitButton } from '@components/forms';
+import { Input, Button } from '@components/forms';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -27,8 +27,17 @@ function SignUpForm({ onSubmit }) {
     value: confirm,
     updateValue: updateConfirm,
     validation: confirmValidation,
-  } = useInput({ validate: validationChains.password });
+  } = useInput({ validate: validationChains.confirmPassword });
   const match = password === confirm;
+  const values = [username, email, password, confirm];
+  const validations = [
+    usernameValidation,
+    emailValidation,
+    passwordValidation,
+    confirmValidation,
+  ];
+  const formIsValid =
+    values.every((v) => !!v) && validations.every((v) => v.isValid) && match;
   return (
     <StyledSignUpForm onSubmit={() => onSubmit({ username, email, password })}>
       <Input
@@ -59,10 +68,10 @@ function SignUpForm({ onSubmit }) {
         label="Confirm Password"
         type="password"
       />
-      {match && password && confirm && (
+      {!match && password && confirm && (
         <StyledPwdErrorDiv>{"Passwords don't match."}</StyledPwdErrorDiv>
       )}
-      <SubmitButton content="Sign Up" />
+      <Button content="Sign Up" type={formIsValid ? 'submit' : 'button'} />
     </StyledSignUpForm>
   );
 }
