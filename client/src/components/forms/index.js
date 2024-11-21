@@ -1,4 +1,4 @@
 import Input from './input/Input';
-import SubmitButton from './submitbutton/SubmitButton';
+import Button from './button/Button';
 
-export { Input, SubmitButton };
+export { Input, Button };
