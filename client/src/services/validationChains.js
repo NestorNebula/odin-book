@@ -24,6 +24,7 @@ const validationChains = {
     },
     after: (email) => {
       return inputValidation(email, 'Email')
+        .minLength(1, true)
         .format(new RegExp('^[\\w-.]+@[\\w-]+.[\\w-]{2,4}$'), 'this@email.com')
         .result();
     },
@@ -35,6 +36,17 @@ const validationChains = {
     },
     after: (password) => {
       return inputValidation(password, 'Password').minLength(8).result();
+    },
+  },
+
+  confirmPassword: {
+    before: (password) => {
+      return inputValidation(password, 'Password').result();
+    },
+    after: (password) => {
+      return inputValidation(password, 'Password')
+        .minLength(8, false, 'Please confirm your password. ')
+        .result();
     },
   },
 };

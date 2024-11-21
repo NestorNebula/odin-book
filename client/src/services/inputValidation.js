@@ -9,11 +9,13 @@ function inputValidation(inputValue, inputName) {
     message += msg;
   }
 
-  function minLength(min) {
+  function minLength(min, startsWithVowel, emptyMessage) {
     if (value.length < min) {
       setError(
         value.length === 0
-          ? `Please enter a ${name}`
+          ? emptyMessage
+            ? emptyMessage
+            : `Please enter ${startsWithVowel ? 'an' : 'a'} ${name}. `
           : `${name} must have at least ${min} characters. `
       );
     }
