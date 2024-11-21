@@ -34,19 +34,22 @@ const clearForm = async (user) => {
 
 describe('SignUpForm', () => {
   it('renders form', () => {
-    expect(screen.queryAllByRole('textbox').length).toBe(4);
+    expect(
+      screen.queryAllByRole('textbox').length +
+        screen.queryAllByLabelText(/password/i).length
+    ).toBe(4);
   });
 
   it('displays errors when typing incorrect values', async () => {
     const user = userEvent.setup();
     await fillForm(user, 'usr', 'email', 'password', 'pasword');
     expect(screen.queryByText(/4 characters/i)).not.toBeNull();
-    expect(screen.queryByText(/valid email/i)).not.toBeNull();
+    expect(screen.queryByText(/email format/i)).not.toBeNull();
     expect(screen.queryByText(/8 characters/i)).not.toBeNull();
     expect(screen.queryByText(/don't match/i)).not.toBeNull();
     await clearForm(user);
     expect(screen.queryByText(/enter a username/i)).not.toBeNull();
-    expect(screen.queryByText(/enter an email address/i)).not.toBeNull();
+    expect(screen.queryByText(/enter an email/i)).not.toBeNull();
     expect(screen.queryByText(/enter a password/i)).not.toBeNull();
     expect(screen.queryByText(/confirm your password/i)).not.toBeNull();
   });
