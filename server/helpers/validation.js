@@ -38,10 +38,11 @@ const validateUserUpdate = [
     .toLowerCase()
     .isLength({ min: 4, max: 15 })
     .withMessage('Username must have between 4 and 15 characters.')
-    .custom(async (username) => {
+    .custom(async (username, { req }) => {
       if (!username) return;
       const existingUser = await prisma.findUserByUsername(username);
-      if (existingUser) throw new Error('Username already taken.');
+      if (existingUser && existingUser.id !== req.user.id)
+        throw new Error('Username already taken.');
     }),
   body('email')
     .optional()
@@ -56,7 +57,8 @@ const validateUserUpdate = [
         throw new Error("Users logged with GitHub can't update their email.");
       }
       const existingUser = await prisma.findUserByUsermail(email);
-      if (existingUser) throw new Error('Email already taken.');
+      if (existingUser && existingUser.id !== req.user.id)
+        throw new Error('Email already taken.');
     }),
   body('password')
     .optional()
