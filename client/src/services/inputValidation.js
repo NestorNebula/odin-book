@@ -4,30 +4,30 @@ function inputValidation(inputValue, inputName) {
   let success = true;
   let message = '';
 
-  const setError = (msg) => {
+  function setError(msg) {
     success = false;
     message += msg;
-  };
+  }
 
-  const minLength = (min, startsWithVowel) => {
+  function minLength(min) {
     if (value.length < min) {
       setError(
         value.length === 0
-          ? `Please enter ${startsWithVowel ? 'an' : 'a'} ${name}`
+          ? `Please enter a ${name}`
           : `${name} must have at least ${min} characters. `
       );
     }
     return this;
-  };
+  }
 
-  const maxLength = (max) => {
+  function maxLength(max) {
     if (value.length > max) {
       setError(`${name} cannot exceed ${max} characters. `);
     }
     return this;
-  };
+  }
 
-  const format = (regex, example) => {
+  function format(regex, example) {
     const result = regex.test(value);
     if (!result) {
       setError(
@@ -37,16 +37,16 @@ function inputValidation(inputValue, inputName) {
       );
     }
     return this;
-  };
+  }
 
-  const setLowerCase = () => {
+  function setLowerCase() {
     value = value.toLowerCase();
     return this;
-  };
+  }
 
-  const result = () => {
+  function result() {
     return { success, value, message };
-  };
+  }
 
   return {
     minLength,
