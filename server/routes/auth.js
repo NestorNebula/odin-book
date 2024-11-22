@@ -7,7 +7,8 @@ router.post(
   '/login',
   passport.authenticate('local', { failWithError: true }),
   (req, res) => {
-    res.json({ success: true });
+    const id = req.user.id;
+    res.json({ success: true, id });
   }
 );
 router.get(
@@ -28,7 +29,8 @@ router.get(
   '/signin/guest',
   passport.authenticate('guest', { failWithError: true }),
   (req, res) => {
-    res.json({ success: true });
+    const id = req.user.id;
+    res.json({ success: true, id });
   }
 );
 router.get('/logout', controller.logOut);
