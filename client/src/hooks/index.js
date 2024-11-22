@@ -1,4 +1,5 @@
-import useInput from './useInput';
+import useAuth from './useAuth';
 import useDialog from './useDialog';
+import useInput from './useInput';
 
-export { useInput, useDialog };
+export { useAuth, useDialog, useInput };
