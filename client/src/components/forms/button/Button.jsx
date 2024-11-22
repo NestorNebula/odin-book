@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button``;
 
-function Button({ content, type }) {
-  return <StyledButton type={type}>{content}</StyledButton>;
+function Button({ children, type }) {
+  return <StyledButton type={type}>{children}</StyledButton>;
 }
 
 Button.propTypes = {
-  content: PropTypes.string.isRequired,
+  children: PropTypes.string,
   type: PropTypes.string.isRequired,
 };
 

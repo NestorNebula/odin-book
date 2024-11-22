@@ -72,7 +72,7 @@ function SignUpForm({ onSubmit }) {
       {!match && password && confirm && (
         <StyledPwdErrorDiv>{"Passwords don't match."}</StyledPwdErrorDiv>
       )}
-      <Button content="Sign Up" type={formIsValid ? 'submit' : 'button'} />
+      <Button type={formIsValid ? 'submit' : 'button'}>Sign Up</Button>
     </AuthenticationForm>
   );
 }
