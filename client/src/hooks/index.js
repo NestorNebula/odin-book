@@ -1,3 +1,4 @@
 import useInput from './useInput';
+import useDialog from './useDialog';
 
-export { useInput };
+export { useInput, useDialog };
