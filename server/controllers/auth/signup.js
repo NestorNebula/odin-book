@@ -21,7 +21,7 @@ const signUp = [
         new Sperror('Server error', 'Error when creating user.', 500)
       );
     }
-    return res.json({ user });
+    return res.status(201).json({ user });
   },
 ];
 

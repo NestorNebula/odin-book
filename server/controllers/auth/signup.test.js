@@ -13,6 +13,7 @@ describe('sign up', () => {
         password: 'securepassword',
       })
       .type('form')
+      .expect(201)
       .then((res) => {
         expect(res.body.user.username).toBe('username');
         expect(res.body.user.email).toBe('email@email.com');
