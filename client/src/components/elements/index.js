@@ -1,4 +1,4 @@
 import Button from './Button';
-import Dialog from './dialog/Dialog';
+import * as Dialog from './dialog';
 
 export { Button, Dialog };
