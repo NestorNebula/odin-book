@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 
 const mockSubmit = vi.fn(() => {});
 beforeEach(() => {
-  render(<LoginForm />);
+  render(<LoginForm onSubmit={mockSubmit} />);
 });
 
 describe('LoginForm', () => {
