@@ -30,6 +30,18 @@ const validationChains = {
     },
   },
 
+  usermail: {
+    before: (usermail) => {
+      return inputValidation(usermail, 'Username/Email')
+        .setLowerCase()
+        .maxLength(255)
+        .result();
+    },
+    after: (usermail) => {
+      return inputValidation(usermail, 'Username/Email').minLength(1).result();
+    },
+  },
+
   password: {
     before: (password) => {
       return inputValidation(password, 'Password').result();
