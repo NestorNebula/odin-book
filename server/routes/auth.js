@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const controller = require('../controllers/controller').auth;
 const passport = require('passport');
+require('dotenv').config();
 
 router.post('/signup', controller.signUp);
 router.post(
@@ -23,6 +24,7 @@ router.get(
   passport.authenticate('github', {
     successRedirect: process.env.ORIGIN,
     failWithError: true,
+    failureRedirect: process.env.ORIGIN,
   })
 );
 router.get(
