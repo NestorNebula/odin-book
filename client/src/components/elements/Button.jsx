@@ -12,7 +12,7 @@ function Button({ children, onClick }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.oneOf([PropTypes.string, PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

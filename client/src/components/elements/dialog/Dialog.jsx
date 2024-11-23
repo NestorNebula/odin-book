@@ -8,7 +8,7 @@ function Dialog({ children, dialogRef }) {
 }
 
 Dialog.propTypes = {
-  children: PropTypes.oneOf([
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
