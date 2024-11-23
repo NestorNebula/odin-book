@@ -33,8 +33,9 @@ app.use(
 );
 require('./helpers/passport/config');
 
-app.use('/auth', routes.auth);
 app.use(passport.session());
+app.use('/auth', routes.auth);
+
 app.use((req, res, next) => {
   if (!req.user)
     return next(

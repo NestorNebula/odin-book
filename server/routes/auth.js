@@ -22,11 +22,15 @@ router.get(
 router.get(
   '/signin/github/callback',
   passport.authenticate('github', {
-    successRedirect: process.env.ORIGIN,
+    successRedirect: `${process.env.ORIGIN}/signin?success`,
     failWithError: true,
     failureRedirect: `${process.env.ORIGIN}/signin?fail`,
   })
 );
+router.get('/signin/github/success', (req, res) => {
+  if (!req.user) return res.status(400).json({ success: false });
+  res.json({ success: true, id: req.user.id });
+});
 router.get(
   '/signin/guest',
   passport.authenticate('guest', { failWithError: true }),
