@@ -33,7 +33,7 @@ const useAuth = () => {
       );
     } else {
       localStorage.setItem('id', fetch.result.id);
-      setDone(done);
+      setDone(true);
     }
   };
 
@@ -43,11 +43,24 @@ const useAuth = () => {
       setErrors(fetch.result.error);
     } else {
       localStorage.setItem('id', fetch.result.id);
-      setDone(done);
+      setDone(true);
     }
   };
 
-  const methods = { signUp, logIn, guest };
+  const github = async () => {
+    const fetch = await fetchAPI({
+      method: 'get',
+      path: 'auth/signin/github/success',
+    });
+    if (fetch.error) {
+      setErrors(fetch.result.error);
+    } else {
+      localStorage.setItem('id', fetch.result.id);
+      setDone(true);
+    }
+  };
+
+  const methods = { signUp, logIn, guest, github };
 
   return { done, method, setMethod, errors, methods };
 };

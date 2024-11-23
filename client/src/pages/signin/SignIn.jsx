@@ -17,6 +17,10 @@ function SignIn() {
   };
 
   const [searchParams] = useSearchParams();
+  const success = searchParams.get('success') !== null;
+  if (success || !done) {
+    methods.github();
+  }
   const fail = searchParams.get('fail') !== null;
 
   return (
