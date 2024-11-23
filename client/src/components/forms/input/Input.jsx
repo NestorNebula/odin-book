@@ -19,6 +19,7 @@ function Input({
         onChange={updateValue}
         type={type}
         required={!optional}
+        autoComplete="on"
       />
       <S.Label htmlFor={name}>{label}</S.Label>
       {!!validation.maxLength && (
