@@ -24,7 +24,7 @@ router.get(
   passport.authenticate('github', {
     successRedirect: process.env.ORIGIN,
     failWithError: true,
-    failureRedirect: process.env.ORIGIN,
+    failureRedirect: `${process.env.ORIGIN}/signin?fail`,
   })
 );
 router.get(
