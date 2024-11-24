@@ -4,18 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from '@routes/routes';
 import './index.css';
 
-const router = createBrowserRouter(routes, {
-  future: {
-    v7_fetcherPersist: true,
-    v7_normalizeFormMethod: true,
-    v7_relativeSplatPath: true,
-    v7_partialHydration: true,
-    v7_skipActionErrorRevalidation: true,
-  },
-});
+const router = createBrowserRouter(routes, {});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    <RouterProvider router={router} />
   </StrictMode>
 );
