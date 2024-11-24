@@ -25,7 +25,10 @@ const validationChains = {
     after: (email) => {
       return inputValidation(email, 'Email')
         .minLength(1, true)
-        .format(new RegExp('^[\\w-.]+@[\\w-]+.[\\w-]{2,4}$'), 'this@email.com')
+        .format(
+          new RegExp('^[\\w-.]+@[\\w-]+\\.[\\w-]{2,4}$'),
+          'this@email.com'
+        )
         .result();
     },
   },
