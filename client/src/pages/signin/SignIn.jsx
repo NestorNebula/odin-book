@@ -18,7 +18,7 @@ function SignIn() {
 
   const [searchParams] = useSearchParams();
   const success = searchParams.get('success') !== null;
-  if (success || !done) {
+  if (success && !done) {
     methods.github();
   }
   const fail = searchParams.get('fail') !== null;
@@ -76,13 +76,18 @@ function SignIn() {
               Create account
             </Button>
             <Button onClick={() => updateMethod('login', true)}>Log In</Button>
-            <Button onClick={() => updateMethod('guest', false)}>
+            <Button
+              onClick={async () => {
+                updateMethod('guest', false);
+                await methods.guest();
+              }}
+            >
               Sign In as Guest
             </Button>
           </div>
         </S.Methods>
       </S.Section>
-      {(!!errors.length || fail) && (
+      {((errors && errors.length) || fail) && (
         <S.Errors>
           <>
             {errors.map((e) => (
