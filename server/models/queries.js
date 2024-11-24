@@ -63,8 +63,6 @@ const findUserById = async (id) => {
       email: true,
       loginMethod: true,
       profile: true,
-      following: true,
-      followers: true,
       notifications: true,
     },
   });
