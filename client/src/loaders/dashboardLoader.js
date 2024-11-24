@@ -1,9 +1,11 @@
 import { redirect } from 'react-router-dom';
 import { fetchAPI } from '@services';
+import { defaultContext } from '@context';
 
 const dashboardLoader = async () => {
   const userId = localStorage.getItem('id');
   if (!userId) return redirect('/signin');
+  if (userId === '0') return { user: defaultContext };
   const { result, error } = await fetchAPI({
     method: 'get',
     path: `users/${userId}`,
@@ -13,7 +15,7 @@ const dashboardLoader = async () => {
     return redirect('/signin');
   }
 
-  return { userId: result.user.id };
+  return { user: result.user };
 };
 
 export default dashboardLoader;
