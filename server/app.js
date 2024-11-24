@@ -75,6 +75,19 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err.name === 'AuthenticationError') {
+    return next(
+      new Sperror(
+        'Authentication Error',
+        'Incorrect Username/Email or Password.',
+        401
+      )
+    );
+  }
+  return next(err);
+});
+
+app.use((err, req, res, next) => {
   err instanceof Sperror
     ? res.status(err.statusCode).json({ error: err })
     : res.status(500).json({
