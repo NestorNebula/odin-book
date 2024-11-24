@@ -24,13 +24,29 @@ app.use(cookieParser());
 app.use(
   cookieSession({
     secret: process.env.COOKIE_SECRET,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    partitioned: true,
+    secureProxy: true,
     sameSite: 'none',
-    secure: true,
-    httpOnly: true,
+    partitioned: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    cookie: {
+      secure: true,
+      httpOnly: true,
+    },
   })
 );
+app.use((req, res, next) => {
+  if (req.session && !req.session.regenerate) {
+    req.session.regenerate = (cb) => {
+      cb();
+    };
+  }
+  if (req.session && !req.session.save) {
+    req.session.save = (cb) => {
+      cb();
+    };
+  }
+  next();
+});
 require('./helpers/passport/config');
 
 app.use(passport.session());
