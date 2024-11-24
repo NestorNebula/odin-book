@@ -26,12 +26,12 @@ function SignIn() {
   return (
     <S.SignIn>
       {!!done && <Navigate to="/" />}
-      <Dialog.Main dialogRef={dialogRef}>
+      <Dialog.Main dialogRef={dialogRef} close={() => close(setMethod(null))}>
         {open ? (
           method === 'signup' ? (
             <>
               <Dialog.Header>
-                <Dialog.CloseButton close={close} />
+                <Dialog.CloseButton close={() => close(setMethod(null))} />
                 <div>
                   <img src={icon} alt="" />
                   <div>Create your account</div>
@@ -43,7 +43,7 @@ function SignIn() {
           ) : method === 'login' ? (
             <>
               <Dialog.Header>
-                <Dialog.CloseButton close={close} />
+                <Dialog.CloseButton close={() => close(setMethod(null))} />
                 <div>
                   <img src={icon} alt="" />
                   <div>Log In to Odin-Book</div>

@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 const StyledDialog = styled.dialog``;
 
-function Dialog({ children, dialogRef }) {
-  return <StyledDialog ref={dialogRef}>{children}</StyledDialog>;
+function Dialog({ children, dialogRef, close }) {
+  return (
+    <StyledDialog ref={dialogRef} onCancel={close}>
+      {children}
+    </StyledDialog>
+  );
 }
 
 Dialog.propTypes = {
@@ -13,6 +17,7 @@ Dialog.propTypes = {
     PropTypes.node,
   ]),
   dialogRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  close: PropTypes.func.isRequired,
 };
 
 export default Dialog;

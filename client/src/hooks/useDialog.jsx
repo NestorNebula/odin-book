@@ -5,7 +5,10 @@ const useDialog = () => {
 
   const open = () => dialogRef.current.showModal();
 
-  const close = () => dialogRef.current.close();
+  const close = (cb) => {
+    dialogRef.current.close();
+    if (cb) cb();
+  };
 
   return { dialogRef, open, close };
 };
