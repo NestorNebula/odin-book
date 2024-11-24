@@ -19,7 +19,12 @@ function LoginForm({ onSubmit }) {
   const formIsValid =
     values.every((v) => !!v) && validations.every((v) => v.isValid);
   return (
-    <AuthenticationForm onSubmit={() => onSubmit(usermail, password)}>
+    <AuthenticationForm
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await onSubmit({ usermail, password });
+      }}
+    >
       <Input
         name="usermail"
         value={usermail}

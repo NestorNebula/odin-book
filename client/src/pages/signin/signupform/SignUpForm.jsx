@@ -39,7 +39,10 @@ function SignUpForm({ onSubmit }) {
     values.every((v) => !!v) && validations.every((v) => v.isValid) && match;
   return (
     <AuthenticationForm
-      onSubmit={() => onSubmit({ username, email, password })}
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await onSubmit({ username, email, password });
+      }}
     >
       <Input
         name="username"
