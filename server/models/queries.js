@@ -63,6 +63,20 @@ const findUserById = async (id) => {
       email: true,
       loginMethod: true,
       profile: true,
+      following: {
+        select: {
+          id: true,
+          username: true,
+          profile: true,
+        },
+      },
+      followers: {
+        select: {
+          id: true,
+          username: true,
+          profile: true,
+        },
+      },
       notifications: true,
     },
   });
