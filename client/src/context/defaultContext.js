@@ -13,6 +13,8 @@ const defaultContext = {
     website: null,
     creationDate: new Date(Date.now()),
   },
+  following: [],
+  followers: [],
   notifications: [],
 };
 
