@@ -585,7 +585,11 @@ const findNotifications = async (userId) => {
     where: { notifiedUserId: userId },
     include: {
       notifierUser: { select: { id: true, username: true, profile: true } },
-      post: { include: { user: true } },
+      post: {
+        include: {
+          user: { select: { id: true, username: true, profile: true } },
+        },
+      },
     },
     orderBy: { creationDate: 'desc' },
   });
