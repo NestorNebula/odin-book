@@ -362,7 +362,7 @@ const findPosts = async (limit) => {
       commentedPost: {
         include: {
           user: { select: { id: true, username: true, profile: true } },
-          interactions: true,
+          interactions: { select: { type: true, userId: true } },
           comments: true,
         },
       },
