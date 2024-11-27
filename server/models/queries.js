@@ -431,6 +431,17 @@ const createInteraction = async (userId, postId, type) => {
 const findInteractions = async (userId, type) => {
   const interactions = await prisma.interaction.findMany({
     where: { userId, type },
+    include: {
+      user: {
+        select: { id: true, username: true, profile: true },
+      },
+      post: {
+        include: {
+          interactions: { select: { type: true, userId: true } },
+          comments: true,
+        },
+      },
+    },
     orderBy: { creationDate: 'desc' },
   });
   return interactions;
