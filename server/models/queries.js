@@ -437,6 +437,7 @@ const findInteractions = async (userId, type) => {
       },
       post: {
         include: {
+          user: { select: { id: true, username: true, profile: true } },
           interactions: { select: { type: true, userId: true } },
           comments: true,
         },
