@@ -3,6 +3,7 @@ import { Context } from '@context';
 import { useDialog, useUserData } from '@hooks';
 import { Dialog } from '@components/elements';
 import Navbar from './navbar/Navbar';
+import { Error, Loading } from '@components';
 import * as S from './Dashboard.styles';
 
 function Dashboard() {
@@ -11,7 +12,11 @@ function Dashboard() {
 
   const { dialogRef, open, close } = useDialog();
 
-  return (
+  return error ? (
+    <Error>Error when loading user data. {error}</Error>
+  ) : loading ? (
+    <Loading data="user data" />
+  ) : (
     <Context.Provider value={{ user: userData }}>
       <S.Dashboard>
         <Dialog.Main dialogRef={dialogRef} close={close}></Dialog.Main>
