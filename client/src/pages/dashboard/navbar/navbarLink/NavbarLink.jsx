@@ -11,9 +11,11 @@ function NavbarLink({ link, iconSrc, title = link, notificationsNum }) {
       <Link to={`/${link}`} aria-label={`Go to ${title} page.`}>
         <StyledNavbarIcon>
           <img src={iconSrc} alt="" />
-          <div aria-label={`${notificationsNum} notifications`}>
-            {notificationsNum}
-          </div>
+          {notificationsNum && (
+            <div aria-label={`${notificationsNum} notifications`}>
+              {notificationsNum}
+            </div>
+          )}
         </StyledNavbarIcon>
         <div>{title}</div>
       </Link>
