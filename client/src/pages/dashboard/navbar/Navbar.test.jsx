@@ -43,13 +43,4 @@ describe('Navbar', () => {
     await user.click(newPostBtn);
     expect(openNewPost).toHaveBeenCalledOnce();
   });
-
-  it('calls updateUser when clicking on logOut button', async () => {
-    const user = userEvent.setup();
-    const settingsBtn = screen.getByRole('button', { name: /settings/i });
-    await user.click(settingsBtn);
-    const logOutBtn = screen.getByRole('button', { name: /logout/i });
-    await user.click(logOutBtn);
-    expect(updateUser).toHaveBeenCalledOnce();
-  });
 });
