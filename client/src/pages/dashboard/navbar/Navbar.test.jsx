@@ -12,14 +12,14 @@ beforeEach(() => {
   render(<Navbar updateUser={updateUser} openNewPost={openNewPost} />);
 });
 
-const mockUser = testsData.fullUser();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+const mockUser = testsData.fullUser({});
+vi.mock('react', async () => {
+  const actual = await vi.importActual('react');
   return {
     ...actual,
-    useContext: () => {
+    useContext: vi.fn(() => {
       return { user: mockUser };
-    },
+    }),
   };
 });
 
