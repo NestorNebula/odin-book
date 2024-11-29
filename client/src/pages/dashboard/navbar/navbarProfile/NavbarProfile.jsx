@@ -8,7 +8,7 @@ const StyledNavbarProfile = styled.li``;
 function NavbarProfile({ username, profile }) {
   return (
     <StyledNavbarProfile>
-      <Link to="/profile" aria-label="Open profile page.">
+      <Link to={`/${profile.userId}`} aria-label="Open profile page.">
         <img src={profile.avatar ?? defaultIcon} alt="" />
         <div>{profile.displayName}</div>
         <div>{`@${username}`}</div>
