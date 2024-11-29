@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledNavbarLinkItem = styled.li``;
 const StyledNavbarIcon = styled.div``;
 
-function NavbarLink({ link, iconSrc, title, notificationsNum }) {
+function NavbarLink({ link, iconSrc, title = link, notificationsNum }) {
   return (
     <StyledNavbarLinkItem>
       <Link to={`/${link}`} aria-label={`Go to ${title} page.`}>
@@ -24,7 +24,7 @@ function NavbarLink({ link, iconSrc, title, notificationsNum }) {
 NavbarLink.propTypes = {
   link: PropTypes.string.isRequired,
   iconSrc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   notificationsNum: PropTypes.number,
 };
 
