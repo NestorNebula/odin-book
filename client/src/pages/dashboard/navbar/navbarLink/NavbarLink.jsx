@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledNavbarLinkItem = styled.li``;
+const StyledNavbarIcon = styled.div``;
 
-function NavbarLink({ link, iconSrc, title }) {
+function NavbarLink({ link, iconSrc, title, notificationsNum }) {
   return (
     <StyledNavbarLinkItem>
       <Link to={`/${link}`} aria-label={`Go to ${title} page.`}>
-        <img src={iconSrc} alt="" />
+        <StyledNavbarIcon>
+          <img src={iconSrc} alt="" />
+          <div aria-label={`${notificationsNum} notifications`}>
+            {notificationsNum}
+          </div>
+        </StyledNavbarIcon>
         <div>{title}</div>
       </Link>
     </StyledNavbarLinkItem>
@@ -19,6 +25,7 @@ NavbarLink.propTypes = {
   link: PropTypes.string.isRequired,
   iconSrc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  notificationsNum: PropTypes.number,
 };
 
 export default NavbarLink;
