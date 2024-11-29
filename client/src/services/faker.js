@@ -28,6 +28,7 @@ const getFullFakeUser = ({
     profile: getFakeProfile({ id, username: name }),
     following,
     followers,
+    notifications,
   };
 };
 
