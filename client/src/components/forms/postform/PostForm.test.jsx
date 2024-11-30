@@ -41,9 +41,11 @@ describe('PostForm', () => {
   });
 
   it('calls onSubmit only when content is not empty', async () => {
-    <MemoryRouter>
-      <PostForm onSubmit={mockSubmit} />
-    </MemoryRouter>;
+    render(
+      <MemoryRouter>
+        <PostForm onSubmit={mockSubmit} />
+      </MemoryRouter>
+    );
     const user = userEvent.setup();
     const submitBtn = screen.getByRole('button', { name: /post/i });
     await user.click(submitBtn);
@@ -55,9 +57,11 @@ describe('PostForm', () => {
   });
 
   it('prevents user from typing more than characters limit', async () => {
-    <MemoryRouter>
-      <PostForm onSubmit={mockSubmit} />
-    </MemoryRouter>;
+    render(
+      <MemoryRouter>
+        <PostForm onSubmit={mockSubmit} />
+      </MemoryRouter>
+    );
     const charactersLimit = 280;
     const user = userEvent.setup();
     const content = screen.getByPlaceholderText(/what is happening/i);
