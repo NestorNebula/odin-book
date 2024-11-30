@@ -64,6 +64,15 @@ const validationChains = {
         .result();
     },
   },
+
+  postContent: {
+    before: (content) => {
+      return inputValidation(content, 'Content').maxLength(280).result();
+    },
+    after: (content) => {
+      return inputValidation(content, 'Content').result();
+    },
+  },
 };
 
 export default validationChains;
