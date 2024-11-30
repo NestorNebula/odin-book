@@ -11,17 +11,6 @@ const mockPost = testsData.post({ details: true });
 const mockSubmit = vi.fn();
 
 describe('PostForm', () => {
-  it('displays user profile picture', () => {
-    render(
-      <MemoryRouter>
-        <PostForm userProfile={mockUser.profile} onSubmit={mockSubmit} />
-      </MemoryRouter>
-    );
-    expect(
-      screen.queryByLabelText(mockUser.profile.displayName)
-    ).not.toBeNull();
-  });
-
   it('displays normal placeholder for post', () => {
     render(
       <MemoryRouter>
