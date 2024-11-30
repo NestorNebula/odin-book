@@ -12,7 +12,7 @@ const useUserData = ({ userId }) => {
   };
 
   useEffect(() => {
-    if (userId === 0) {
+    if (+userId === 0) {
       setUserData(defaultContext.user);
       setError(false);
       setLoading(false);
