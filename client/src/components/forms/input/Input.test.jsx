@@ -8,6 +8,7 @@ describe('Input', () => {
       <Input
         value={'null'}
         validation={{ isValid: true, message: '', maxLength: '50' }}
+        maxLength={50}
         updateValue={() => {}}
         name={'value'}
       />
