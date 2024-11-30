@@ -6,6 +6,7 @@ function Input({
   value,
   updateValue,
   validation,
+  maxLength,
   label = name,
   type = 'text',
   optional,
@@ -22,9 +23,9 @@ function Input({
         autoComplete="on"
       />
       <S.Label htmlFor={name}>{label}</S.Label>
-      {!!validation.maxLength && (
+      {!!maxLength && (
         <S.DivMaxLength>
-          {value.length} / {validation.maxLength}
+          {value.length} / {maxLength}
         </S.DivMaxLength>
       )}
       {!validation.isValid && <S.Error>{validation.message}</S.Error>}
@@ -37,6 +38,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   updateValue: PropTypes.func.isRequired,
   validation: PropTypes.object.isRequired,
+  maxLength: PropTypes.number,
   label: PropTypes.string,
   type: PropTypes.string,
   optional: PropTypes.bool,

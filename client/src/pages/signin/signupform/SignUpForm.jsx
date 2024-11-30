@@ -49,6 +49,7 @@ function SignUpForm({ onSubmit }) {
         value={username}
         updateValue={updateUsername}
         validation={usernameValidation}
+        maxLength={15}
       />
       <Input
         name="email"
