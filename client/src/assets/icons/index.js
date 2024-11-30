@@ -5,6 +5,7 @@ import explore from './explore.svg';
 import github from './github.svg';
 import home from './home.svg';
 import icon from './icon.svg';
+import image from './image.svg';
 import message from './message.svg';
 import notification from './notification.svg';
 import profile from './profile.svg';
@@ -18,6 +19,7 @@ export {
   github,
   home,
   icon,
+  image,
   message,
   notification,
   profile,
