@@ -80,6 +80,7 @@ function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
           id="file"
           type="file"
           name="file"
+          value={''}
           multiple={false}
           accept="image/*"
           onChange={updateFile}
