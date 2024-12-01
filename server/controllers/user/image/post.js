@@ -26,8 +26,9 @@ const postImage = async (req, res, next) => {
   }
 
   const fileNameSplit = req.body.fileName.split('.');
-  const contentType = fileNameSplit.pop();
+  fileNameSplit.pop();
   const fileName = fileNameSplit.join('-');
+  const contentType = req.body.file.split(';base64,')[0].split('/')[1];
 
   const { link, error } = await uploadFile(
     req.body.file,
