@@ -5,7 +5,14 @@ const StyledDialog = styled.dialog``;
 
 function Dialog({ children, dialogRef, close }) {
   return (
-    <StyledDialog ref={dialogRef} onCancel={close}>
+    <StyledDialog
+      ref={dialogRef}
+      onCancel={(e) => {
+        if (e.target.nodeName === 'DIALOG') {
+          close();
+        }
+      }}
+    >
       {children}
     </StyledDialog>
   );
