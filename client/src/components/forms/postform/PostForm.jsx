@@ -26,7 +26,7 @@ function PostForm({ onSubmit, post }) {
       if (!result) return;
     }
     const fileToUpload = e.target.files[0];
-    if (!file) return;
+    if (!fileToUpload) return;
     const result = await file.upload({
       file: fileToUpload,
       type: 'photos',
