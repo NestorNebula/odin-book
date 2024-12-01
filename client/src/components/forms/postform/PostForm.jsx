@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { image, close } from '@assets/icons';
 import * as S from './PostForm.styles';
 
-function PostForm({ onSubmit, post }) {
+function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
   const { user } = useContext(Context);
 
   const [error, setError] = useState(null);
@@ -18,7 +18,6 @@ function PostForm({ onSubmit, post }) {
     updateValue: updateContent,
     validation: contentValidation,
   } = useInput({ validate: validationChains.postContent });
-  const [fileUrl, setFileUrl] = useState(null);
   const updateFile = async (e) => {
     if (user.loginMethod === 'GUEST') return;
     if (fileUrl) {
@@ -99,6 +98,8 @@ function PostForm({ onSubmit, post }) {
 
 PostForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  fileUrl: PropTypes.string,
+  setFileUrl: PropTypes.func.isRequired,
   post: PropTypes.object,
 };
 

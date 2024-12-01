@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { Context } from '@context';
 import { useDialog, useInformation, useUserData } from '@hooks';
@@ -5,7 +6,7 @@ import { Dialog } from '@components/elements';
 import { PostForm } from '@components/forms';
 import Navbar from './navbar/Navbar';
 import { Error, Loading } from '@components';
-import { fetchAPI } from '@services';
+import { fetchAPI, file } from '@services';
 import * as S from './Dashboard.styles';
 
 function Dashboard() {
@@ -14,6 +15,7 @@ function Dashboard() {
 
   const { dialogRef, open, close } = useDialog();
   const { information, updateInformation } = useInformation();
+  const [fileUrl, setFileUrl] = useState(null);
 
   const submitPost = async ({ content, file }) => {
     const fetch = await fetchAPI({
@@ -33,6 +35,13 @@ function Dashboard() {
       close();
     }
   };
+  const closePostForm = async () => {
+    if (fileUrl) {
+      await file.remove({ url: fileUrl, type: 'photos', userId: userData.id });
+      setFileUrl(null);
+    }
+    close();
+  };
 
   return error ? (
     <Error>Error when loading user data. {error}</Error>
@@ -41,11 +50,15 @@ function Dashboard() {
   ) : (
     <Context.Provider value={{ user: userData }}>
       <S.Dashboard>
-        <Dialog.Main dialogRef={dialogRef} close={close}>
+        <Dialog.Main dialogRef={dialogRef} close={closePostForm}>
           <Dialog.Header>
-            <Dialog.CloseButton close={close} />
+            <Dialog.CloseButton close={closePostForm} />
           </Dialog.Header>
-          <PostForm onSubmit={submitPost} />
+          <PostForm
+            onSubmit={submitPost}
+            fileUrl={fileUrl}
+            setFileUrl={setFileUrl}
+          />
         </Dialog.Main>
         <Navbar updateUser={updateUserData} openNewPost={open} />
         <Outlet />
