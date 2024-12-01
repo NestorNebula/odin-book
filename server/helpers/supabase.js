@@ -1,4 +1,5 @@
 const createClient = require('@supabase/supabase-js').createClient;
+const { decode } = require('base64-arraybuffer');
 require('dotenv').config();
 
 const supabase = createClient(
@@ -6,10 +7,12 @@ const supabase = createClient(
   process.env.SUPABASE_API_KEY
 );
 
-const uploadFile = async (file, path) => {
+const uploadFile = async (file, contentType, path) => {
   const { data, error } = await supabase.storage
     .from('images')
-    .upload(path, file);
+    .upload(path, decode(file.split('base64,')[1]), {
+      contentType: `image/${contentType}`,
+    });
   if (error || !data || !data.path || !data.fullPath) {
     return {
       link: null,

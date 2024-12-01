@@ -24,9 +24,15 @@ const postImage = async (req, res, next) => {
       new Sperror('Bad Request', 'Please provide a correct file type.', 400)
     );
   }
+
+  const fileNameSplit = req.body.fileName.split('.');
+  const contentType = fileNameSplit.pop();
+  const fileName = fileNameSplit.join('-');
+
   const { link, error } = await uploadFile(
     req.body.file,
-    `${req.body.type}/${req.body.fileName}-${user.username}-${crypto
+    contentType,
+    `${req.body.type}/${fileName}-${user.username}-${crypto
       .randomBytes(10)
       .toString('hex')}`
   );
