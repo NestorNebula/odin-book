@@ -14,6 +14,7 @@ function Dashboard() {
   const { userData, error, loading, updateUserData } = useUserData({ userId });
 
   const { dialogRef, open, close } = useDialog();
+  const [dialogOpened, setDialogOpened] = useState(false);
   const { information, updateInformation } = useInformation();
   const [fileUrl, setFileUrl] = useState(null);
 
@@ -35,12 +36,17 @@ function Dashboard() {
       close();
     }
   };
+  const openPostForm = async () => {
+    open();
+    setDialogOpened(true);
+  };
   const closePostForm = async () => {
     if (fileUrl) {
       await file.remove({ url: fileUrl, type: 'photos', userId: userData.id });
       setFileUrl(null);
     }
     close();
+    setDialogOpened(false);
   };
 
   return error ? (
@@ -54,13 +60,17 @@ function Dashboard() {
           <Dialog.Header>
             <Dialog.CloseButton close={closePostForm} />
           </Dialog.Header>
-          <PostForm
-            onSubmit={submitPost}
-            fileUrl={fileUrl}
-            setFileUrl={setFileUrl}
-          />
+          {dialogOpened ? (
+            <PostForm
+              onSubmit={submitPost}
+              fileUrl={fileUrl}
+              setFileUrl={setFileUrl}
+            />
+          ) : (
+            <></>
+          )}
         </Dialog.Main>
-        <Navbar updateUser={updateUserData} openNewPost={open} />
+        <Navbar updateUser={updateUserData} openNewPost={openPostForm} />
         <Outlet />
         {!!information.message && (
           <S.Information>{information.message}</S.Information>
