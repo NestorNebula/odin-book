@@ -8,7 +8,10 @@ function DialogHeader({ children }) {
 }
 
 DialogHeader.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 export default DialogHeader;
