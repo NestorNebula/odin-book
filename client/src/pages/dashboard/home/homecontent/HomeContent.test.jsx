@@ -10,22 +10,28 @@ const posts = [
   testsData.post({ details: true, type: 'COMMENT' }),
 ];
 const reposts = [
-  testsData.post({ details: true }),
-  testsData.post({ details: true }),
+  testsData.interaction({ details: true, type: 'REPOST' }),
+  testsData.interaction({ details: true, type: 'REPOST' }),
 ];
 
 beforeEach(() => {
-  render(<HomeContent posts={posts} reposts={reposts}></HomeContent>);
+  render(
+    <HomeContent
+      content={{ posts, followingPosts: posts, reposts }}
+      updateContent={() => {}}
+      updateInformation={() => {}}
+    ></HomeContent>
+  );
 });
 
-describe('Home', () => {
+describe('HomeContent', () => {
   it('renders all posts', () => {
     expect(screen.queryAllByRole('button', { name: /like/i }).length).toBe(
       posts.length
     );
   });
 
-  it('renders al posts and reposts in following section', async () => {
+  it('renders all posts and reposts in following section', async () => {
     const user = userEvent.setup();
     const followingSectionBtn = screen.getByRole('button', {
       name: /following/i,
