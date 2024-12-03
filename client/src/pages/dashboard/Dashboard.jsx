@@ -32,7 +32,8 @@ function Dashboard() {
           : fetch.result.errors[0].msg,
       });
     } else {
-      updateUserData();
+      updateInformation({ error: null, message: 'Post created.' });
+      setFileUrl(null);
       close();
     }
   };
@@ -70,8 +71,8 @@ function Dashboard() {
             <></>
           )}
         </Dialog.Main>
-        <Navbar updateUser={updateUserData} openNewPost={openPostForm} />
-        <Outlet />
+        <Navbar openNewPost={openPostForm} />
+        <Outlet context={{ updateInformation, updateUserData }} />
         {!!information.message && (
           <S.Information>{information.message}</S.Information>
         )}
