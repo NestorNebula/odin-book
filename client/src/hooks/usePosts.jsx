@@ -7,6 +7,14 @@ const usePosts = ({ postsPath, fetchReposts }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const updatePost = (postId, post) => {
+    setPosts(posts.map((p) => (p.id === postId ? post : p)));
+  };
+
+  const updateRepost = (postId, post) => {
+    setReposts(reposts.map((r) => (r.postId === postId ? { ...r, post } : r)));
+  };
+
   useEffect(() => {
     fetchAPI({ method: 'get', path: postsPath })
       .then((fetch) => {
@@ -25,7 +33,7 @@ const usePosts = ({ postsPath, fetchReposts }) => {
       });
   }, [postsPath, fetchReposts]);
 
-  return { posts, reposts, error, loading };
+  return { posts, reposts, updatePost, updateRepost, error, loading };
 };
 
 export default usePosts;
