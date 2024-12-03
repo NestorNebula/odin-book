@@ -1,9 +1,9 @@
-const {
+import {
   differenceInCalendarYears,
   differenceInHours,
   format,
   formatDistanceToNowStrict,
-} = require('date-fns');
+} from 'date-fns';
 
 const getDate = (date) => {
   const now = new Date(Date.now());
