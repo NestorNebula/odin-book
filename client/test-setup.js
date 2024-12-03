@@ -17,7 +17,7 @@ beforeAll(() => {
     this.open = false;
   });
 
-  const mockUser = testsData.fullUser();
+  const mockUser = testsData.fullUser({});
   vi.mock('react', async () => {
     const actual = await vi.importActual('react');
     return {
