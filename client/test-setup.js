@@ -5,6 +5,8 @@ import { testsData } from '@services';
 
 expect.extend(matchers);
 
+const mockUser = testsData.fullUser({});
+
 beforeAll(() => {
   vi.stubEnv('VITE_API_URL', null);
   HTMLDialogElement.prototype.show = vi.fn(function () {
@@ -17,7 +19,6 @@ beforeAll(() => {
     this.open = false;
   });
 
-  const mockUser = testsData.fullUser({});
   vi.mock('react', async () => {
     const actual = await vi.importActual('react');
     return {
