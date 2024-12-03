@@ -55,7 +55,7 @@ function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
 
   const postIsValid = contentValidation.isValid && (!!content || !!fileUrl);
   return (
-    <S.PostForm onSubmit={onSubmit}>
+    <S.PostForm onSubmit={() => onSubmit({ content, file })}>
       <Avatar profile={user.profile} />
       <TextArea
         name="content"
