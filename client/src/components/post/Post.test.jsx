@@ -25,7 +25,7 @@ beforeEach(() => {
 describe('Post', () => {
   it('renders post', () => {
     expect(screen.queryByText(mockPost.content)).not.toBeNull();
-    expect(screen.queryBytext(`@${mockPost.user.username}`)).not.toBeNull();
+    expect(screen.queryByText(`@${mockPost.user.username}`)).not.toBeNull();
   });
 
   it('calls mockClick on reply/repost/like click', async () => {
