@@ -20,14 +20,14 @@ const useUserData = ({ userId }) => {
       fetchAPI({ method: 'get', path: `users/${userId}` })
         .then((fetch) => {
           if (fetch.error) {
-            throw new Error(fetch.result.msg);
+            throw new Error(fetch.result.error.msg);
           } else {
             setUserData(fetch.result.user);
             setError(false);
           }
         })
         .catch((err) => {
-          setError(err);
+          setError(err.message);
         })
         .finally(() => {
           setLoading(false);
