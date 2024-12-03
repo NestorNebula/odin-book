@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Home from './Home';
+import HomeContent from './HomeContent';
 import { testsData } from '@services';
 
 const posts = [
@@ -15,17 +15,17 @@ const reposts = [
 ];
 
 beforeEach(() => {
-  render(<Home></Home>);
+  render(<HomeContent posts={posts} reposts={reposts}></HomeContent>);
 });
 
 describe('Home', () => {
-  it('renders all fetched posts', () => {
+  it('renders all posts', () => {
     expect(screen.queryAllByRole('button', { name: /like/i }).length).toBe(
       posts.length
     );
   });
 
-  it('renders all fetched posts and reposts in following section', async () => {
+  it('renders al posts and reposts in following section', async () => {
     const user = userEvent.setup();
     const followingSectionBtn = screen.getByRole('button', {
       name: /following/i,
