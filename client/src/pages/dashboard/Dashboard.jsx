@@ -55,7 +55,9 @@ function Dashboard() {
   ) : loading ? (
     <Loading data="user data" />
   ) : (
-    <Context.Provider value={{ user: userData }}>
+    <Context.Provider
+      value={{ user: userData, updateUser: updateUserData, updateInformation }}
+    >
       <S.Dashboard>
         <Dialog.Main dialogRef={dialogRef} close={closePostForm}>
           <Dialog.Header>
@@ -72,7 +74,7 @@ function Dashboard() {
           )}
         </Dialog.Main>
         <Navbar openNewPost={openPostForm} />
-        <Outlet context={{ updateInformation, updateUserData }} />
+        <Outlet />
         {!!information.message && (
           <S.Information>{information.message}</S.Information>
         )}

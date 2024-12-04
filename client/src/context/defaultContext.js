@@ -18,6 +18,8 @@ const defaultContext = {
     followers: [],
     notifications: [],
   },
+  updateUser: () => {},
+  updateInformation: ({ error, message }) => ({ error, message }),
 };
 
 export default defaultContext;
