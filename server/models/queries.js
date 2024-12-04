@@ -162,6 +162,7 @@ const findUsersBySearch = async (search, limit) => {
         { profile: { displayName: { contains: search } } },
       ],
     },
+    select: { id: true, username: true, profile: true, followers: true },
     take: limit,
   });
   return users;
