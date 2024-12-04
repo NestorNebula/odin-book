@@ -117,7 +117,7 @@ const __findFullUserByUsername = async (username) => {
 
 const findUsers = async (limit) => {
   const users = await prisma.user.findMany({
-    select: { id: true, username: true, profile: true, followers: true },
+    select: { id: true, username: true, profile: true },
     take: limit,
   });
   return users;
@@ -128,8 +128,8 @@ const __findFullUsers = async () => {
   const users = await prisma.user.findMany({
     include: {
       profile: true,
-      following: true,
-      followers: true,
+      following: { select: { username: true, id: true, profile: true } },
+      followers: { select: { username: true, id: true, profile: true } },
       posts: true,
       interactions: true,
       chats: true,
@@ -148,7 +148,7 @@ const findNonFollowedUsers = async (id, limit) => {
         every: { id: { not: id } },
       },
     },
-    select: { id: true, username: true, profile: true, followers: true },
+    select: { id: true, username: true, profile: true },
     take: limit,
   });
   return users;
@@ -162,7 +162,7 @@ const findUsersBySearch = async (search, limit) => {
         { profile: { displayName: { contains: search } } },
       ],
     },
-    select: { id: true, username: true, profile: true, followers: true },
+    select: { id: true, username: true, profile: true },
     take: limit,
   });
   return users;
@@ -209,7 +209,7 @@ const connectUserFollowing = async (userId, userToFollowId) => {
       },
     },
     select: {
-      following: true,
+      following: { select: { id: true, username: true, profile: true } },
     },
   });
   return user;
@@ -226,7 +226,7 @@ const disconnectUserFollowing = async (userId, userToUnfollowId) => {
       },
     },
     select: {
-      following: true,
+      following: { select: { username: true, id: true, profile: true } },
     },
   });
   return user;
