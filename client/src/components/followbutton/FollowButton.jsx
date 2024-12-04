@@ -60,7 +60,6 @@ function FollowButton({ userId }) {
 
 FollowButton.propTypes = {
   userId: PropTypes.number.isRequired,
-  update: PropTypes.func.isRequired,
 };
 
 export default FollowButton;
