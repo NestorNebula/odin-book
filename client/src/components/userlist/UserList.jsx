@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Avatar, FollowButton } from '@components';
 import PropTypes from 'prop-types';
 import * as S from './UserList.styles';
@@ -9,11 +10,13 @@ function UserList({ users, details }) {
       <S.Users>
         {users.map((user) => (
           <S.User key={user.id}>
-            <Avatar profile={user.profile} />
-            <S.DisplayName>{user.profile.displayName}</S.DisplayName>
-            <S.Username>@{user.username}</S.Username>
+            <Link to={`${user.id}`}>
+              <Avatar profile={user.profile} />
+              <S.DisplayName>{user.profile.displayName}</S.DisplayName>
+              <S.Username>@{user.username}</S.Username>
+              {details && <S.Bio>{user.profile.bio}</S.Bio>}
+            </Link>
             <FollowButton userId={user.id} />
-            {details && <S.Bio>{user.profile.bio}</S.Bio>}
           </S.User>
         ))}
       </S.Users>
