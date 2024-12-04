@@ -147,6 +147,7 @@ const findNonFollowedUsers = async (id, limit) => {
       followers: {
         every: { id: { not: id } },
       },
+      id: { not: id },
     },
     select: { id: true, username: true, profile: true },
     take: limit,
