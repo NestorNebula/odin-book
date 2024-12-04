@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import HomeContent from './HomeContent';
 import { testsData } from '@services';
 
@@ -16,11 +17,13 @@ const reposts = [
 
 beforeEach(() => {
   render(
-    <HomeContent
-      content={{ posts, followingPosts: posts, reposts }}
-      updateContent={() => {}}
-      updateInformation={() => {}}
-    ></HomeContent>
+    <MemoryRouter>
+      <HomeContent
+        content={{ posts, followingPosts: posts, reposts }}
+        updateContent={() => {}}
+        updateInformation={() => {}}
+      ></HomeContent>
+    </MemoryRouter>
   );
 });
 

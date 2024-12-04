@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import Post from './Post';
 import { testsData } from '@services';
-
 const mockPost = testsData.post({
   details: true,
   numComments: 6,
@@ -12,13 +12,15 @@ const mockPost = testsData.post({
 const mockClick = vi.fn();
 beforeEach(() => {
   render(
-    <Post
-      post={mockPost}
-      onReplyClick={mockClick}
-      onRepostClick={mockClick}
-      onLikeClick={mockClick}
-      onBookmarkClick={mockClick}
-    ></Post>
+    <MemoryRouter>
+      <Post
+        post={mockPost}
+        onReplyClick={mockClick}
+        onRepostClick={mockClick}
+        onLikeClick={mockClick}
+        onBookmarkClick={mockClick}
+      ></Post>
+    </MemoryRouter>
   );
 });
 
