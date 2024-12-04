@@ -50,6 +50,7 @@ function FollowButton({ userId }) {
             const fetch = await followUser();
             if (!fetch.error) updateUser();
           }}
+          disabled={user.loginMethod === 'GUEST'}
         >
           Follow
         </S.FollowButton>
