@@ -180,7 +180,6 @@ function HomeContent({ content, updateContent }) {
 HomeContent.propTypes = {
   content: PropTypes.object.isRequired,
   updateContent: PropTypes.object.isRequired,
-  updateInformation: PropTypes.func.isRequired,
 };
 
 export default HomeContent;
