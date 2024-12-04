@@ -24,7 +24,11 @@ beforeAll(() => {
     return {
       ...actual,
       useContext: vi.fn(() => {
-        return { user: mockUser };
+        return {
+          user: mockUser,
+          updateUser: () => {},
+          updateInformation: () => {},
+        };
       }),
     };
   });
