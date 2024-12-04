@@ -7,7 +7,7 @@ import * as S from './HomeSidebar.styles';
 function HomeSidebar() {
   const [searchValue, setSearchValue] = useState(null);
   const { data, error, loading } = useData({
-    path: `users?omit`,
+    path: `users?omit&limit=10`,
     dependencies: [],
   });
 
