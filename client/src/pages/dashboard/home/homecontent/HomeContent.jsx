@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { repost } from '@assets/icons';
 import * as S from './HomeContent.styles';
 
-function HomeContent({ content, updateContent, updateInformation }) {
-  const { user } = useContext(Context);
+function HomeContent({ content, updateContent }) {
+  const { user, updateInformation } = useContext(Context);
 
   const { posts, followingPosts, reposts } = content;
   const [postLink, setPostLink] = useState(null);
