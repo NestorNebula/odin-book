@@ -1,12 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import UserList from './UserList';
 import { testsData } from '@services';
 
-const usersNumber = Math.random() * 10;
+const usersNumber = Math.random() * 9;
 const users = [];
-for (let i = 0; i < usersNumber; i++) {
+for (let i = 0; i <= usersNumber; i++) {
   users.push(testsData.fullUser({ userId: i }));
 }
 
@@ -20,5 +19,6 @@ describe('UserList', () => {
 
   it('displays users bio when details is set to true', () => {
     render(<UserList users={users} details={true} />);
+    expect(screen.queryByText(users[0].profile.bio)).not.toBeNull();
   });
 });
