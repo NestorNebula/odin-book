@@ -1,6 +1,6 @@
 import fetchAPI from './fetchAPI';
 
-function postInteraction(userId) {
+function createStructure(userId) {
   const isGuest = !+userId;
 
   const post = async (postId, type) => {
@@ -67,5 +67,30 @@ function postInteraction(userId) {
 
   return { repost, undoRepost, like, unlike, bookmark, removeBookmark };
 }
+const doInteraction = async ({ structure, interaction, postId, remove }) => {
+  if (interaction === 'REPOST') {
+    return remove
+      ? await structure.undoRepost(postId)
+      : await structure.repost(postId);
+  } else if (interaction === 'LIKE') {
+    return remove
+      ? await structure.unlike(postId)
+      : await structure.like(postId);
+  } else if (interaction === 'BOOKMARK') {
+    return remove
+      ? await structure.removeBookmark(postId)
+      : await structure.bookmark(postId);
+  }
+};
 
-export default postInteraction;
+const interact = async ({ structure, interaction, postId, remove }) => {
+  const result = await doInteraction({
+    structure,
+    interaction,
+    postId,
+    remove,
+  });
+  return result;
+};
+
+export { createStructure, interact };

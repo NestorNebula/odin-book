@@ -52,22 +52,7 @@ function HomeContent({ content, updateContent }) {
     }
   };
 
-  const interact = postInteraction(user.id);
-  const doInteraction = async (interaction, postId, remove) => {
-    if (interaction === 'REPOST') {
-      return remove
-        ? await interact.undoRepost(postId)
-        : await interact.repost(postId);
-    } else if (interaction === 'LIKE') {
-      return remove
-        ? await interact.unlike(postId)
-        : await interact.like(postId);
-    } else if (interaction === 'BOOKMARK') {
-      return remove
-        ? await interact.removeBookmark(postId)
-        : await interact.bookmark(postId);
-    }
-  };
+  const structure = postInteraction.createStructure(user.id);
   const onPostClick = async (interaction, postId, postType) => {
     if (interaction === 'COMMENT') {
       return setPostLink(`/posts/${postId}`);
@@ -78,13 +63,15 @@ function HomeContent({ content, updateContent }) {
         : postType === 'followingPost'
         ? followingPosts.find((p) => p.id === postId)
         : reposts.find((r) => r.post.id === postId).post;
-    const result = await doInteraction(
+    if (!postToUpdate) return;
+    const result = await postInteraction.interact({
+      structure,
       interaction,
       postId,
-      postToUpdate.interactions.some(
+      remove: postToUpdate.interactions.some(
         (i) => i.type === interaction && i.userId === user.id
-      )
-    );
+      ),
+    });
     if (!result.success) {
       return updateInformation({ error: true, message: result.msg });
     }
