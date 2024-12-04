@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Context } from '@context';
+import { Link } from 'react-router-dom';
 import { Avatar } from '@components';
 import { Button } from '@components/elements';
 import { date } from '@services';
@@ -35,17 +36,21 @@ function Post({
 
   return (
     <S.Post>
-      <Avatar profile={post.user.profile} />
-      <S.Header>
-        <div>{post.user.profile.displayName}</div>
-        <div>@{post.user.username}</div>
-        {!details ? <div>{date.getDate(post.creationDate)}</div> : null}
-      </S.Header>
-      <S.Content>
-        {!!post.content && <div>{post.content}</div>}
-        {!!post.file && <img src={post.file} />}
-        {!!details && <div>{date.getFullDate(post.creationDate)}</div>}
-      </S.Content>
+      <Link to={`${user.id}`}>
+        <Avatar profile={post.user.profile} />
+      </Link>
+      <Link to={`posts/${post.id}`}>
+        <S.Header>
+          <div>{post.user.profile.displayName}</div>
+          <div>@{post.user.username}</div>
+          {!details ? <div>{date.getDate(post.creationDate)}</div> : null}
+        </S.Header>
+        <S.Content>
+          {!!post.content && <div>{post.content}</div>}
+          {!!post.file && <img src={post.file} />}
+          {!!details && <div>{date.getFullDate(post.creationDate)}</div>}
+        </S.Content>
+      </Link>
       <S.Buttons>
         <Button onClick={() => onReplyClick(post.id)}>
           <img src={comment} alt="reply" />
