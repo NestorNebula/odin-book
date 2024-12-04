@@ -25,7 +25,7 @@ function SignIn() {
 
   return (
     <S.SignIn>
-      {!!done && <Navigate to="/" />}
+      {!!done && <Navigate to="/home" />}
       <Dialog.Main dialogRef={dialogRef} close={() => close(setMethod(null))}>
         {open ? (
           method === 'signup' ? (
