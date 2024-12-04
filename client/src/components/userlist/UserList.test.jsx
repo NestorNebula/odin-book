@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import UserList from './UserList';
 import { testsData } from '@services';
 
@@ -11,14 +12,22 @@ for (let i = 0; i <= usersNumber; i++) {
 
 describe('UserList', () => {
   it('renders every user', () => {
-    render(<UserList users={users} />);
+    render(
+      <MemoryRouter>
+        <UserList users={users} />
+      </MemoryRouter>
+    );
     expect(screen.queryAllByRole('button', { name: /follow/i }).length).toBe(
       users.length
     );
   });
 
   it('displays users bio when details is set to true', () => {
-    render(<UserList users={users} details={true} />);
+    render(
+      <MemoryRouter>
+        <UserList users={users} details={true} />
+      </MemoryRouter>
+    );
     expect(screen.queryByText(users[0].profile.bio)).not.toBeNull();
   });
 });
