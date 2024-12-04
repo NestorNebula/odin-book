@@ -57,6 +57,7 @@ const getFakeProfile = ({ id, username }) => {
 
 const getFakePost = ({
   details,
+  file,
   numComments,
   type,
   numInteractions,
@@ -81,7 +82,7 @@ const getFakePost = ({
   return {
     id,
     content: faker.lorem.paragraph(),
-    file: faker.internet.url(),
+    file: file ? faker.internet.url() : null,
     creationDate: faker.date.recent(),
     type: postType,
     comments: details ? comments : null,
