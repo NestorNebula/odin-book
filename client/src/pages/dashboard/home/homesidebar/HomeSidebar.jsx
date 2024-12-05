@@ -14,7 +14,7 @@ function HomeSidebar() {
   return (
     <S.HomeSidebar>
       {searchValue && (
-        <Navigate to={`explore?search=${encodeURIComponent(searchValue)}`} />
+        <Navigate to={`/explore?search=${encodeURIComponent(searchValue)}`} />
       )}
       <SearchBar onSubmit={({ value }) => setSearchValue(value)} />
       {error ? (

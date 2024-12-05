@@ -12,14 +12,13 @@ function ExploreResult({ posts, updatePost, users }) {
   const sections = ['Top', 'Latest', 'People', 'Media'];
   const [activeSection, setActiveSection] = useState(0);
   const recentPosts = posts.toSorted((a, b) => b.creationDate - a.creationDate);
-  console.log(recentPosts);
   const mediaPosts = posts.filter((p) => !!p.file);
 
   const [postLink, setPostLink] = useState(null);
   const structure = postInteraction.createStructure(user.id);
   const onPostClick = async (interaction, postId) => {
     if (interaction === 'COMMENT') {
-      return setPostLink(`posts/${postId}`);
+      return setPostLink(`/posts/${postId}`);
     }
     const postToUpdate = posts.find((post) => post.id === postId);
     if (!postToUpdate) return;

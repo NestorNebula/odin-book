@@ -10,7 +10,7 @@ function UserList({ title, users, details }) {
       <S.Users>
         {users.map((user) => (
           <S.User key={user.id}>
-            <Link to={`${user.id}`}>
+            <Link to={`/${user.id}`}>
               <Avatar profile={user.profile} />
               <S.DisplayName>{user.profile.displayName}</S.DisplayName>
               <S.Username>@{user.username}</S.Username>

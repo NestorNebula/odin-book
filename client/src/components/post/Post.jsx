@@ -36,10 +36,10 @@ function Post({
 
   return (
     <S.Post>
-      <Link to={`${post.userId}`}>
+      <Link to={`/${post.userId}`}>
         <Avatar profile={post.user.profile} />
       </Link>
-      <Link to={`posts/${post.id}`}>
+      <Link to={`/posts/${post.id}`}>
         <S.Header>
           <div>{post.user.profile.displayName}</div>
           <div>@{post.user.username}</div>
