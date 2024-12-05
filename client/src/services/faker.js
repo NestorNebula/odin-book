@@ -85,7 +85,7 @@ const getFakePost = ({
     file: file ? faker.internet.url() : null,
     creationDate: faker.date.recent(),
     type: postType,
-    comments: details ? comments : null,
+    comments: comments,
     commentedPostId: details && type === 'COMMENT' ? commentedPostId : null,
     userId,
     user: getFakeUser({ userId }),
