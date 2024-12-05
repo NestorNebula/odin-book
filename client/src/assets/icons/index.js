@@ -1,5 +1,6 @@
 import avatar from './avatar.png';
 import bookmark from './bookmark.svg';
+import check from './check.svg';
 import close from './close.svg';
 import comment from './comment.svg';
 import emptyBookmark from './emptybookmark.svg';
@@ -19,6 +20,7 @@ import settings from './settings.svg';
 export {
   avatar,
   bookmark,
+  check,
   close,
   comment,
   emptyBookmark,
