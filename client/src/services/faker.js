@@ -10,11 +10,11 @@ const getFullFakeUser = ({
   const name = faker.person.firstName().toLowerCase();
   const following = [];
   for (let i = 0; i < numFollowing; i++) {
-    following.push(getFakeUser());
+    following.push(getFakeUser({}));
   }
   const followers = [];
   for (let i = 0; i < numFollowers; i++) {
-    followers.push(getFakeUser());
+    followers.push(getFakeUser({}));
   }
   const notifications = [];
   for (let i = 0; i < numNotifications; i++) {
@@ -114,7 +114,7 @@ const getFakeInteraction = ({ details, type, postId, authorId, userId }) => {
 const getFakeChat = ({ numMessages, userId }) => {
   const users = [
     getFakeUser({ userId: userId ?? faker.number.int() }),
-    getFakeUser(),
+    getFakeUser({}),
   ];
   const id = faker.number.int();
   const messages = [];
