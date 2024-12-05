@@ -95,7 +95,8 @@ const getFakePost = ({
 
 const getFakeInteraction = ({ details, type, postId, authorId, userId }) => {
   const types = ['LIKE', 'REPOST', 'BOOKMARK'];
-  const interactionType = type ?? types[Math.random() * types.length];
+  const interactionType =
+    type ?? types[Math.floor(Math.random() * types.length)];
   const interactionPostId = details ? postId ?? faker.number.int() : null;
   const interactionUserId = userId ?? faker.number.int();
   return {
@@ -149,7 +150,8 @@ const getFakeMessage = ({ chatId, authorId }) => {
 
 const getFakeNotification = ({ userId, type, seen }) => {
   const types = ['FOLLOW', 'COMMENT', 'LIKE', 'REPOST'];
-  const notificationType = type ?? types[Math.random() * types.length];
+  const notificationType =
+    type ?? types[Math.floor(Math.random() * types.length)];
   const notifierUserId = faker.number.int();
   const postId = notificationType !== 'FOLLOW' ? faker.number.int() : null;
   return {
