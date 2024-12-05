@@ -5,7 +5,7 @@ import { testsData } from '@services';
 
 expect.extend(matchers);
 
-const mockUser = testsData.fullUser({});
+const mockUser = testsData.fullUser({ numFollowing: 5, numFollowers: 5 });
 
 beforeAll(() => {
   vi.stubEnv('VITE_API_URL', null);
