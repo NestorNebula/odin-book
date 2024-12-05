@@ -3,10 +3,10 @@ import { Avatar, FollowButton } from '@components';
 import PropTypes from 'prop-types';
 import * as S from './UserList.styles';
 
-function UserList({ users, details }) {
+function UserList({ title, users, details }) {
   return (
     <S.UserList>
-      <div>Who to Follow</div>
+      {title && <div>{title}</div>}
       <S.Users>
         {users.map((user) => (
           <S.User key={user.id}>
@@ -25,6 +25,7 @@ function UserList({ users, details }) {
 }
 
 UserList.propTypes = {
+  title: PropTypes.string,
   users: PropTypes.array.isRequired,
   details: PropTypes.bool,
 };

@@ -22,7 +22,7 @@ function HomeSidebar() {
       ) : loading ? (
         <Loading data="users to follow" />
       ) : (
-        <UserList users={data.users} />
+        <UserList title="Who to follow" users={data.users} />
       )}
     </S.HomeSidebar>
   );
