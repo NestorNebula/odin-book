@@ -63,7 +63,7 @@ describe('ExploreResult', () => {
     await user.click(latestBtn);
     expect(screen.queryAllByRole('link')[0]).toHaveAttribute(
       'href',
-      orderedPosts[0].userId
+      `/${orderedPosts[0].userId}`
     );
   });
 });
