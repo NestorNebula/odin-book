@@ -1,12 +1,13 @@
 import { faker } from '@faker-js/faker';
 
 const getFullFakeUser = ({
+  userId,
   loginMethod,
   numFollowing,
   numFollowers,
   numNotifications,
 }) => {
-  const id = faker.number.int();
+  const id = userId ?? faker.number.int();
   const name = faker.person.firstName().toLowerCase();
   const following = [];
   for (let i = 0; i < numFollowing; i++) {
