@@ -24,6 +24,6 @@ describe('Chats', () => {
     const user = userEvent.setup();
     const userBtn = screen.getAllByRole('button', { name: /open/i })[0];
     await user.click(userBtn);
-    expect(mockSetChat).toHaveReturnedWith(mockChats[0].id);
+    expect(mockSetChat).toHaveReturnedWith(mockChats[0]);
   });
 });

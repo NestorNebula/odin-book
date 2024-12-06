@@ -16,7 +16,7 @@ function Chats({ chat, chats, setChat }) {
         return (
           <S.Button
             key={chat.id}
-            onClick={() => setChat(chat.id)}
+            onClick={() => setChat(chat)}
             aria-label={
               chat.id === chatId
                 ? `chat with ${friend.profile.displayName} opened`
