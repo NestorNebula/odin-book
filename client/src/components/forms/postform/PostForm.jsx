@@ -4,9 +4,9 @@ import { useInput } from '@hooks';
 import { validationChains } from '@services';
 import { Avatar } from '@components';
 import { Button } from '@components/elements';
-import { Button as SubmitButton, TextArea } from '..';
+import { Button as SubmitButton, FileInput, TextArea } from '..';
 import PropTypes from 'prop-types';
-import { image, close } from '@assets/icons';
+import { close } from '@assets/icons';
 import * as S from './PostForm.styles';
 
 function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
@@ -37,20 +37,9 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
           </Button>
         </S.FileContainer>
       )}
-      <S.FileInputContainer>
-        <S.FileLabel htmlFor="file">
-          <img src={image} alt="upload image for your post" />
-        </S.FileLabel>
-        <S.FileInput
-          id="file"
-          type="file"
-          name="file"
-          value={''}
-          multiple={false}
-          accept="image/*"
-          onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
-        />
-      </S.FileInputContainer>
+      <FileInput
+        onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
+      />
       <SubmitButton
         type={postIsValid ? 'submit' : 'button'}
         disabled={user.loginMethod === 'GUEST'}
