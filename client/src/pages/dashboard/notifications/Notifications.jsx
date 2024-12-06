@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
 import { Context } from '@context';
-import { Error, Loading } from '@components';
+import { Error, DefaultSidebar, Loading } from '@components';
 import { useData } from '@hooks';
 import NotificationList from './notificationlist/NotificationList';
-import NotificationsSidebar from './notificationssidebar/NotificationsSidebar';
 import { fetchAPI } from '@services';
 import * as S from './Notifications.styles';
 
@@ -39,7 +38,7 @@ function Notifications() {
       ) : (
         <NotificationList notifications={data.notifications} />
       )}
-      <NotificationsSidebar />
+      <DefaultSidebar />
     </S.Notifications>
   );
 }

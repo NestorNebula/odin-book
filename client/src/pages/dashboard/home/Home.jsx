@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 import { Context } from '@context';
 import { usePosts } from '@hooks';
-import { Error, Loading } from '@components';
+import { Error, DefaultSidebar, Loading } from '@components';
 import HomeContent from './homecontent/HomeContent';
-import HomeSidebar from './homesidebar/HomeSidebar';
 import styled from 'styled-components';
 
 const StyledHome = styled.main``;
@@ -44,7 +43,7 @@ function Home() {
           }}
         />
       )}
-      <HomeSidebar />
+      <DefaultSidebar />
     </StyledHome>
   );
 }
