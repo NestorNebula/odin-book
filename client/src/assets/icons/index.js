@@ -15,6 +15,7 @@ import message from './message.svg';
 import notification from './notification.svg';
 import profile from './profile.svg';
 import repost from './repost.svg';
+import send from './send.svg';
 import settings from './settings.svg';
 
 export {
@@ -35,5 +36,6 @@ export {
   notification,
   profile,
   repost,
+  send,
   settings,
 };
