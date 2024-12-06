@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker';
 const mockUser = testsData.fullUser({});
 const mockPost = testsData.post({ details: true });
 const mockSubmit = vi.fn();
+const fileFunc = () => {};
 
 vi.mock('react', async () => {
   const actual = await vi.importActual('react');
@@ -24,7 +25,11 @@ describe('PostForm', () => {
   it('displays normal placeholder for post', () => {
     render(
       <MemoryRouter>
-        <PostForm onSubmit={mockSubmit} />
+        <PostForm
+          onSubmit={mockSubmit}
+          updateFile={fileFunc}
+          removeFile={fileFunc}
+        />
       </MemoryRouter>
     );
     expect(screen.queryByPlaceholderText(/what is happening/i)).not.toBeNull();
@@ -33,7 +38,12 @@ describe('PostForm', () => {
   it('displays special placeholder for comment', () => {
     render(
       <MemoryRouter>
-        <PostForm onSubmit={mockSubmit} post={mockPost} />
+        <PostForm
+          onSubmit={mockSubmit}
+          updateFile={fileFunc}
+          removeFile={fileFunc}
+          post={mockPost}
+        />
       </MemoryRouter>
     );
     expect(screen.queryByPlaceholderText(/what is happening/i)).toBeNull();
@@ -43,7 +53,11 @@ describe('PostForm', () => {
   it('calls onSubmit only when content is not empty', async () => {
     render(
       <MemoryRouter>
-        <PostForm onSubmit={mockSubmit} />
+        <PostForm
+          onSubmit={mockSubmit}
+          updateFile={fileFunc}
+          removeFile={fileFunc}
+        />
       </MemoryRouter>
     );
     const user = userEvent.setup();
@@ -59,7 +73,11 @@ describe('PostForm', () => {
   it('prevents user from typing more than characters limit', async () => {
     render(
       <MemoryRouter>
-        <PostForm onSubmit={mockSubmit} />
+        <PostForm
+          onSubmit={mockSubmit}
+          updateFile={fileFunc}
+          removeFile={fileFunc}
+        />
       </MemoryRouter>
     );
     const charactersLimit = 280;

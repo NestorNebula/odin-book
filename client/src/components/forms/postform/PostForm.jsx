@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Context } from '@context';
 import { useInput } from '@hooks';
-import { file, validationChains } from '@services';
+import { validationChains } from '@services';
 import { Avatar } from '@components';
 import { Button } from '@components/elements';
 import { Button as SubmitButton, TextArea } from '..';
@@ -9,53 +9,18 @@ import PropTypes from 'prop-types';
 import { image, close } from '@assets/icons';
 import * as S from './PostForm.styles';
 
-function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
+function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
   const { user } = useContext(Context);
 
-  const [error, setError] = useState(null);
   const {
     value: content,
     updateValue: updateContent,
     validation: contentValidation,
   } = useInput({ validate: validationChains.postContent });
-  const updateFile = async (e) => {
-    if (user.loginMethod === 'GUEST') return;
-    if (fileUrl) {
-      const result = await removeFile();
-      if (!result) return;
-    }
-    const fileToUpload = e.target.files[0];
-    if (!fileToUpload) return;
-    const result = await file.upload({
-      file: fileToUpload,
-      type: 'photos',
-      userId: user.id,
-    });
-    if (result.error) {
-      setError(result.error.msg);
-      return;
-    }
-    setFileUrl(result.url);
-    setError(null);
-  };
-  const removeFile = async () => {
-    const result = await file.remove({
-      url: fileUrl,
-      type: 'photos',
-      userId: user.id,
-    });
-    if (result.error) {
-      setError(result.error.msg);
-      return false;
-    }
-    setFileUrl(null);
-    setError(null);
-    return true;
-  };
 
   const postIsValid = contentValidation.isValid && (!!content || !!fileUrl);
   return (
-    <S.PostForm onSubmit={() => onSubmit({ content, file })}>
+    <S.PostForm onSubmit={() => onSubmit({ content, fileUrl })}>
       <Avatar profile={user.profile} />
       <TextArea
         name="content"
@@ -67,7 +32,7 @@ function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
       {!!fileUrl && (
         <S.FileContainer>
           <S.File src={fileUrl} />
-          <Button onClick={removeFile}>
+          <Button onClick={() => removeFile(user, 'photos')}>
             <img src={close} alt="remove image" />
           </Button>
         </S.FileContainer>
@@ -83,7 +48,7 @@ function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
           value={''}
           multiple={false}
           accept="image/*"
-          onChange={updateFile}
+          onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
         />
       </S.FileInputContainer>
       <SubmitButton
@@ -100,7 +65,9 @@ function PostForm({ onSubmit, fileUrl, setFileUrl, post }) {
 PostForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   fileUrl: PropTypes.string,
-  setFileUrl: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  updateFile: PropTypes.func.isRequired,
+  removeFile: PropTypes.func.isRequired,
   post: PropTypes.object,
 };
 

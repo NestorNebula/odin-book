@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { Context } from '@context';
-import { useDialog, useInformation, useUserData } from '@hooks';
+import { useDialog, useFile, useInformation, useUserData } from '@hooks';
 import { Dialog } from '@components/elements';
 import { PostForm } from '@components/forms';
 import Navbar from './navbar/Navbar';
 import { Error, Loading } from '@components';
-import { fetchAPI, file } from '@services';
+import { fetchAPI } from '@services';
 import * as S from './Dashboard.styles';
 
 function Dashboard() {
@@ -16,7 +16,13 @@ function Dashboard() {
   const { dialogRef, open, close } = useDialog();
   const [dialogOpened, setDialogOpened] = useState(false);
   const { information, updateInformation } = useInformation();
-  const [fileUrl, setFileUrl] = useState(null);
+  const {
+    fileUrl,
+    setFileUrl,
+    error: fileError,
+    updateFile,
+    removeFile,
+  } = useFile();
 
   const submitPost = async ({ content, file }) => {
     const fetch = await fetchAPI({
@@ -43,8 +49,7 @@ function Dashboard() {
   };
   const closePostForm = async () => {
     if (fileUrl) {
-      await file.remove({ url: fileUrl, type: 'photos', userId: userData.id });
-      setFileUrl(null);
+      await removeFile(userData, 'photos');
     }
     close();
     setDialogOpened(false);
@@ -67,7 +72,9 @@ function Dashboard() {
             <PostForm
               onSubmit={submitPost}
               fileUrl={fileUrl}
-              setFileUrl={setFileUrl}
+              error={fileError}
+              updateFile={updateFile}
+              removeFile={removeFile}
             />
           ) : (
             <></>

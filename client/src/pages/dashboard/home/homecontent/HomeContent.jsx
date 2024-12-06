@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
+import { useFile } from '@hooks';
 import { Post } from '@components';
 import { Button } from '@components/elements';
 import { PostForm } from '@components/forms';
@@ -31,7 +32,7 @@ function HomeContent({ content, updateContent }) {
     return b.creationDate - a.creationDate;
   });
 
-  const [fileUrl, setFileUrl] = useState(null);
+  const { fileUrl, setFileUrl, error, updateFile, removeFile } = useFile();
 
   const submitPost = async ({ content, file }) => {
     const fetch = await fetchAPI({
@@ -102,6 +103,9 @@ function HomeContent({ content, updateContent }) {
         onSubmit={submitPost}
         fileUrl={fileUrl}
         setFileUrl={setFileUrl}
+        error={error}
+        updateFile={updateFile}
+        removeFile={removeFile}
       />
       <S.Posts>
         {sections[displayedSection] === 'All'

@@ -20,7 +20,7 @@ beforeEach(() => {
     <MemoryRouter>
       <HomeContent
         content={{ posts, followingPosts: posts, reposts }}
-        updateContent={() => {}}
+        updateContent={{}}
         updateInformation={() => {}}
       ></HomeContent>
     </MemoryRouter>
