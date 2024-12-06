@@ -12,6 +12,7 @@ import home from './home.svg';
 import icon from './icon.svg';
 import image from './image.svg';
 import message from './message.svg';
+import newMessage from './new-message.svg';
 import notification from './notification.svg';
 import profile from './profile.svg';
 import repost from './repost.svg';
@@ -33,6 +34,7 @@ export {
   icon,
   image,
   message,
+  newMessage,
   notification,
   profile,
   repost,
