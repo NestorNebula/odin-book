@@ -13,8 +13,8 @@ describe('MessageForm', () => {
     const submitBtn = screen.getByRole('button', { name: /send/i });
     await user.click(submitBtn);
     expect(mockSubmit).not.toHaveBeenCalled();
-    const input = screen.getByRole('textbox', { name: /messsage/i });
-    await user.type(input, testsData.message().content);
+    const input = screen.getByPlaceholderText(/message/i);
+    await user.type(input, testsData.message({}).content);
     await user.click(submitBtn);
     expect(mockSubmit).toHaveBeenCalled();
   });
