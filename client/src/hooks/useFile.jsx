@@ -10,6 +10,7 @@ const useFile = () => {
     if (fileUrl) {
       const result = await removeFile(user, type);
       if (!result) return;
+      setFileUrl(null);
     }
     const fileToUpload = fileInput;
     if (!fileToUpload) return;
