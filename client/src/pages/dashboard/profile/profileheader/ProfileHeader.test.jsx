@@ -6,7 +6,7 @@ import { testsData } from '@services';
 
 describe('ProfileHeader', () => {
   it("renders given user's profile", () => {
-    const user = testsData.user({});
+    const user = testsData.fullUser({});
     render(
       <MemoryRouter>
         <ProfileHeader user={user} isUser={false} />
@@ -17,7 +17,7 @@ describe('ProfileHeader', () => {
   });
 
   it('renders profile dialog when given user is user', () => {
-    const user = testsData.user({ userId: 48 });
+    const user = testsData.fullUser({ userId: 48 });
     render(
       <MemoryRouter>
         <ProfileHeader user={user} isUser={true} />
@@ -29,7 +29,7 @@ describe('ProfileHeader', () => {
   });
 
   it("renders follow button when given user isn't user", () => {
-    const user = testsData.user({});
+    const user = testsData.fullUser({});
     render(
       <MemoryRouter>
         <ProfileHeader user={user} isUser={false} />
