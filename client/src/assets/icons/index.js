@@ -6,6 +6,7 @@ import comment from './comment.svg';
 import emptyBookmark from './emptybookmark.svg';
 import emptyHeart from './emptyheart.svg';
 import explore from './explore.svg';
+import extend from './extend.svg';
 import github from './github.svg';
 import heart from './heart.svg';
 import home from './home.svg';
@@ -28,6 +29,7 @@ export {
   emptyBookmark,
   emptyHeart,
   explore,
+  extend,
   github,
   heart,
   home,
