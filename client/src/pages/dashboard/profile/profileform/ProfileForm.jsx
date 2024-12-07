@@ -54,10 +54,18 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
       onSubmit={() => onSubmit({ displayName, bio, location, website })}
     >
       <S.FileContainer>
-        {backgroundFile.url && <S.File src={backgroundFile.url} alt="" />}
-        <button onClick={backgroundFile.remove} aria-label="remove background">
-          <img src={close} alt="" />
-        </button>
+        {backgroundFile.url ||
+          (profile.background && (
+            <S.File src={backgroundFile.url || profile.background} alt="" />
+          ))}
+        {backgroundFile.url && (
+          <button
+            onClick={backgroundFile.remove}
+            aria-label="remove background"
+          >
+            <img src={close} alt="" />
+          </button>
+        )}
         <FileInput
           onChange={(e) =>
             backgroundFile.update(user, e.target.files[0], 'backgrounds')
@@ -66,9 +74,10 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
         />
       </S.FileContainer>
       <S.FileContainer>
-        {avatarFile.url && (
-          <Avatar profile={{ avatar: avatarFile.url || user.profile.avatar }} />
-        )}
+        {avatarFile.url ||
+          (profile.avatar && (
+            <Avatar profile={{ avatar: avatarFile.url || profile.avatar }} />
+          ))}
         <FileInput
           onChange={(e) =>
             avatarFile.update(user, e.target.files[0], 'avatars')
