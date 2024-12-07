@@ -1,10 +1,11 @@
 import Avatar from './avatar/Avatar';
-import DefaultSidebar from './defaultsidebar/DefaultSidebar';
 import CommentDialog from './commentdialog/CommentDialog';
+import DefaultSidebar from './defaultsidebar/DefaultSidebar';
 import Error from './Error';
 import FollowButton from './followbutton/FollowButton';
 import Loading from './Loading';
 import Post from './post/Post';
+import PostDetails from './postdetails/PostDetails';
 import SearchBar from './searchbar/SearchBar';
 import UserList from './userlist/UserList';
 
@@ -16,6 +17,7 @@ export {
   FollowButton,
   Loading,
   Post,
+  PostDetails,
   SearchBar,
   UserList,
 };
