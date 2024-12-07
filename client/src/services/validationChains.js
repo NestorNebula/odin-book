@@ -73,6 +73,46 @@ const validationChains = {
       return inputValidation(content, 'Content').result();
     },
   },
+
+  displayName: {
+    before: (name) => {
+      return inputValidation(name, 'Name').maxLength(50).result();
+    },
+    after: (name) => {
+      return inputValidation(name, 'Name').minLength(1).result();
+    },
+  },
+
+  bio: {
+    before: (bio) => {
+      return inputValidation(bio, 'Bio').maxLength(160).result();
+    },
+    after: (bio) => {
+      return inputValidation(bio, 'Bio').result();
+    },
+  },
+
+  location: {
+    before: (location) => {
+      return inputValidation(location, 'Location').maxLength(30).result();
+    },
+    after: (location) => {
+      return inputValidation(location, 'Location').result();
+    },
+  },
+
+  website: {
+    before: (website) => {
+      return inputValidation(website, 'Website').maxLength(100).result();
+    },
+    after: (website) => {
+      return inputValidation(website, 'Website')
+        .format(
+          new RegExp('^https:\\/\\/[\\w\\.\\/-]+\\.[a-z]{2,4}[\\w\\.\\/-?=#]*$')
+        )
+        .result();
+    },
+  },
 };
 
 export default validationChains;
