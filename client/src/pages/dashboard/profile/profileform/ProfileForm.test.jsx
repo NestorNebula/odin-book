@@ -19,10 +19,10 @@ beforeEach(() =>
 
 describe('ProfileForm', () => {
   it('renders form with existing values', () => {
-    expect(screen.queryByText(profile.displayName)).not.toBeNull();
+    expect(screen.queryByLabelText(/name/i)).toHaveValue(profile.displayName);
     expect(screen.queryByText(profile.bio)).not.toBeNull();
-    expect(screen.queryByText(profile.location)).not.toBeNull();
-    expect(screen.queryByText(profile.website)).not.toBeNull();
+    expect(screen.queryByLabelText(/location/i)).toHaveValue(profile.location);
+    expect(screen.queryByLabelText(/website/i)).toHaveValue(profile.website);
   });
 
   it('calls submit only when values are correct', async () => {
