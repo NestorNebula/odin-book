@@ -15,6 +15,7 @@ import image from './image.svg';
 import message from './message.svg';
 import newMessage from './new-message.svg';
 import notification from './notification.svg';
+import photo from './photo.svg';
 import profile from './profile.svg';
 import repost from './repost.svg';
 import send from './send.svg';
@@ -39,6 +40,7 @@ export {
   newMessage,
   notification,
   profile,
+  photo,
   repost,
   send,
   settings,
