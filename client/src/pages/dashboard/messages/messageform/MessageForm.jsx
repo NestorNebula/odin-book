@@ -5,7 +5,7 @@ import { file } from '@services';
 import { Button } from '@components/elements';
 import { Button as SubmitButton, FileInput, TextArea } from '@components/forms';
 import PropTypes from 'prop-types';
-import { close, send } from '@assets/icons';
+import { close, send, image } from '@assets/icons';
 import * as S from './MessageForm.styles';
 
 function MessageForm({ onSubmit }) {
@@ -31,6 +31,7 @@ function MessageForm({ onSubmit }) {
       {!fileUrl && (
         <FileInput
           onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
+          image={image}
         />
       )}
       {fileUrl && (

@@ -6,7 +6,7 @@ import { Avatar } from '@components';
 import { Button } from '@components/elements';
 import { Button as SubmitButton, FileInput, TextArea } from '..';
 import PropTypes from 'prop-types';
-import { close } from '@assets/icons';
+import { close, image } from '@assets/icons';
 import * as S from './PostForm.styles';
 
 function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
@@ -39,6 +39,7 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
       )}
       <FileInput
         onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
+        image={image}
       />
       <SubmitButton
         type={postIsValid ? 'submit' : 'button'}

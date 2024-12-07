@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import { image } from '@assets/icons';
 import * as S from './FileInput.styles';
 
-function FileInput({ onChange }) {
+function FileInput({ onChange, image }) {
   return (
     <S.Container>
       <S.Label htmlFor="file">
@@ -23,6 +22,7 @@ function FileInput({ onChange }) {
 
 FileInput.propTypes = {
   onChange: PropTypes.func.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default FileInput;
