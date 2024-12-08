@@ -47,11 +47,11 @@ const putProfile = [
     const updatedProfile = await prisma.updateProfile(
       profile.userId,
       req.body.displayName,
-      req.body.avatar.length ? req.body.avatar : null,
-      req.body.background.length ? req.body.background : null,
-      req.body.bio.length ? req.body.bio : null,
-      req.body.website.length ? req.body.website : null,
-      req.body.location.length ? req.body.location : null
+      req.body.avatar,
+      req.body.background,
+      req.body.bio ?? null,
+      req.body.website ?? null,
+      req.body.location ?? null
     );
     if (!updatedProfile) {
       return next(
