@@ -14,6 +14,7 @@ import home from './home.svg';
 import icon from './icon.svg';
 import image from './image.svg';
 import link from './link.svg';
+import lock from './lock.svg';
 import map from './map.svg';
 import message from './message.svg';
 import newMessage from './new-message.svg';
@@ -41,6 +42,7 @@ export {
   icon,
   image,
   link,
+  lock,
   map,
   message,
   newMessage,
