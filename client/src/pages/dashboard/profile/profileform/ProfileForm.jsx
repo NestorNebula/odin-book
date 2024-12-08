@@ -119,7 +119,7 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
       />
       <Button
         type={isValid ? 'submit' : 'button'}
-        disabled={user.loginMethod === 'GITHUB'}
+        disabled={user.loginMethod === 'GUEST'}
       >
         Save
       </Button>
