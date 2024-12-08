@@ -14,7 +14,7 @@ function Profile() {
 
   const { data, error, loading } = useData({
     path: `users/${userId}`,
-    dependencies: [userId],
+    dependencies: [user, userId],
   });
   const { posts, reposts, updatePost, updateRepost } = usePosts({
     postsPath: `users/${userId}/posts`,
