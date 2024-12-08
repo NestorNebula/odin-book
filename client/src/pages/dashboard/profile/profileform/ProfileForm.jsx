@@ -51,7 +51,10 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
 
   return (
     <S.ProfileForm
-      onSubmit={() => onSubmit({ displayName, bio, location, website })}
+      onSubmit={async (e) => {
+        e.preventDefault();
+        onSubmit({ displayName, bio, location, website });
+      }}
     >
       <S.FileContainer>
         {backgroundFile.url ||
