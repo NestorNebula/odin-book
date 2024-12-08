@@ -29,7 +29,8 @@ function inputValidation(inputValue, inputName) {
     return this;
   }
 
-  function format(regex, example) {
+  function format(regex, example, optional) {
+    if (optional && !value) return this;
     const result = regex.test(value);
     if (!result) {
       setError(

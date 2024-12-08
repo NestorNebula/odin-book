@@ -108,7 +108,11 @@ const validationChains = {
     after: (website) => {
       return inputValidation(website, 'Website')
         .format(
-          new RegExp('^https:\\/\\/[\\w\\.\\/-]+\\.[a-z]{2,4}[\\w\\.\\/-?=#]*$')
+          new RegExp(
+            '^https:\\/\\/[\\w\\.\\/-]+\\.[a-z]{2,4}[\\w\\.\\/-?=#]*$'
+          ),
+          'https://github.com/NestorNebula',
+          true
         )
         .result();
     },
