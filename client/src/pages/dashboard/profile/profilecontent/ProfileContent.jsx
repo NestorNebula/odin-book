@@ -115,14 +115,6 @@ function ProfileContent({ content, update, isUser }) {
                   <div>{p.post.userId} reposted</div>
                 </div>
               )}
-              {p.type === 'COMMENT' && p.post.commentedPost && (
-                <div>
-                  Replying to{' '}
-                  <Link to={`posts/${p.post.commentedPostId}`}>
-                    @{p.post.commentedPost.user.id}
-                  </Link>
-                </div>
-              )}
               <Post
                 post={p.post}
                 onReplyClick={() => onPostClick('COMMENT', p.post.id, p.type)}
@@ -151,14 +143,6 @@ function ProfileContent({ content, update, isUser }) {
             </div>
             {likes.map((l) => (
               <S.Like key={l.post.id}>
-                {l.post.type === 'COMMENT' && l.post.commentedPost && (
-                  <div>
-                    Replying to{' '}
-                    <Link to={`posts/${l.post.commentedPostId}`}>
-                      @{l.post.commentedPost.user.id}
-                    </Link>
-                  </div>
-                )}
                 <Post
                   key={l.post.id}
                   post={l.post}

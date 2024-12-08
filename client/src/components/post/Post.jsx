@@ -36,6 +36,14 @@ function Post({
 
   return (
     <S.Post>
+      {post.type === 'COMMENT' && post.commentedPost && (
+        <div>
+          Replying to{' '}
+          <Link to={`/posts/${post.commentedPost.id}`}>
+            @{post.commentedPost.user.username}
+          </Link>
+        </div>
+      )}
       <Link to={`/${post.userId}`}>
         <Avatar profile={post.user.profile} />
       </Link>
