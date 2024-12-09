@@ -5,6 +5,7 @@ import Notifications from '@pages/dashboard/notifications/Notifications';
 import Messages from '@pages/dashboard/messages/Messages';
 import Bookmarks from '@pages/dashboard/bookmarks/Bookmarks';
 import Profile from '@pages/dashboard/profile/Profile';
+import Connections from '@pages/dashboard/connections/Connections';
 import SignIn from '@pages/signin/SignIn';
 import { dashboardLoader, signInLoader } from '@loaders';
 
@@ -37,6 +38,10 @@ const routes = [
       {
         path: '/:userId',
         element: <Profile />,
+      },
+      {
+        path: '/:userId/connections',
+        element: <Connections />,
       },
     ],
   },
