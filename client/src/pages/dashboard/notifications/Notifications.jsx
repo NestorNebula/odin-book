@@ -7,7 +7,7 @@ import { fetchAPI } from '@services';
 import * as S from './Notifications.styles';
 
 function Notifications() {
-  const { user } = useContext(Context);
+  const { user, updateUser } = useContext(Context);
   const [seen, setSeen] = useState(false);
   const [updateNotifications, setUpdateNotifications] = useState(false);
   const { data, error, loading } = useData({
@@ -24,6 +24,7 @@ function Notifications() {
       }).then((fetch) => {
         if (fetch.error) return;
         setUpdateNotifications(true);
+        updateUser();
       });
     }
   }
