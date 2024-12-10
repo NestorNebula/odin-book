@@ -137,7 +137,7 @@ function SettingsForm({ type, onSubmit }) {
           {!passwordMatch && <div>{"Passwords don't match."}</div>}
           <Button
             type={passwordIsValid ? 'submit' : 'button'}
-            disabled={user.loginMethod === 'GUEST'}
+            disabled={user.loginMethod !== 'PASSWORD'}
           >
             Save
           </Button>
