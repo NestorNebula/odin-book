@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const prisma = require('../models/queries');
+const bcrypt = require('bcrypt');
 
 const validateUser = [
   body('username')
@@ -65,6 +66,15 @@ const validateUserUpdate = [
     .trim()
     .isLength({ min: 8 })
     .withMessage('Password must have at least 8 characters.'),
+  body('currentPassword')
+    .optional()
+    .trim()
+    .custom(async (currentPassword, { req }) => {
+      const user = await prisma.findLoggedUserById(req.user.id);
+      if (bcrypt.hashSync(currentPassword, 10) !== user.password) {
+        throw new Error('Your current password is incorrect.');
+      }
+    }),
 ];
 
 const validateProfileUpdate = [

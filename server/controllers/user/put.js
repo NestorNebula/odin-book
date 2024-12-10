@@ -14,7 +14,7 @@ const putUser = [
     if (!result.isEmpty()) {
       return res.status(400).json({ errors: result.array() });
     }
-    const user = await prisma.findUserById(req.user.id);
+    const user = await prisma.findLoggedUserById(req.user.id);
     const password = req.body.password
       ? bcrypt.hashSync(req.body.password, 10)
       : user.password;
