@@ -6,6 +6,7 @@ import Messages from '@pages/dashboard/messages/Messages';
 import Bookmarks from '@pages/dashboard/bookmarks/Bookmarks';
 import Profile from '@pages/dashboard/profile/Profile';
 import Connections from '@pages/dashboard/connections/Connections';
+import Settings from '@pages/dashboard/settings/Settings';
 import SignIn from '@pages/signin/SignIn';
 import { dashboardLoader, signInLoader } from '@loaders';
 
@@ -34,6 +35,10 @@ const routes = [
       {
         path: 'bookmarks',
         element: <Bookmarks />,
+      },
+      {
+        path: '/settings',
+        element: <Settings />,
       },
       {
         path: '/:userId',
