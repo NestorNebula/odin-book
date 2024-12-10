@@ -64,6 +64,7 @@ function Settings() {
     if (fetch.error) {
       updateInformation('Error when logging out.');
     } else {
+      localStorage.removeItem('id');
       setActiveSection(sections.length - 1);
     }
   };
