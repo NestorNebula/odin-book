@@ -35,7 +35,7 @@ describe('SettingsForm', () => {
   it('renders logout form and calls submit function', async () => {
     render(<SettingsForm type="logout" onSubmit={mockSubmit} />);
     const user = userEvent.setup();
-    const logOutBtn = screen.getByLabelText(/log out/i);
+    const logOutBtn = screen.getByRole('button', { name: /log out/i });
     await user.click(logOutBtn);
     expect(mockSubmit).toHaveBeenCalled();
   });
