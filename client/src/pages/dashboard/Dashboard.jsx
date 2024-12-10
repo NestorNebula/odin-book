@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { Context } from '@context';
 import { useDialog, useFile, useInformation, useUserData } from '@hooks';
@@ -7,11 +7,25 @@ import { PostForm } from '@components/forms';
 import Navbar from './navbar/Navbar';
 import { Error, Loading } from '@components';
 import { fetchAPI } from '@services';
+import { io } from 'socket.io-client';
 import * as S from './Dashboard.styles';
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
   const { userId } = useLoaderData();
   const { userData, error, loading, updateUserData } = useUserData({ userId });
+  const socket = io(API_URL, {
+    transports: ['websocket', 'polling', 'flashsocket'],
+    withCredentials: true,
+  });
+
+  useEffect(() => {
+    socket.on('notification', updateUserData);
+
+    return () => {
+      socket.off('notification', updateUserData);
+    };
+  });
 
   const { dialogRef, open, close } = useDialog();
   const [dialogOpened, setDialogOpened] = useState(false);
