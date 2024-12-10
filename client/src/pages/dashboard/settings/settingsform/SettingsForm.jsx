@@ -122,7 +122,7 @@ function SettingsForm({ type, onSubmit }) {
             name="newPassword"
             value={newPassword}
             updateValue={updatePassword}
-            validation={currentPassword}
+            validation={currentValidation}
             label="New Password"
             type="password"
           />
