@@ -11,6 +11,7 @@
       "@pages": ["src/pages"],
       "@routes": ["src/routes"],
       "@services": ["src/services"],
+      "@styles": ["src/styles"],
       "@actions/*": ["src/actions/*"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
@@ -20,6 +21,7 @@
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
       "@services/*": ["src/services/*"],
+      "@styles/*": ["src/styles/*"],
       "@/*": ["src/*"]
     }
   }
