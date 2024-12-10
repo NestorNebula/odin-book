@@ -75,11 +75,14 @@ function Settings() {
       </S.Header>
       <S.Navbar>
         <ul>
-          {sections.map((s, index) => (
-            <li key={s}>
-              <button onClick={() => setActiveSection(index)}>{s}</button>
-            </li>
-          ))}
+          {sections.map(
+            (s, index) =>
+              index !== sections.length - 1 && (
+                <li key={s}>
+                  <button onClick={() => setActiveSection(index)}>{s}</button>
+                </li>
+              )
+          )}
         </ul>
       </S.Navbar>
       {sections[activeSection] === 'Change username/email' ? (
