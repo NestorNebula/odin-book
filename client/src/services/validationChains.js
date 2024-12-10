@@ -45,6 +45,17 @@ const validationChains = {
     },
   },
 
+  currentPassword: {
+    before: (password) => {
+      return inputValidation(password, 'Current Password').result();
+    },
+    after: (password) => {
+      return inputValidation(password, 'Current Password')
+        .minLength(1, false, 'Please enter your current password.')
+        .result();
+    },
+  },
+
   password: {
     before: (password) => {
       return inputValidation(password, 'Password').result();
