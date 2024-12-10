@@ -54,6 +54,13 @@ const findUserByUsermail = async (usermail) => {
   return user;
 };
 
+const findLoggedUserById = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+  return user;
+};
+
 const findUserById = async (id) => {
   const user = await prisma.user.findUnique({
     where: { id },
@@ -636,6 +643,7 @@ const __deleteUsers = async () => {
 module.exports = {
   findOrCreateUser,
   findUserByUsermail,
+  findLoggedUserById,
   findUserById,
   findUserByUsername,
   __findFullUserByUsername,
