@@ -1,5 +1,6 @@
 const logOut = (req, res) => {
-  res.clearCookie('session').clearCookie('session.sig').json({ success: true });
+  req.session = null;
+  res.json({ success: true });
 };
 
 module.exports = logOut;
