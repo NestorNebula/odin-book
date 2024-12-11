@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledDialog = styled.dialog``;
+const StyledDialog = styled.dialog`
+  border-radius: 10px;
+`;
 
 function Dialog({ children, dialogRef, close }) {
   return (
