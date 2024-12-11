@@ -79,6 +79,11 @@ input {
   background-color: inherit;
   color: inherit;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
 `;
 
 export default GlobalStyle;
