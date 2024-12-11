@@ -4,7 +4,10 @@ import { Input, Button, AuthenticationForm } from '@components/forms';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledPwdErrorDiv = styled.div``;
+const StyledPwdErrorDiv = styled.div`
+  color: ${(props) => props.theme.red};
+  font-size: 1.3rem;
+`;
 
 function SignUpForm({ onSubmit }) {
   const {
