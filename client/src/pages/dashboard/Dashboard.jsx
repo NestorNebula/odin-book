@@ -113,7 +113,9 @@ function Dashboard() {
         <Navbar openNewPost={openPostForm} />
         <Outlet />
         {!!information.message && (
-          <S.Information>{information.message}</S.Information>
+          <S.Information $error={information.error}>
+            {information.message}
+          </S.Information>
         )}
       </S.Dashboard>
     </Context.Provider>
