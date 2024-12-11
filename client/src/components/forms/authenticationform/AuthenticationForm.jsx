@@ -1,7 +1,14 @@
 import PropTypes, { node } from 'prop-types';
 import styled from 'styled-components';
 
-const StyledAuthenticationForm = styled.form``;
+const StyledAuthenticationForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 2.5rem 7.5rem;
+  font-size: 1.75rem;
+  width: clamp(400px, 50vw, 600px);
+`;
 
 function AuthenticationForm({ onSubmit, children }) {
   return (
