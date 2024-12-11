@@ -4,8 +4,6 @@ const SignIn = styled.main`
   height: 100vh;
   font-size: 1.5rem;
   font-weight: 500;
-  color: ${(props) => props.theme.secondaryWhite};
-  background-color: ${(props) => props.theme.black};
   justify-content: center;
   display: grid;
   align-items: center;

@@ -50,6 +50,11 @@ h6 {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+#root {
+  color: ${theme.secondaryWhite};
+  background-color: ${theme.black};
+}
+
 a {
   color: inherit;
   text-decoration: none;
