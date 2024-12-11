@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledDialogHeader = styled.header``;
+const StyledDialogHeader = styled.header`
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+`;
 
 function DialogHeader({ children }) {
   return <StyledDialogHeader>{children}</StyledDialogHeader>;
