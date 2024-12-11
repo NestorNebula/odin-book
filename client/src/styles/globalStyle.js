@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from './theme';
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -60,6 +61,18 @@ button {
 
 button:hover {
   cursor: pointer;
+}
+
+dialog {
+  background-color: ${theme.black};
+  color: ${theme.secondaryWhite};
+  place-self: center;
+  border: none;
+}
+
+input {
+  background-color: inherit;
+  color: inherit;
 }
 `;
 
