@@ -5,6 +5,7 @@ import SignUpForm from './signupform/SignUpForm';
 import LoginForm from './loginform/LoginForm';
 import icon from '@assets/icons/icon.svg';
 import * as S from './SignIn.styles';
+import { theme } from '@styles';
 import ghIcon from '@assets/icons/github.svg';
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -32,11 +33,11 @@ function SignIn() {
             <>
               <Dialog.Header>
                 <Dialog.CloseButton close={() => close(setMethod(null))} />
-                <div>
+                <S.DialogHeaderContent>
                   <img src={icon} alt="" />
                   <div>Create your account</div>
-                  <div></div>
-                </div>
+                </S.DialogHeaderContent>
+                <div></div>
               </Dialog.Header>
               <SignUpForm onSubmit={methods.signUp} />
             </>
@@ -44,11 +45,11 @@ function SignIn() {
             <>
               <Dialog.Header>
                 <Dialog.CloseButton close={() => close(setMethod(null))} />
-                <div>
+                <S.DialogHeaderContent>
                   <img src={icon} alt="" />
                   <div>Log In to Odin-Book</div>
-                  <div></div>
-                </div>
+                </S.DialogHeaderContent>
+                <div></div>
               </Dialog.Header>
               <LoginForm onSubmit={methods.logIn} />
             </>
@@ -62,29 +63,41 @@ function SignIn() {
           <div>Join today.</div>
         </S.SectionHeader>
         <S.Methods>
-          <div>
+          <S.Method>
             <Button onClick={close}>
               <a href={`${API_URL}/auth/signin/github`}>
                 <img src={ghIcon} alt="" />
                 <div>Sign In with GitHub</div>
               </a>
             </Button>
-          </div>
-          <div>or</div>
-          <div>
-            <Button onClick={() => updateMethod('signup', true)}>
+          </S.Method>
+          <S.Method>or</S.Method>
+          <S.OtherMethods>
+            <Button
+              onClick={() => updateMethod('signup', true)}
+              backgroundColor={theme.mainBlue}
+              color={theme.mainWhite}
+            >
               Create account
             </Button>
-            <Button onClick={() => updateMethod('login', true)}>Log In</Button>
+            <Button
+              onClick={() => updateMethod('login', true)}
+              backgroundColor={theme.mainBlue}
+              color={theme.mainWhite}
+            >
+              Log In
+            </Button>
             <Button
               onClick={async () => {
                 updateMethod('guest', false);
                 await methods.guest();
               }}
+              backgroundColor={theme.black}
+              color={theme.mainBlue}
             >
               Sign In as Guest
             </Button>
-          </div>
+          </S.OtherMethods>
         </S.Methods>
       </S.Section>
       {((errors && errors.length) || fail) && (
