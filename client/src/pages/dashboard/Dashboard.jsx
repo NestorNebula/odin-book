@@ -17,6 +17,22 @@ function Dashboard() {
   const socket = io(API_URL, {
     transports: ['websocket', 'polling', 'flashsocket'],
     withCredentials: true,
+    reconnection: false,
+  });
+
+  useEffect(() => {
+    const tryReconnect = () => {
+      setTimeout(() => {
+        socket.io.open((err) => {
+          if (err) {
+            tryReconnect();
+          }
+        });
+      }, 5000);
+    };
+    socket.on('connect_error', tryReconnect);
+
+    return () => socket.off('connect_error', tryReconnect);
   });
 
   useEffect(() => {
