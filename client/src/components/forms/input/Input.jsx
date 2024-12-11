@@ -21,6 +21,8 @@ function Input({
         type={type}
         required={!optional}
         autoComplete="on"
+        placeholder=""
+        $invalid={!validation.isValid}
       />
       <S.Label htmlFor={name}>{label}</S.Label>
       {!!maxLength && (
