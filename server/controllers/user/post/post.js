@@ -34,15 +34,17 @@ const postPost = [
         req.body.content ? req.body.content : null,
         req.body.file ? req.body.file : null
       );
-      await prisma.createNotification(
-        req.user.id,
-        post.userId,
-        'COMMENT',
-        post.id
-      );
-      const io = req.io;
-      if (io) {
-        io.to(post.userId).emit('notification');
+      if (req.user.id !== post.userId) {
+        await prisma.createNotification(
+          req.user.id,
+          post.userId,
+          'COMMENT',
+          post.id
+        );
+        const io = req.io;
+        if (io) {
+          io.to(post.userId).emit('notification');
+        }
       }
       return res.json({ comment });
     } else {
