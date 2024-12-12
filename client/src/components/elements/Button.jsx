@@ -14,7 +14,8 @@ const StyledButton = styled.button`
   font-weight: 700;
 
   &:hover {
-    background-color: ${(props) => props.theme.fourthGray};
+    background-color: ${(props) =>
+      props.$noHover ? 'auto' : props.theme.fourthGray};
   }
 `;
 
@@ -25,6 +26,7 @@ function Button({ children, onClick, ...props }) {
       onClick={onClick}
       $backgroundColor={props.backgroundColor}
       $color={props.color}
+      $noHover={props.noHover}
     >
       {children}
     </StyledButton>
@@ -36,6 +38,7 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   backgroundColor: PropTypes.string,
   color: PropTypes.string,
+  noHover: PropTypes.bool,
 };
 
 export default Button;
