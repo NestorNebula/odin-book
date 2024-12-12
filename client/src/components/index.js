@@ -4,6 +4,7 @@ import DefaultSidebar from './defaultsidebar/DefaultSidebar';
 import Error from './Error';
 import FollowButton from './followbutton/FollowButton';
 import Loading from './Loading';
+import NavbarButton from './navbarbutton/NavbarButton';
 import Post from './post/Post';
 import PostDetails from './postdetails/PostDetails';
 import SearchBar from './searchbar/SearchBar';
@@ -16,6 +17,7 @@ export {
   Error,
   FollowButton,
   Loading,
+  NavbarButton,
   Post,
   PostDetails,
   SearchBar,
