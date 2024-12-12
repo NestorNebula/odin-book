@@ -48,8 +48,8 @@ const postPost = [
     } else {
       const post = await prisma.createPost(
         req.user.id,
-        req.body.content.length ? req.body.content : null,
-        req.body.file.length ? req.body.file : null
+        req.body.content ? req.body.content : null,
+        req.body.file ? req.body.file : null
       );
       return res.json({ post });
     }
