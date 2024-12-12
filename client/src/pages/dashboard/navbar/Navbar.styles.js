@@ -11,9 +11,11 @@ const Navbar = styled.nav`
     & > button {
       padding: 1.5rem;
     }
+    justify-self: center;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
       align-items: center;
+      justify-self: end;
 
       & > button {
         padding: 0.5rem;

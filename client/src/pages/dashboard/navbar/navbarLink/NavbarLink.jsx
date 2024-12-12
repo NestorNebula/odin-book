@@ -20,7 +20,7 @@ const StyledNavbarLinkItem = styled.li`
     & > div:last-child {
       text-transform: capitalize;
 
-      @media (max-width: 1000px) {
+      @media (max-width: 1200px) {
         display: none;
       }
     }
