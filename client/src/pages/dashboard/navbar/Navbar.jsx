@@ -70,7 +70,11 @@ function Navbar({ openNewPost }) {
         />
         <NavbarLink link="settings" iconSrc={icons.settings} />
         <Button onClick={openNewPost}>
-          {width >= 1000 ? 'Post' : <S.PostIcon src={icons.write} alt="" />}
+          {width >= 1000 ? (
+            'Post'
+          ) : (
+            <S.PostIcon src={icons.write} alt="new post" />
+          )}
         </Button>
         <NavbarProfile username={user.username} profile={user.profile} />
       </ul>
