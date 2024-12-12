@@ -31,8 +31,8 @@ const postPost = [
       const comment = await prisma.createPostComment(
         req.user.id,
         post.id,
-        req.body.content.length ? req.body.content : null,
-        req.body.file.length ? req.body.file : null
+        req.body.content ? req.body.content : null,
+        req.body.file ? req.body.file : null
       );
       await prisma.createNotification(
         req.user.id,
