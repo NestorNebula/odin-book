@@ -322,7 +322,9 @@ const findUserPosts = async (userId) => {
     where: { userId },
     include: {
       user: { select: { id: true, username: true, profile: true } },
-      interactions: true,
+      interactions: {
+        select: { type: true, userId: true },
+      },
       comments: true,
       commentedPost: {
         include: {
@@ -375,6 +377,9 @@ const findPosts = async (limit) => {
           comments: true,
         },
       },
+      interactions: {
+        select: { type: true, userId: true },
+      },
     },
     orderBy: [{ interactions: { _count: 'desc' } }, { creationDate: 'desc' }],
     take: limit,
@@ -399,6 +404,9 @@ const findPostsBySearch = async (search, limit) => {
           interactions: true,
           comments: true,
         },
+      },
+      interactions: {
+        select: { type: true, userId: true },
       },
     },
     orderBy: [{ interactions: { _count: 'desc' } }, { creationDate: 'desc' }],
