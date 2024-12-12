@@ -4,8 +4,8 @@ const Dashboard = styled.main`
   height: 100vh;
   font-size: 1.5rem;
   display: grid;
-  grid-template-columns: auto 1fr;
-  justify-items: center;
+  grid-template-columns: auto auto;
+  justify-content: center;
 `;
 const Information = styled.div`
   position: fixed;
