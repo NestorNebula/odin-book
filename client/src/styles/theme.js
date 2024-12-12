@@ -5,9 +5,11 @@ const theme = {
   mainGray: '#212327',
   secondaryGray: '#71767A',
   thirdGray: '#787A7A',
+  fourthGray: '#D7DBDC',
   red: '#F4222D',
   green: '#00BA7C',
   black: '#000000',
+  secondaryBlack: '#181818',
 };
 
 export default theme;
