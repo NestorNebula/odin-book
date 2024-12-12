@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Context } from '@context';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@components';
@@ -12,6 +12,8 @@ import {
   heart,
   emptyBookmark,
   bookmark,
+  settings,
+  trash,
 } from '@assets/icons';
 import * as S from './Post.styles';
 
@@ -22,6 +24,7 @@ function Post({
   onRepostClick,
   onLikeClick,
   onBookmarkClick,
+  onPostDelete,
 }) {
   const { user } = useContext(Context);
   const hasReposted = !!post.interactions.find(
@@ -33,6 +36,8 @@ function Post({
   const hasBookmarked = !!post.interactions.find(
     (i) => i.type === 'BOOKMARK' && i.userId === user.id
   );
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
     <S.Post>
@@ -47,6 +52,22 @@ function Post({
       <Link to={`/${post.userId}`}>
         <Avatar profile={post.user.profile} />
       </Link>
+      {user === post.userId && onPostDelete && (
+        <S.Settings>
+          <button
+            aria-label="open settings"
+            onClick={() => setSettingsOpen(!settingsOpen)}
+          >
+            <img src={settings} alt="" />
+          </button>
+          {settingsOpen && (
+            <button onClick={() => onPostDelete(post.id)}>
+              <img src={trash} alt="" />
+              <div>Delete</div>
+            </button>
+          )}
+        </S.Settings>
+      )}
       <Link to={`/posts/${post.id}`}>
         <S.Header>
           <div>{post.user.profile.displayName}</div>
@@ -100,6 +121,7 @@ Post.propTypes = {
   onRepostClick: PropTypes.func.isRequired,
   onLikeClick: PropTypes.func.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
+  onPostDelete: PropTypes.func.isRequired,
 };
 
 export default Post;
