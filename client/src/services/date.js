@@ -16,7 +16,7 @@ const getDate = (date) => {
   } else {
     const distance = formatDistanceToNowStrict(date).split(' ');
     distance[1] = distance[1][0];
-    return distance.join();
+    return distance.join('');
   }
 };
 
