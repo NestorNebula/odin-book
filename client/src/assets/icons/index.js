@@ -28,6 +28,7 @@ import profile from './profile.svg';
 import repost from './repost.svg';
 import send from './send.svg';
 import settings from './settings.svg';
+import trash from './trash.svg';
 import write from './write.svg';
 
 export {
@@ -61,5 +62,6 @@ export {
   repost,
   send,
   settings,
+  trash,
   write,
 };
