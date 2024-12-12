@@ -75,7 +75,7 @@ dialog {
   border: none;
 }
 
-input {
+input, textarea {
   background-color: inherit;
   color: inherit;
 }
