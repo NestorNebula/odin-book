@@ -10,7 +10,12 @@ const StyledButton = styled.button`
       ? `1px solid ${props.theme.secondaryGray}`
       : null};
   padding: 1.5rem 0.75rem;
-  border-radius: 25px;
+  border-radius: 5rem;
+  font-weight: 700;
+
+  &:hover {
+    background-color: ${(props) => props.theme.fourthGray};
+  }
 `;
 
 function Button({ children, type, disabled }) {
