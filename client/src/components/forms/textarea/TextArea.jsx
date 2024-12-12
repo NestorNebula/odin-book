@@ -10,6 +10,11 @@ function TextArea({
   label,
   maxLength,
 }) {
+  const updateAreaHeight = (e) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  };
+
   return (
     <S.Container>
       {label && <label htmlFor={name}>{label}</label>}
@@ -19,6 +24,7 @@ function TextArea({
         placeholder={placeholder}
         value={value}
         onChange={updateValue}
+        onInput={updateAreaHeight}
       ></S.TextArea>
       {!!maxLength && (
         <S.MaxLength>
