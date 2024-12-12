@@ -6,8 +6,12 @@ import close from './close.svg';
 import comment from './comment.svg';
 import emptyBookmark from './emptybookmark.svg';
 import emptyHeart from './emptyheart.svg';
+import emptyProfile from './emptyprofile.svg';
 import explore from './explore.svg';
 import extend from './extend.svg';
+import fullHome from './fullhome.svg';
+import fullMessage from './fullmessage.svg';
+import fullNotifications from './fullnotifications.svg';
 import github from './github.svg';
 import heart from './heart.svg';
 import home from './home.svg';
@@ -24,6 +28,7 @@ import profile from './profile.svg';
 import repost from './repost.svg';
 import send from './send.svg';
 import settings from './settings.svg';
+import write from './write.svg';
 
 export {
   avatar,
@@ -34,8 +39,12 @@ export {
   comment,
   emptyBookmark,
   emptyHeart,
+  emptyProfile,
   explore,
   extend,
+  fullHome,
+  fullMessage,
+  fullNotifications,
   github,
   heart,
   home,
@@ -52,4 +61,5 @@ export {
   repost,
   send,
   settings,
+  write,
 };
