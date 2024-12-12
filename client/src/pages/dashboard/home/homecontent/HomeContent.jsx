@@ -5,7 +5,7 @@ import { useFile } from '@hooks';
 import { Post } from '@components';
 import { Button } from '@components/elements';
 import { PostForm } from '@components/forms';
-import { fetchAPI, postInteraction } from '@services';
+import { deletePost, fetchAPI, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import { repost } from '@assets/icons';
 import * as S from './HomeContent.styles';
@@ -85,6 +85,20 @@ function HomeContent({ content, updateContent }) {
     }
   };
 
+  const onPostDelete = async (postId, type) => {
+    const fetch = await deletePost(postId, user.id);
+    if (fetch.error) {
+      updateInformation({ error: true, message: fetch.result.error.msg });
+    } else {
+      updateInformation({ error: null, message: 'Post deleted.' });
+      type === 'post'
+        ? updateContent.posts(postId, fetch.result.post, true)
+        : type === 'followingPost'
+        ? updateContent.followingPosts(postId, fetch.result.post, true)
+        : updateContent.reposts(postId, fetch.result.post, true);
+    }
+  };
+
   return (
     <S.HomeContent>
       {postLink && <Navigate to={postLink} />}
@@ -117,6 +131,7 @@ function HomeContent({ content, updateContent }) {
                 onRepostClick={() => onPostClick('REPOST', post.id, 'post')}
                 onLikeClick={() => onPostClick('LIKE', post.id, 'post')}
                 onBookmarkClick={() => onPostClick('BOOKMARK', post.id, 'post')}
+                onPostDelete={() => onPostDelete(post.id, 'post')}
               />
             ))
           : sections[displayedSection] === 'Following'
@@ -141,6 +156,7 @@ function HomeContent({ content, updateContent }) {
                     onBookmarkClick={() =>
                       onPostClick('BOOKMARK', fpost.post.id, 'repost')
                     }
+                    onPostDelete={() => onPostDelete(fpost.post.id, 'repost')}
                   />
                 </div>
               ) : (
@@ -159,7 +175,10 @@ function HomeContent({ content, updateContent }) {
                   onBookmarkClick={() =>
                     onPostClick('BOOKMARK', fpost.post.id, 'followingPost')
                   }
-                ></Post>
+                  onPostDelete={() =>
+                    onPostDelete(fpost.post.id, 'followingPost')
+                  }
+                />
               )
             )
           : null}

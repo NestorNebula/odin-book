@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { Post, CommentDialog } from '@components';
 import { useDialog } from '@hooks';
-import { postInteraction } from '@services';
+import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import * as S from './PostDetails.styles';
 
@@ -64,6 +64,16 @@ function PostDetails({ post, update }) {
     }
   };
 
+  const onPostDelete = async (postId, isMainPost) => {
+    const fetch = await deletePost(postId, user.id);
+    if (fetch.error) {
+      updateInformation({ error: true, message: fetch.result.error.msg });
+    } else {
+      updateInformation({ error: null, message: 'Post deleted.' });
+      isMainPost ? setPostUrl('/home') : update();
+    }
+  };
+
   const getParentPosts = () => {
     const parents = [];
     let actual = post;
@@ -98,6 +108,7 @@ function PostDetails({ post, update }) {
               onRepostClick={() => onPostClick('REPOST', parent.id)}
               onLikeClick={() => onPostClick('LIKE', parent.id)}
               onBookmarkClick={() => onPostClick('BOOKMARK', parent.id)}
+              onPostDelete={() => onPostDelete(parent.id)}
             />
           </S.ParentPost>
         ))}
@@ -109,6 +120,7 @@ function PostDetails({ post, update }) {
         onRepostClick={() => onPostClick('REPOST', post.main.id)}
         onLikeClick={() => onPostClick('LIKE', post.main.id)}
         onBookmarkClick={() => onPostClick('BOOKMARK', post.main.id)}
+        onPostDelete={() => onPostDelete(post.main.id, true)}
       />
       <S.Comments>
         {post.main.comments.map((comment) => (
@@ -122,6 +134,7 @@ function PostDetails({ post, update }) {
               onRepostClick={() => onPostClick('REPOST', comment.id)}
               onLikeClick={() => onPostClick('LIKE', comment.id)}
               onBookmarkClick={() => onPostClick('BOOKMARK', comment.id)}
+              onPostDelete={() => onPostDelete(comment.id)}
             />
           </S.Comment>
         ))}

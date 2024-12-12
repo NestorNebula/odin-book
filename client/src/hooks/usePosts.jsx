@@ -7,12 +7,18 @@ const usePosts = ({ postsPath, fetchReposts }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const updatePost = (postId, post) => {
-    setPosts(posts.map((p) => (p.id === postId ? post : p)));
+  const updatePost = (postId, post, deleted) => {
+    deleted
+      ? setPosts(posts.filter((p) => p.id !== postId))
+      : setPosts(posts.map((p) => (p.id === postId ? post : p)));
   };
 
-  const updateRepost = (postId, post) => {
-    setReposts(reposts.map((r) => (r.postId === postId ? { ...r, post } : r)));
+  const updateRepost = (postId, post, deleted) => {
+    deleted
+      ? setReposts(reposts.filter((r) => r.postId !== postId))
+      : setReposts(
+          reposts.map((r) => (r.postId === postId ? { ...r, post } : r))
+        );
   };
 
   useEffect(() => {

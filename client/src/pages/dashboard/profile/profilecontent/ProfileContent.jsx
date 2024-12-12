@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { Post } from '@components';
-import { postInteraction } from '@services';
+import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import { lock, repost } from '@assets/icons';
 import * as S from './ProfileContent.styles';
@@ -64,6 +64,20 @@ function ProfileContent({ content, update, isUser }) {
     }
   };
 
+  const onPostDelete = async (postId, type) => {
+    const fetch = await deletePost(postId, user.id);
+    if (fetch.error) {
+      updateInformation({ error: true, message: fetch.result.error.msg });
+    } else {
+      updateInformation({ error: null, message: 'Post deleted.' });
+      type === 'LIKE'
+        ? update.likes()
+        : type === 'REPOST'
+        ? update.repost(postId, fetch.result.post, true)
+        : update.post(postId, fetch.result.post, true);
+    }
+  };
+
   return (
     <S.ProfileContent>
       {postLink && <Navigate to={postLink} />}
@@ -102,6 +116,7 @@ function ProfileContent({ content, update, isUser }) {
                     onBookmarkClick={() =>
                       onPostClick('BOOKMARK', p.post.id, p.type)
                     }
+                    onPostDelete={() => onPostDelete(p.post.id, p.type)}
                   />
                 </S.Post>
               )
@@ -123,6 +138,7 @@ function ProfileContent({ content, update, isUser }) {
                 onBookmarkClick={() =>
                   onPostClick('BOOKMARK', p.post.id, p.type)
                 }
+                onPostDelete={() => onPostDelete(p.post.id, p.type)}
               />
             </S.Reply>
           ))
@@ -152,6 +168,7 @@ function ProfileContent({ content, update, isUser }) {
                   onBookmarkClick={() =>
                     onPostClick('BOOKMARK', l.post.id, 'LIKE')
                   }
+                  onPostDelete={() => onPostDelete(l.post.id, 'LIKE')}
                 />
               </S.Like>
             ))}

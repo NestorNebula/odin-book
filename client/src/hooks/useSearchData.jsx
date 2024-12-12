@@ -3,9 +3,11 @@ import { fetchAPI } from '@services';
 
 const useSearchData = (search) => {
   const [posts, setPosts] = useState(null);
-  const updatePost = (post) => {
+  const updatePost = (post, deleted) => {
     if (!posts) return;
-    setPosts(posts.map((p) => (p.id === post.id ? post : p)));
+    deleted
+      ? setPosts(posts.filter((p) => p.id !== post.id))
+      : setPosts(posts.map((p) => (p.id === post.id ? post : p)));
   };
   const [users, setUsers] = useState(null);
   const [error, setError] = useState(null);

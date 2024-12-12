@@ -3,7 +3,7 @@ import { Context } from '@context';
 import { Link, Navigate } from 'react-router-dom';
 import { Post, UserList } from '@components';
 import { Button } from '@components/elements';
-import { postInteraction } from '@services';
+import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import * as S from './ExploreResult.styles';
 
@@ -37,6 +37,16 @@ function ExploreResult({ posts, updatePost, users }) {
     }
   };
 
+  const onPostDelete = async (postId) => {
+    const fetch = await deletePost(postId, user.id);
+    if (fetch.error) {
+      updateInformation({ error: true, message: fetch.result.error.msg });
+    } else {
+      updateInformation({ error: null, message: 'Post deleted.' });
+      updatePost(fetch.result.post, true);
+    }
+  };
+
   return (
     <S.ExploreResult>
       {postLink && <Navigate to={postLink} />}
@@ -59,6 +69,7 @@ function ExploreResult({ posts, updatePost, users }) {
               onRepostClick={() => onPostClick('REPOST', post.id)}
               onLikeClick={() => onPostClick('LIKE', post.id)}
               onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
+              onPostDelete={() => onPostDelete(post.id)}
             />
           ))}
         </S.Posts>
@@ -72,6 +83,7 @@ function ExploreResult({ posts, updatePost, users }) {
               onRepostClick={() => onPostClick('REPOST', post.id)}
               onLikeClick={() => onPostClick('LIKE', post.id)}
               onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
+              onPostDelete={() => onPostDelete(post.id)}
             />
           ))}
         </S.Posts>

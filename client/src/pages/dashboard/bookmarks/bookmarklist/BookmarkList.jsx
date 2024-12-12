@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { Post } from '@components';
-import { postInteraction } from '@services';
+import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -38,6 +38,16 @@ function BookmarkList({ bookmarks, onBookmarkClick, update }) {
     }
   };
 
+  const onPostDelete = async (postId) => {
+    const fetch = await deletePost(postId, user.id);
+    if (fetch.error) {
+      updateInformation({ error: true, message: fetch.result.error.msg });
+    } else {
+      updateInformation({ error: null, message: 'Post deleted.' });
+      update();
+    }
+  };
+
   return (
     <StyledBookmarkList>
       {postLink && <Navigate to={postLink} />}
@@ -52,6 +62,7 @@ function BookmarkList({ bookmarks, onBookmarkClick, update }) {
             onRepostClick={() => onPostClick('REPOST', bookmark.postId)}
             onLikeClick={() => onPostClick('LIKE', bookmark.postId)}
             onBookmarkClick={() => onPostClick('COMMENT', bookmark.postId)}
+            onPostDelete={() => onPostDelete(bookmark.postId)}
           />
         </div>
       ))}
