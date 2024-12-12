@@ -4,7 +4,7 @@ import * as S from './NavbarButton.styles';
 function NavbarButton({ children, onClick, ...props }) {
   return (
     <S.NavbarButton onClick={onClick} $selected={props.selected}>
-      {children}
+      <div>{children}</div>
     </S.NavbarButton>
   );
 }
