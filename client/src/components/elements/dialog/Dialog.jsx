@@ -4,6 +4,11 @@ import styled from 'styled-components';
 const StyledDialog = styled.dialog`
   border-radius: 10px;
   padding: 0.75rem;
+
+  &::backdrop {
+    background-color: ${(props) => props.theme.mainBlue};
+    opacity: 0.15;
+  }
 `;
 
 function Dialog({ children, dialogRef, close }) {
