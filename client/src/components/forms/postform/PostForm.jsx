@@ -6,6 +6,7 @@ import { Avatar } from '@components';
 import { Button } from '@components/elements';
 import { Button as SubmitButton, FileInput, TextArea } from '..';
 import PropTypes from 'prop-types';
+import { theme } from '@styles';
 import { close, image } from '@assets/icons';
 import * as S from './PostForm.styles';
 
@@ -22,21 +23,27 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
   return (
     <S.PostForm onSubmit={() => onSubmit({ content, fileUrl })}>
       <Avatar profile={user.profile} />
-      <TextArea
-        name="content"
-        placeholder={post ? 'Post your reply' : 'What is happening?!'}
-        value={content}
-        updateValue={updateContent}
-        validation={contentValidation}
-      />
-      {!!fileUrl && (
-        <S.FileContainer>
-          <S.File src={fileUrl} />
-          <Button onClick={() => removeFile(user, 'photos')}>
-            <img src={close} alt="remove image" />
-          </Button>
-        </S.FileContainer>
-      )}
+      <S.Content>
+        <TextArea
+          name="content"
+          placeholder={post ? 'Post your reply' : 'What is happening?!'}
+          value={content}
+          updateValue={updateContent}
+          validation={contentValidation}
+        />
+        {!!fileUrl && (
+          <S.FileContainer>
+            <S.File src={fileUrl} />
+            <Button
+              onClick={() => removeFile(user, 'photos')}
+              backgroundColor={theme.secondaryBlack}
+              noHover={true}
+            >
+              <img src={close} alt="remove image" />
+            </Button>
+          </S.FileContainer>
+        )}
+      </S.Content>
       <FileInput
         onChange={(e) => updateFile(user, e.target.files[0], 'photos')}
         image={image}
