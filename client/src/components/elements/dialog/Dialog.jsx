@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledDialog = styled.dialog`
   border-radius: 10px;
+  padding: 0.75rem;
 `;
 
 function Dialog({ children, dialogRef, close }) {

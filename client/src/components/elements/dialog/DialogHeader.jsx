@@ -5,6 +5,7 @@ const StyledDialogHeader = styled.header`
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: start;
+  margin-bottom: 1rem;
 `;
 
 function DialogHeader({ children }) {
