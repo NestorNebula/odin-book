@@ -16,12 +16,13 @@ function ProfileContent({ content, update, isUser }) {
     .concat(
       reposts.map((repost) => ({
         type: 'REPOST',
+        user: repost.user,
         post: repost.post,
         creationDate: repost.creationDate,
       }))
     );
   postsAndReposts.sort((a, b) => {
-    return b.creationDate - a.creationDate;
+    return new Date(b.creationDate) - new Date(a.creationDate);
   });
   const sections = isUser
     ? ['Posts', 'Replies', 'Media', 'Likes']
@@ -97,11 +98,11 @@ function ProfileContent({ content, update, isUser }) {
           postsAndReposts.map(
             (p) =>
               p.post.type !== 'COMMENT' && (
-                <S.Post key={p.post.id}>
+                <S.Post key={`${p.post.id}${p.type}`}>
                   {p.type === 'REPOST' && (
                     <div>
                       <img src={repost} alt="" />
-                      <div>{p.post.userId} reposted</div>
+                      <div>{p.user.profile.displayName} reposted</div>
                     </div>
                   )}
                   <Post
@@ -123,7 +124,7 @@ function ProfileContent({ content, update, isUser }) {
           )
         ) : sections[activeSection] === 'Replies' ? (
           postsAndReposts.map((p) => (
-            <S.Reply key={p.post.id}>
+            <S.Reply key={`${p.post.id}${p.type}`}>
               {p.type === 'REPOST' && (
                 <div>
                   <img src={repost} alt="" />
