@@ -65,6 +65,7 @@ a {
 button {
   border: none;
   background-color: inherit;
+  padding: 0;
 }
 
 button:hover {
