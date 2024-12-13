@@ -16,6 +16,10 @@ const StyledButton = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.fourthGray};
   }
+
+  &:disabled {
+    background-color: ${(props) => props.theme.thirdGray};
+  }
 `;
 
 function Button({ children, type, disabled }) {
