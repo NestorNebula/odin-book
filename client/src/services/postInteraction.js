@@ -19,7 +19,7 @@ function createStructure(userId) {
     return {
       success: true,
       msg: `${type} posted.`,
-      post: fetchPost.error ? null : fetchPost.result.post,
+      post: fetchPost.error ? null : fetchPost.result.post.main,
     };
   };
 
@@ -37,7 +37,7 @@ function createStructure(userId) {
     return {
       success: true,
       msg: `${type} deleted.`,
-      post: fetchPost.error ? null : fetchPost.result.post,
+      post: fetchPost.error ? null : fetchPost.result.post.main,
     };
   };
 
