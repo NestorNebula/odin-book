@@ -13,7 +13,7 @@ const Navbar = styled.nav`
     }
     justify-self: center;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1275px) {
       align-items: center;
       justify-self: end;
 

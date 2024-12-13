@@ -25,7 +25,7 @@ const StyledNavbarProfile = styled.li`
       background-color: ${(props) => props.theme.secondaryBlack};
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1275px) {
       & > div {
         display: none;
       }

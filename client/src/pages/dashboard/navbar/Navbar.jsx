@@ -70,7 +70,7 @@ function Navbar({ openNewPost }) {
         />
         <NavbarLink link="settings" iconSrc={icons.settings} />
         <Button onClick={openNewPost}>
-          {width >= 1200 ? (
+          {width >= 1275 ? (
             'Post'
           ) : (
             <S.PostIcon src={icons.write} alt="new post" />
