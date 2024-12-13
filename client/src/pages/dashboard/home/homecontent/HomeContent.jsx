@@ -2,8 +2,7 @@ import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { useFile } from '@hooks';
-import { Post } from '@components';
-import { Button } from '@components/elements';
+import { NavbarButton, Post } from '@components';
 import { PostForm } from '@components/forms';
 import { deletePost, fetchAPI, postInteraction } from '@services';
 import PropTypes from 'prop-types';
@@ -29,7 +28,7 @@ function HomeContent({ content, updateContent }) {
       }))
     );
   followingPostsReposts.sort((a, b) => {
-    return b.creationDate - a.creationDate;
+    return new Date(b.creationDate) - new Date(a.creationDate);
   });
 
   const { fileUrl, setFileUrl, error, updateFile, removeFile } = useFile();
@@ -106,9 +105,12 @@ function HomeContent({ content, updateContent }) {
         <ul>
           {sections.map((section, index) => (
             <li key={section}>
-              <Button onClick={() => setDisplayedSection(index)}>
+              <NavbarButton
+                onClick={() => setDisplayedSection(index)}
+                selected={index === displayedSection}
+              >
                 {section}
-              </Button>
+              </NavbarButton>
             </li>
           ))}
         </ul>
@@ -125,7 +127,7 @@ function HomeContent({ content, updateContent }) {
         {sections[displayedSection] === 'All'
           ? posts.map((post) => (
               <Post
-                key={post.id}
+                key={`${post.id}post`}
                 post={post}
                 onReplyClick={() => onPostClick('COMMENT', post.id, 'post')}
                 onRepostClick={() => onPostClick('REPOST', post.id, 'post')}
@@ -137,7 +139,7 @@ function HomeContent({ content, updateContent }) {
           : sections[displayedSection] === 'Following'
           ? followingPostsReposts.map((fpost) =>
               fpost.type === 'REPOST' ? (
-                <div key={fpost.post.id}>
+                <div key={`${fpost.post.id}repost`}>
                   <div>
                     <img src={repost} />
                     <div>{fpost.post.user.profile.displayName} reposted</div>
@@ -161,7 +163,7 @@ function HomeContent({ content, updateContent }) {
                 </div>
               ) : (
                 <Post
-                  key={fpost.id}
+                  key={`${fpost.post.id}post`}
                   post={fpost.post}
                   onReplyClick={() =>
                     onPostClick('COMMENT', fpost.post.id, 'followingPost')

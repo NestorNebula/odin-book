@@ -5,7 +5,17 @@ import { Error, DefaultSidebar, Loading } from '@components';
 import HomeContent from './homecontent/HomeContent';
 import styled from 'styled-components';
 
-const StyledHome = styled.main``;
+const StyledHome = styled.main`
+  display: grid;
+  grid-template-columns: 2.5fr 2fr;
+  border-left: ${(props) => `1px solid ${props.theme.fifthGray}`};
+
+  @media (max-width: 1000px) {
+    & > aside {
+      display: none;
+    }
+  }
+`;
 
 function Home() {
   const { user } = useContext(Context);
