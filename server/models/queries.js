@@ -469,8 +469,10 @@ const findUserReposts = async (userId) => {
   const reposts = await prisma.interaction.findMany({
     where: { userId, type: 'REPOST' },
     include: {
+      user: { select: { id: true, username: true, profile: true } },
       post: {
         include: {
+          user: { select: { id: true, username: true, profile: true } },
           interactions: { select: { type: true, userId: true } },
           comments: true,
           commentedPost: {
