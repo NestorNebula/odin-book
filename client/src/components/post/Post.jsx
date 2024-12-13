@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { Context } from '@context';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@components';
-import { Button } from '@components/elements';
 import { date } from '@services';
 import PropTypes from 'prop-types';
 import {
@@ -40,65 +39,73 @@ function Post({
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <S.Post>
+    <S.Post $details={details}>
       {post.type === 'COMMENT' && post.commentedPost && (
-        <div>
+        <S.Repost>
           Replying to{' '}
           <Link to={`/posts/${post.commentedPost.id}`}>
             @{post.commentedPost.user.username}
           </Link>
-        </div>
+        </S.Repost>
       )}
       <Link to={`/${post.userId}`}>
         <Avatar profile={post.user.profile} />
       </Link>
-      {user === post.userId && onPostDelete && (
-        <S.Settings>
-          <button
-            aria-label="open settings"
-            onClick={() => setSettingsOpen(!settingsOpen)}
-          >
-            <img src={settings} alt="" />
-          </button>
-          {settingsOpen && (
-            <button onClick={() => onPostDelete(post.id)}>
-              <img src={trash} alt="" />
-              <div>Delete</div>
+      <S.Header $details={details}>
+        <div>{post.user.profile.displayName}</div>
+        <div>@{post.user.username}</div>
+        {!details ? <div>・{date.getDate(post.creationDate)}</div> : null}
+        {user.id === post.userId && onPostDelete && (
+          <S.Settings>
+            <button
+              aria-label="open settings"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSettingsOpen(!settingsOpen);
+              }}
+            >
+              <img src={settings} alt="" />
             </button>
-          )}
-        </S.Settings>
-      )}
-      <Link to={`/posts/${post.id}`}>
-        <S.Header>
-          <div>{post.user.profile.displayName}</div>
-          <div>@{post.user.username}</div>
-          {!details ? <div>{date.getDate(post.creationDate)}</div> : null}
-        </S.Header>
-        <S.Content>
+            {settingsOpen && (
+              <S.DeleteButton onClick={() => onPostDelete(post.id)}>
+                <img src={trash} alt="" />
+                <div>Delete</div>
+              </S.DeleteButton>
+            )}
+          </S.Settings>
+        )}
+      </S.Header>
+      <S.Content $details={details}>
+        <Link to={`/posts/${post.id}`}>
           {!!post.content && <div>{post.content}</div>}
           {!!post.file && <img src={post.file} />}
-          {!!details && <div>{date.getFullDate(post.creationDate)}</div>}
-        </S.Content>
-      </Link>
-      <S.Buttons>
-        <Button onClick={() => onReplyClick(post.id)}>
+        </Link>
+        {!!details && (
+          <S.FullDate>{date.getFullDate(post.creationDate)}</S.FullDate>
+        )}
+      </S.Content>
+      <S.Buttons $details={details}>
+        <S.Button onClick={() => onReplyClick(post.id)}>
           <img src={comment} alt="reply" />
           <div>{post.comments.length}</div>
-        </Button>
-        <Button onClick={() => onRepostClick(post.id)}>
+        </S.Button>
+        <S.Button onClick={() => onRepostClick(post.id)} $repost={hasReposted}>
           <img src={repost} alt={hasReposted ? 'undo repost' : 'repost'} />
           <div>
             {post.interactions.filter((i) => i.type === 'REPOST').length}
           </div>
-        </Button>
-        <Button onClick={() => onLikeClick(post.id)}>
+        </S.Button>
+        <S.Button onClick={() => onLikeClick(post.id)} $like={hasLiked}>
           <img
             src={hasLiked ? heart : emptyHeart}
             alt={hasLiked ? 'unlike' : 'like'}
           />
           <div>{post.interactions.filter((i) => i.type === 'LIKE').length}</div>
-        </Button>
-        <Button onClick={() => onBookmarkClick(post.id)}>
+        </S.Button>
+        <S.Button
+          onClick={() => onBookmarkClick(post.id)}
+          $bookmark={hasBookmarked}
+        >
           <img
             src={hasBookmarked ? bookmark : emptyBookmark}
             alt={hasBookmarked ? 'bookmark' : 'remove from bookmarks'}
@@ -108,7 +115,7 @@ function Post({
               {post.interactions.filter((i) => i.type === 'BOOKMARK').length}
             </div>
           )}
-        </Button>
+        </S.Button>
       </S.Buttons>
     </S.Post>
   );
