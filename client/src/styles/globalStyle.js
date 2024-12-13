@@ -11,6 +11,8 @@ const GlobalStyle = createGlobalStyle`
 * {
   margin: 0;
   font-family: inherit;
+  user-select: none;
+  --webkit-user-select: none;
 }
 
 body {
@@ -62,6 +64,7 @@ a {
 
 button {
   border: none;
+  background-color: inherit;
 }
 
 button:hover {
