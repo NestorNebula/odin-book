@@ -6,7 +6,7 @@ import * as S from './UserList.styles';
 function UserList({ title, users, details }) {
   return (
     <S.UserList>
-      {title && <div>{title}</div>}
+      {title && <S.Title>{title}</S.Title>}
       <S.Users>
         {users.map((user) => (
           <S.User key={user.id}>
