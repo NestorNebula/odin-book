@@ -4,7 +4,10 @@ import { MemoryRouter } from 'react-router-dom';
 import PostDetails from './PostDetails';
 import { testsData } from '@services';
 
-const commentedPost = testsData.post({ details: true, numComments: 1 });
+const commentedPost = {
+  main: testsData.post({ details: true, numComments: 1 }),
+  next: null,
+};
 const comment = testsData.post({
   details: true,
   numComments: 10,
@@ -26,7 +29,7 @@ describe('PostDetails', () => {
   });
 
   it('renders commentedPost', () => {
-    expect(screen.queryByText(commentedPost.content)).not.toBeNull();
+    expect(screen.queryByText(commentedPost.main.content)).not.toBeNull();
   });
 
   it('renders all post comments', () => {
