@@ -8,22 +8,18 @@ const Dashboard = styled.main`
   justify-content: center;
 
   & > main {
-    overflow-x: scroll;
+    overflow-y: scroll;
   }
 
   @media (min-width: 600px) {
     grid-template-columns: 15vw 1fr;
   }
 
-  @media (min-width: 900px) {
-    grid-template-columns: auto 1fr;
-  }
-
   @media (min-width: 1000px) {
     grid-template-columns: 10vw 1fr;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1275px) {
     grid-template-columns: 25vw 1fr;
   }
 `;
