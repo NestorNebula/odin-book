@@ -2,8 +2,9 @@ import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { Post, CommentDialog } from '@components';
-import { useDialog } from '@hooks';
-import { deletePost, postInteraction } from '@services';
+import { PostForm } from '@components/forms';
+import { useDialog, useFile } from '@hooks';
+import { deletePost, fetchAPI, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import * as S from './PostDetails.styles';
 
@@ -20,6 +21,28 @@ function PostDetails({ post, update }) {
   const closeDialog = () => {
     close();
     setIsOpened(false);
+  };
+
+  const { fileUrl, setFileUrl, error, updateFile, removeFile } = useFile();
+
+  const submitComment = async ({ content, file }) => {
+    const fetch = await fetchAPI({
+      body: { content, file, postId: post.main.id },
+      method: 'POST',
+      path: `users/${user.id}/posts`,
+    });
+    if (fetch.error) {
+      updateInformation({
+        error: true,
+        message: fetch.result.error
+          ? fetch.result.error.msg
+          : fetch.result.errors[0].msg,
+      });
+    } else {
+      updateInformation({ error: null, message: 'Comment created.' });
+      setFileUrl(null);
+      update();
+    }
   };
 
   const structure = postInteraction.createStructure(user.id);
@@ -87,23 +110,19 @@ function PostDetails({ post, update }) {
   return (
     <S.PostDetails>
       {postUrl && <Navigate to={postUrl} />}
-      {isOpened ? (
-        <CommentDialog
-          dialog={{ ref: dialogRef, open: openDialog, close: closeDialog }}
-          post={post.main}
-          update={update}
-        />
-      ) : (
-        <></>
-      )}
+      <CommentDialog
+        dialog={{ ref: dialogRef, open: openDialog, close: closeDialog }}
+        post={isOpened ? post.main : null}
+        update={update}
+      />
       <S.ParentPosts>
         {getParentPosts().map((parent) => (
           <S.ParentPost
-            key={parent.id}
-            onClick={() => setPostUrl(`/posts/${parent.id}`)}
+            key={`${parent.id}parent`}
+            onClick={() => setPostUrl(`/posts/${parent.main.id}`)}
           >
             <Post
-              post={parent}
+              post={parent.main}
               onReplyClick={() => onPostClick('COMMENT', parent.id)}
               onRepostClick={() => onPostClick('REPOST', parent.id)}
               onLikeClick={() => onPostClick('LIKE', parent.id)}
@@ -121,6 +140,14 @@ function PostDetails({ post, update }) {
         onLikeClick={() => onPostClick('LIKE', post.main.id)}
         onBookmarkClick={() => onPostClick('BOOKMARK', post.main.id)}
         onPostDelete={() => onPostDelete(post.main.id, true)}
+      />{' '}
+      <PostForm
+        onSubmit={submitComment}
+        fileUrl={fileUrl}
+        error={error}
+        updateFile={updateFile}
+        removeFile={removeFile}
+        post={post}
       />
       <S.Comments>
         {post.main.comments.map((comment) => (
