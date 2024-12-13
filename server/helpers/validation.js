@@ -13,6 +13,7 @@ const validateUser = [
     .custom(async (username) => {
       const existingUser = await prisma.findUserByUsername(username);
       if (existingUser) throw new Error('Username already taken.');
+      return true;
     }),
   body('email')
     .trim()
@@ -23,6 +24,7 @@ const validateUser = [
     .custom(async (email) => {
       const existingUser = await prisma.findUserByUsermail(email);
       if (existingUser) throw new Error('Email already taken.');
+      return true;
     }),
   body('password')
     .trim()
@@ -44,6 +46,7 @@ const validateUserUpdate = [
       const existingUser = await prisma.findUserByUsername(username);
       if (existingUser && existingUser.id !== req.user.id)
         throw new Error('Username already taken.');
+      return true;
     }),
   body('email')
     .optional()
@@ -60,6 +63,7 @@ const validateUserUpdate = [
       const existingUser = await prisma.findUserByUsermail(email);
       if (existingUser && existingUser.id !== req.user.id)
         throw new Error('Email already taken.');
+      return true;
     }),
   body('password')
     .optional()
@@ -74,6 +78,7 @@ const validateUserUpdate = [
       if (bcrypt.hashSync(currentPassword, 10) !== user.password) {
         throw new Error('Your current password is incorrect.');
       }
+      return true;
     }),
 ];
 
@@ -136,6 +141,7 @@ const validateMessage = [
       if (!file.length && !req.body.content) {
         throw new Error("File can't be empty when no content is provided.");
       }
+      return true;
     }),
 ];
 
@@ -160,6 +166,7 @@ const validatePost = [
       if (!file.length && !req.body.content) {
         throw new Error("File can't be empty when no content is provided.");
       }
+      return true;
     }),
 ];
 
