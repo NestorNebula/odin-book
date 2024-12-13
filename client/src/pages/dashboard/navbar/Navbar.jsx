@@ -34,8 +34,13 @@ function Navbar({ openNewPost }) {
         <NavbarLink
           link="home"
           iconSrc={pathname === '/home' ? icons.fullHome : icons.home}
+          active={pathname === '/home'}
         />
-        <NavbarLink link="explore" iconSrc={icons.explore} />
+        <NavbarLink
+          link="explore"
+          iconSrc={icons.explore}
+          active={pathname === '/explore'}
+        />
         <NavbarLink
           link="notifications"
           iconSrc={
@@ -48,16 +53,19 @@ function Navbar({ openNewPost }) {
               notification.seen ? num : num === null ? 1 : ++num,
             null
           )}
+          active={pathname === '/notifications'}
         />
         <NavbarLink
           link="messages"
           iconSrc={pathname === '/messages' ? icons.fullMessage : icons.message}
+          active={pathname === '/messages'}
         />
         <NavbarLink
           link="bookmarks"
           iconSrc={
             pathname === '/bookmarks' ? icons.bookmark : icons.emptyBookmark
           }
+          active={pathname === '/bookmarks'}
         />
         <NavbarLink
           link={user.loginMethod !== 'GUEST' ? `${user.id}` : 'guest'}
@@ -67,8 +75,13 @@ function Navbar({ openNewPost }) {
               : icons.emptyProfile
           }
           title="profile"
+          active={Number.isInteger(+pathname.split('/')[1])}
         />
-        <NavbarLink link="settings" iconSrc={icons.settings} />
+        <NavbarLink
+          link="settings"
+          iconSrc={icons.settings}
+          active={pathname === '/settings'}
+        />
         <Button onClick={openNewPost}>
           {width >= 1275 ? (
             'Post'

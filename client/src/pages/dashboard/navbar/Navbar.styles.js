@@ -10,8 +10,17 @@ const Navbar = styled.nav`
     padding: 1rem 0 2rem;
     & > button {
       padding: 1.5rem;
+
+      @media (min-width: 1275px) {
+        margin-right: 2rem;
+      }
     }
-    justify-self: center;
+    justify-self: end;
+    min-width: 75%;
+
+    & > a {
+      width: 100%;
+    }
 
     @media (max-width: 1275px) {
       align-items: center;

@@ -19,6 +19,7 @@ const StyledNavbarLinkItem = styled.li`
 
     & > div:last-child {
       text-transform: capitalize;
+      font-weight: ${(props) => (props.$active ? 800 : 500)};
 
       @media (max-width: 1275px) {
         display: none;
@@ -49,9 +50,9 @@ const StyledNavbarIcon = styled.div`
   }
 `;
 
-function NavbarLink({ link, iconSrc, title = link, notificationsNum }) {
+function NavbarLink({ link, iconSrc, title = link, notificationsNum, active }) {
   return (
-    <StyledNavbarLinkItem>
+    <StyledNavbarLinkItem $active={active}>
       <Link to={`/${link}`} aria-label={`Go to ${title} page.`}>
         <StyledNavbarIcon>
           <img src={iconSrc} alt="" />
@@ -72,6 +73,7 @@ NavbarLink.propTypes = {
   iconSrc: PropTypes.string.isRequired,
   title: PropTypes.string,
   notificationsNum: PropTypes.number,
+  active: PropTypes.bool,
 };
 
 export default NavbarLink;
