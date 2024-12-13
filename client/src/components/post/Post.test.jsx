@@ -19,6 +19,7 @@ beforeEach(() => {
         onRepostClick={mockClick}
         onLikeClick={mockClick}
         onBookmarkClick={mockClick}
+        onPostDelete={mockClick}
       ></Post>
     </MemoryRouter>
   );
