@@ -11,7 +11,7 @@ const postPost = [
     }
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      res.status(400).json({ errors: result.array() });
+      return res.status(400).json({ errors: result.array() });
     }
     if (!req.body.content && !req.body.file) {
       return next(new Sperror('Bad Request', 'No content/file provided.', 400));
