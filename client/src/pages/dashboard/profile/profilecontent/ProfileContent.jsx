@@ -47,7 +47,7 @@ function ProfileContent({ content, update, isUser }) {
       structure,
       interaction,
       postId,
-      remove: postToUpdate.find(
+      remove: postToUpdate.interactions.find(
         (i) => i.type === interaction && i.userId === user.id
       ),
     });
