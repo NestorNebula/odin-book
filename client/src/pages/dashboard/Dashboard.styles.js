@@ -7,6 +7,10 @@ const Dashboard = styled.main`
   grid-template-columns: auto 1fr;
   justify-content: center;
 
+  & > main {
+    overflow-x: scroll;
+  }
+
   @media (min-width: 600px) {
     grid-template-columns: 15vw 1fr;
   }
