@@ -17,7 +17,7 @@ const Post = styled.div`
   display: grid;
   grid-template-columns: 5rem 1fr;
   gap: 0 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border-bottom: ${(props) =>
     !props.$details && `1px solid ${props.theme.fifthGray}`};
 
@@ -44,7 +44,7 @@ const Header = styled.header`
       hue-rotate(141deg) brightness(95%) contrast(90%);
   }
 
-  & > div:last-child {
+  & > div:nth-child(4) {
     margin-left: auto;
     filter: none;
   }
