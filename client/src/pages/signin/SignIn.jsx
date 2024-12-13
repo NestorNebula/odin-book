@@ -77,6 +77,7 @@ function SignIn() {
               onClick={() => updateMethod('signup', true)}
               backgroundColor={theme.mainBlue}
               color={theme.mainWhite}
+              noHover={true}
             >
               Create account
             </Button>
@@ -84,6 +85,7 @@ function SignIn() {
               onClick={() => updateMethod('login', true)}
               backgroundColor={theme.mainBlue}
               color={theme.mainWhite}
+              noHover={true}
             >
               Log In
             </Button>
@@ -94,6 +96,7 @@ function SignIn() {
               }}
               backgroundColor={theme.black}
               color={theme.mainBlue}
+              noHover={true}
             >
               Sign In as Guest
             </Button>
