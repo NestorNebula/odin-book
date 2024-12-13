@@ -27,15 +27,25 @@ const StyledNavbarLinkItem = styled.li`
   }
 `;
 const StyledNavbarIcon = styled.div`
+  position: relative;
+
   & > img {
     width: 3rem;
     filter: invert();
   }
 
   & > div {
+    --size: 2rem;
+    position: absolute;
+    top: -0.5rem;
+    left: 1.75rem;
+    display: grid;
+    place-content: center;
     background-color: ${(props) => props.theme.mainBlue};
-    width: 1rem;
-    border-radius: 1rem;
+    height: var(--size);
+    width: var(--size);
+    border-radius: var(--size);
+    font-size: 1.25rem;
   }
 `;
 
