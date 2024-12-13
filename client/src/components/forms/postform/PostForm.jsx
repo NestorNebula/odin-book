@@ -24,7 +24,7 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
     <S.PostForm
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit({ content, fileUrl });
+        onSubmit({ content, file: fileUrl });
       }}
     >
       <Avatar profile={user.profile} />
