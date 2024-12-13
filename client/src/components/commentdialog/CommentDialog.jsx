@@ -39,34 +39,38 @@ function CommentDialog({ dialog, post, update }) {
       <Dialog.Header>
         <Dialog.CloseButton close={dialog.close} />
       </Dialog.Header>
-      <S.PostCommented>
-        <Avatar profile={post.user.profile} />
-        <S.PostHeader>
-          <div>{post.user.profile.displayName}</div>
-          <div>@{post.user.username}</div>
-          <div>・ {date.getDate(post.creationDate)}</div>
-        </S.PostHeader>
-        <S.PostContent>
-          {!!post.content && <div>{post.content}</div>}
-          {!!post.file && <img src={post.file} />}
-        </S.PostContent>
-        <div>Replying to @{post.user.username}</div>
-      </S.PostCommented>
-      <PostForm
-        onSubmit={submitComment}
-        fileUrl={fileUrl}
-        error={error}
-        updateFile={updateFile}
-        removeFile={removeFile}
-        post={post}
-      />
+      {post && (
+        <>
+          <S.PostCommented>
+            <Avatar profile={post.user.profile} />
+            <S.PostHeader>
+              <div>{post.user.profile.displayName}</div>
+              <div>@{post.user.username}</div>
+              <div>・ {date.getDate(post.creationDate)}</div>
+            </S.PostHeader>
+            <S.PostContent>
+              {!!post.content && <div>{post.content}</div>}
+              {!!post.file && <img src={post.file} />}
+            </S.PostContent>
+            <div>Replying to @{post.user.username}</div>
+          </S.PostCommented>
+          <PostForm
+            onSubmit={submitComment}
+            fileUrl={fileUrl}
+            error={error}
+            updateFile={updateFile}
+            removeFile={removeFile}
+            post={post}
+          />
+        </>
+      )}
     </Dialog.Main>
   );
 }
 
 CommentDialog.propTypes = {
   dialog: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object,
   update: PropTypes.func.isRequired,
 };
 
