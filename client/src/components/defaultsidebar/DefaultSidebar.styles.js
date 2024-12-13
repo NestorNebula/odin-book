@@ -6,7 +6,6 @@ const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border-left: ${(props) => `1px solid ${props.theme.fifthGray}`};
 
   & > div {
     border: ${(props) => `1px solid ${props.theme.fifthGray}`};
