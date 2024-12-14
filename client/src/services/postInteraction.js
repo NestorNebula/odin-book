@@ -62,7 +62,7 @@ function createStructure(userId) {
   };
 
   const removeBookmark = async (postId) => {
-    return await post(postId, 'Bookmark');
+    return await remove(postId, 'Bookmark');
   };
 
   return { repost, undoRepost, like, unlike, bookmark, removeBookmark };
