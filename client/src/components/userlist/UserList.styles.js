@@ -5,7 +5,7 @@ const UserList = styled.div`
   flex-direction: column;
   gap: 2rem;
   border-radius: 15px;
-  padding: 0.75rem;
+  padding: 1rem;
 `;
 const Title = styled.div`
   font-size: 2.25rem;
