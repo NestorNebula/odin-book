@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { Context } from '@context';
 import { Link, Navigate } from 'react-router-dom';
-import { Post, UserList } from '@components';
-import { Button } from '@components/elements';
+import { NavbarButton, Post, UserList } from '@components';
 import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import * as S from './ExploreResult.styles';
@@ -11,7 +10,9 @@ function ExploreResult({ posts, updatePost, users }) {
   const { user, updateInformation } = useContext(Context);
   const sections = ['Top', 'Latest', 'People', 'Media'];
   const [activeSection, setActiveSection] = useState(0);
-  const recentPosts = posts.toSorted((a, b) => b.creationDate - a.creationDate);
+  const recentPosts = posts.toSorted(
+    (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+  );
   const mediaPosts = posts.filter((p) => !!p.file);
 
   const [postLink, setPostLink] = useState(null);
@@ -47,6 +48,23 @@ function ExploreResult({ posts, updatePost, users }) {
     }
   };
 
+  const contentRef = useRef();
+
+  const [contentWidth, setContentWidth] = useState(0);
+  useLayoutEffect(() => {
+    const updateWidth = () => {
+      setContentWidth(contentRef.current ? contentRef.current.offsetWidth : 0);
+    };
+    window.addEventListener('DOMContentLoaded', updateWidth);
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+
+    return () => {
+      window.removeEventListener('resize', updateWidth);
+      window.removeEventListener('DOMContentLoaded', updateWidth);
+    };
+  }, []);
+
   return (
     <S.ExploreResult>
       {postLink && <Navigate to={postLink} />}
@@ -54,13 +72,18 @@ function ExploreResult({ posts, updatePost, users }) {
         <ul>
           {sections.map((section, index) => (
             <li key={section}>
-              <Button onClick={() => setActiveSection(index)}>{section}</Button>
+              <NavbarButton
+                onClick={() => setActiveSection(index)}
+                selected={activeSection === index}
+              >
+                {section}
+              </NavbarButton>
             </li>
           ))}
         </ul>
       </S.Navbar>
       {sections[activeSection] === 'Top' ? (
-        <S.Posts>
+        <S.Posts ref={contentRef}>
           {posts.map((post) => (
             <Post
               key={post.id}
@@ -74,7 +97,7 @@ function ExploreResult({ posts, updatePost, users }) {
           ))}
         </S.Posts>
       ) : sections[activeSection] === 'Latest' ? (
-        <S.Posts>
+        <S.Posts ref={contentRef}>
           {recentPosts.map((post) => (
             <Post
               key={post.id}
@@ -90,9 +113,9 @@ function ExploreResult({ posts, updatePost, users }) {
       ) : sections[activeSection] === 'People' ? (
         <UserList users={users} details={true} />
       ) : sections[activeSection] === 'Media' ? (
-        <S.Media>
+        <S.Media ref={contentRef} $width={contentWidth}>
           {mediaPosts.map((post) => (
-            <Link key={post.id} to={`posts/${post.id}`}>
+            <Link key={post.id} to={`/posts/${post.id}`}>
               <img src={post.file} alt="" />
             </Link>
           ))}

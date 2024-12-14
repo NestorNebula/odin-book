@@ -22,22 +22,30 @@ function Explore() {
 
   return (
     <S.Explore>
-      <SearchBar onSubmit={({ value }) => setSearch(value)} />
-      {search &&
-        (error ? (
-          <Error>{error}</Error>
-        ) : loading ? (
-          <Loading data="search results" />
+      <S.Content>
+        <SearchBar onSubmit={({ value }) => setSearch(value)} />
+        {search &&
+          (error ? (
+            <Error>{error}</Error>
+          ) : loading ? (
+            <Loading data="search results" />
+          ) : (
+            <ExploreResult
+              posts={posts}
+              updatePost={updatePost}
+              users={users}
+            />
+          ))}
+      </S.Content>
+      <S.Sidebar>
+        {sidebarError ? (
+          <Error>{sidebarError}</Error>
+        ) : sidebarLoading ? (
+          <Loading data="users to follow" />
         ) : (
-          <ExploreResult posts={posts} updatePost={updatePost} users={users} />
-        ))}
-      {sidebarError ? (
-        <Error>{sidebarError}</Error>
-      ) : sidebarLoading ? (
-        <Loading data="users to follow" />
-      ) : (
-        <UserList title="Who to follow" users={data.users} />
-      )}
+          <UserList title="Who to follow" users={data.users} />
+        )}
+      </S.Sidebar>
     </S.Explore>
   );
 }
