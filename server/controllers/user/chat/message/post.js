@@ -28,8 +28,8 @@ const postMessage = [
     const message = await prisma.createMessage(
       req.user.id,
       +req.params.chatId,
-      req.body.content.length ? req.body.content : null,
-      req.body.file.length ? req.body.file : null
+      req.body.content ? req.body.content : null,
+      req.body.file ? req.body.file : null
     );
     if (!message) {
       return next(
