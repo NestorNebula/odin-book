@@ -7,12 +7,15 @@ const StyledAvatar = styled.img`
   border-radius: ${(props) => props.$width ?? '5rem'};
 `;
 
-function Avatar({ profile }) {
-  return <StyledAvatar src={profile.avatar ?? avatar} alt="" />;
+function Avatar({ profile, ...props }) {
+  return (
+    <StyledAvatar src={profile.avatar ?? avatar} alt="" $width={props.width} />
+  );
 }
 
 Avatar.propTypes = {
   profile: PropTypes.object.isRequired,
+  width: PropTypes.string,
 };
 
 export default Avatar;
