@@ -23,11 +23,15 @@ function NotificationList({ notifications }) {
                     ? heart
                     : repost
                 }
+                className={type}
                 alt=""
               />
               {type !== 'FOLLOW' && (
                 <Link to={`/${notifier.id}`}>
-                  <Avatar profile={notifier.profile} />
+                  <Avatar
+                    profile={notifier.profile}
+                    width="3.5rem !important"
+                  />
                 </Link>
               )}
               <div>
@@ -57,7 +61,10 @@ function NotificationList({ notifications }) {
             ) : (
               <S.Notification.Profile>
                 <Link to={`/${notifier.id}`}>
-                  <Avatar profile={notifier.profile} />
+                  <Avatar
+                    profile={notifier.profile}
+                    width="3.5rem !important"
+                  />
                   <FollowButton userId={notifier.id} />
                   <div>{notifier.profile.displayName}</div>
                   <div>{`@${notifier.username}`}</div>

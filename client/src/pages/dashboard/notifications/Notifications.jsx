@@ -31,14 +31,16 @@ function Notifications() {
 
   return (
     <S.Notifications>
-      <S.Header>Notifications</S.Header>
-      {error ? (
-        <Error>{error}</Error>
-      ) : loading ? (
-        <Loading data="notifications" />
-      ) : (
-        <NotificationList notifications={data.notifications} />
-      )}
+      <S.Content>
+        <S.Header>Notifications</S.Header>
+        {error ? (
+          <Error>{error}</Error>
+        ) : loading ? (
+          <Loading data="notifications" />
+        ) : (
+          <NotificationList notifications={data.notifications} />
+        )}
+      </S.Content>
       <DefaultSidebar />
     </S.Notifications>
   );
