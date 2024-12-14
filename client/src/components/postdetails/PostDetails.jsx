@@ -53,7 +53,7 @@ function PostDetails({ post, update }) {
       }
       return setPostUrl(`/posts/${postId}`);
     }
-    let postToUpdate = null;
+    let postToUpdate = postId === post.main.id ? post.main : null;
     let actual = post;
     while (!postToUpdate && actual.next) {
       if (actual.main.id === postId) {
@@ -71,6 +71,7 @@ function PostDetails({ post, update }) {
       }
     }
     if (!postToUpdate) return;
+    console.log(postToUpdate.interactions);
     const result = await postInteraction.interact({
       structure,
       interaction,
