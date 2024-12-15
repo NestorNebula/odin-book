@@ -312,6 +312,11 @@ const findPost = async (id) => {
         },
       },
       interactions: { select: { type: true, userId: true } },
+      commentedPost: {
+        include: {
+          user: { select: { id: true, username: true, profile: true } },
+        },
+      },
     },
   });
   return post;
@@ -457,6 +462,11 @@ const findInteractions = async (userId, type) => {
           user: { select: { id: true, username: true, profile: true } },
           interactions: { select: { type: true, userId: true } },
           comments: true,
+          commentedPost: {
+            include: {
+              user: { select: { id: true, username: true, profile: true } },
+            },
+          },
         },
       },
     },
