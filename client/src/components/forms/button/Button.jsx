@@ -22,9 +22,14 @@ const StyledButton = styled.button`
   }
 `;
 
-function Button({ children, type, disabled }) {
+function Button({ children, type, disabled, ...props }) {
   return (
-    <StyledButton type={type} disabled={disabled}>
+    <StyledButton
+      type={type}
+      disabled={disabled}
+      $color={props.color}
+      $backgroundColor={props.backgroundColor}
+    >
       {children}
     </StyledButton>
   );
@@ -34,6 +39,8 @@ Button.propTypes = {
   children: PropTypes.node,
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  color: PropTypes.string,
+  backgroundColor: PropTypes.string,
 };
 
 export default Button;

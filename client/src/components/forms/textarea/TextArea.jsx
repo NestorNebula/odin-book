@@ -25,6 +25,7 @@ function TextArea({
         value={value}
         onChange={updateValue}
         onInput={updateAreaHeight}
+        rows={1}
       ></S.TextArea>
       {!!maxLength && (
         <S.MaxLength>
