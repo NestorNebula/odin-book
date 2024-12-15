@@ -9,6 +9,7 @@ beforeEach(() => {
     <NewMessageDialog
       dialog={{ ref: null, close: () => {} }}
       onSubmit={mockSubmit}
+      chats={[]}
     />
   );
 });

@@ -8,21 +8,35 @@ import NewMessageDialog from './newmessagedialog/NewMessageDialog';
 import Chats from './chats/Chats';
 import Chat from './chat/Chat';
 import { newMessage } from '@assets/icons';
+import { theme } from '@styles';
 import * as S from './Messages.styles';
 
 function Messages() {
   const { user, updateInformation } = useContext(Context);
 
   const [updateChats, setUpdateChats] = useState(false);
-  const update = () => setUpdateChats(!updateChats);
+  const update = () => {
+    setUpdateChats(!updateChats);
+  };
   const { data, error, loading } = useData({
     path: `users/${user.id}/chats`,
     dependencies: [updateChats],
   });
   const [chat, setChat] = useState(null);
+  if (chat && data) {
+    const actualChat = data.chats.find((c) => c.id === chat.id);
+    if (actualChat && actualChat.messages.length > chat.messages.length) {
+      setChat(data.chats.find((c) => c.id === chat.id));
+    }
+  }
 
   const { dialogRef, open, close } = useDialog();
   const submitNewChat = async (userId) => {
+    if (
+      !data.chats ||
+      data.chats.some((c) => c.users.some((u) => u.id === userId))
+    )
+      return;
     const fetch = await fetchAPI({
       body: { userId },
       method: 'POST',
@@ -46,41 +60,60 @@ function Messages() {
       <NewMessageDialog
         dialog={{ ref: dialogRef, open, close }}
         onSubmit={submitNewChat}
+        chats={data ? data.chats : []}
       />
-      <S.Header>
-        <div>Messages</div>
-        <Button onClick={open}>
-          <img src={newMessage} alt="" aria-label="new message" />
-        </Button>
-      </S.Header>
-      {error ? (
-        <Error>{error}</Error>
-      ) : loading ? (
-        <Loading data="chats" />
-      ) : !data.chats.length ? (
-        <S.NewMessage.Main>
-          <S.NewMessage.Header>Welcome to your inbox!</S.NewMessage.Header>
-          <S.NewMessage.Content>
-            Drop a line, share posts and more with private conversations between
-            you and others on Odin-Book.
-          </S.NewMessage.Content>
-          <Button onClick={open}>Write a message</Button>
-        </S.NewMessage.Main>
-      ) : (
-        <Chats chat={chat} chats={data.chats} setChat={setChat} />
-      )}
-      {chat ? (
-        <Chat chat={chat} update={update} />
-      ) : (
-        <S.NewMessage.Main>
-          <S.NewMessage.Header>Select a message</S.NewMessage.Header>
-          <S.NewMessage.Content>
-            Choose from your existing conversations, start a new one, or just
-            keep swimming.
-          </S.NewMessage.Content>
-          <Button onClick={open}>New message</Button>
-        </S.NewMessage.Main>
-      )}
+      <S.Content $activeChat={!!chat}>
+        <S.Header>
+          <div>Messages</div>
+          <button onClick={open}>
+            <img src={newMessage} alt="" aria-label="new message" />
+          </button>
+        </S.Header>
+        {error ? (
+          <Error>{error}</Error>
+        ) : loading ? (
+          <Loading data="chats" />
+        ) : !data.chats.length ? (
+          <S.NewMessage.Main>
+            <S.NewMessage.Header>Welcome to your inbox!</S.NewMessage.Header>
+            <S.NewMessage.Content>
+              Drop a line, share posts and more with private conversations
+              between you and others on Odin-Book.
+            </S.NewMessage.Content>
+            <Button
+              onClick={open}
+              backgroundColor={theme.mainBlue}
+              color={theme.secondaryWhite}
+              noHover={true}
+            >
+              Write a message
+            </Button>
+          </S.NewMessage.Main>
+        ) : (
+          <Chats chat={chat} chats={data.chats} setChat={setChat} />
+        )}
+      </S.Content>
+      <S.Sidebar $activeChat={!!chat}>
+        {chat ? (
+          <Chat chat={chat} setChat={setChat} update={update} />
+        ) : (
+          <S.NewMessage.Main>
+            <S.NewMessage.Header>Select a message</S.NewMessage.Header>
+            <S.NewMessage.Content>
+              Choose from your existing conversations, start a new one, or just
+              keep swimming.
+            </S.NewMessage.Content>
+            <Button
+              onClick={open}
+              backgroundColor={theme.mainBlue}
+              color={theme.secondaryWhite}
+              noHover={true}
+            >
+              New message
+            </Button>
+          </S.NewMessage.Main>
+        )}
+      </S.Sidebar>
     </S.Messages>
   );
 }

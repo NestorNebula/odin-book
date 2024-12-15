@@ -13,6 +13,7 @@ function Chats({ chat, chats, setChat }) {
     <S.Chats>
       {chats.map((chat) => {
         const friend = chat.users.find((usr) => usr.id !== user.id);
+        const lastMessage = !!chat.messages.length && chat.messages[0];
         return (
           <S.Button
             key={chat.id}
@@ -22,16 +23,20 @@ function Chats({ chat, chats, setChat }) {
                 ? `chat with ${friend.profile.displayName} opened`
                 : `open chat with ${friend.profile.displayName}`
             }
+            $active={chat.id === chatId}
           >
             <S.Chat>
               <Avatar profile={friend.profile} />
-              <div>{friend.profile.displayName}</div>
-              <div>{`@${friend.username}`}</div>
-              {chat.creationDate !== chat.updatedAt && (
-                <div>・ {format(chat.updatedAt, 'MMM d')}</div>
-              )}
-              {chat.messages.length && (
-                <div>{chat.messages[chat.messages.length - 1].content}</div>
+              <S.ChatInfos>
+                <div>{friend.profile.displayName}</div>
+                <div>{`@${friend.username}`}</div>
+                {lastMessage &&
+                  chat.creationDate !== lastMessage.creationDate && (
+                    <div>・ {format(lastMessage.creationDate, 'MMM d')}</div>
+                  )}
+              </S.ChatInfos>
+              {lastMessage && (
+                <S.LastMessage>{lastMessage.content}</S.LastMessage>
               )}
             </S.Chat>
           </S.Button>

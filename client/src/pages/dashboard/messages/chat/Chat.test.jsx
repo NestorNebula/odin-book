@@ -11,7 +11,7 @@ const chat = testsData.chat({ numMessages, userId });
 beforeEach(() => {
   render(
     <MemoryRouter>
-      <Chat chat={chat} update={() => {}} />
+      <Chat chat={chat} setChat={() => {}} update={() => {}} />
     </MemoryRouter>
   );
 });

@@ -6,9 +6,10 @@ import { fetchAPI } from '@services';
 import { format } from 'date-fns';
 import MessageForm from '../messageform/MessageForm';
 import PropTypes from 'prop-types';
+import { close } from '@assets/icons';
 import * as S from './Chat.styles';
 
-function Chat({ chat, update }) {
+function Chat({ chat, setChat, update }) {
   const { user, updateInformation } = useContext(Context);
   const friend = chat.users.find((usr) => usr.id !== user.id);
 
@@ -34,16 +35,26 @@ function Chat({ chat, update }) {
   return (
     <S.Chat>
       <S.Header>
+        <S.CloseButton
+          aria-label={`close chat with ${friend.profile.displayName}`}
+          onClick={() => setChat(null)}
+        >
+          <img src={close} alt="" />
+        </S.CloseButton>
         <Link to={`/${friend.id}`}>
-          <Avatar profile={friend.profile} />
+          <Avatar profile={friend.profile} width="3.5rem" />
         </Link>
         <div>{friend.profile.displayName}</div>
       </S.Header>
       <S.Messages>
         {chat.messages.map((message) => (
-          <S.Message key={message.id}>
+          <S.Message key={message.id} $user={user.id === message.userId}>
             {message.file && <S.File src={message.file} alt=""></S.File>}
-            {message.content && <S.Content>{message.content}</S.Content>}
+            {message.content && (
+              <S.Content $user={user.id === message.userId}>
+                {message.content}
+              </S.Content>
+            )}
             <div>{format(message.creationDate, 'MMM d, y, p')}</div>
           </S.Message>
         ))}
@@ -55,6 +66,7 @@ function Chat({ chat, update }) {
 
 Chat.propTypes = {
   chat: PropTypes.object.isRequired,
+  setChat: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
 };
 
