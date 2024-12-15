@@ -166,8 +166,8 @@ const findUsersBySearch = async (search, limit) => {
   const users = await prisma.user.findMany({
     where: {
       OR: [
-        { username: { contains: search } },
-        { profile: { displayName: { contains: search } } },
+        { username: { contains: search, mode: 'insensitive' } },
+        { profile: { displayName: { contains: search, mode: 'insensitive' } } },
       ],
     },
     select: { id: true, username: true, profile: true },
@@ -396,8 +396,8 @@ const findPostsBySearch = async (search, limit) => {
   const posts = await prisma.post.findMany({
     where: {
       OR: [
-        { content: { contains: search } },
-        { user: { username: { contains: search } } },
+        { content: { contains: search, mode: 'insensitive' } },
+        { user: { username: { contains: search, mode: 'insensitive' } } },
       ],
     },
     include: {
