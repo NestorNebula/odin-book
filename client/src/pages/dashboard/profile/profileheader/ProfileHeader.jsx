@@ -97,12 +97,16 @@ function ProfileHeader({ user, isUser }) {
           <></>
         )}
       </Dialog.Main>
-      <S.Background>
-        {user.profile.background && (
-          <img src={user.profile.background} alt="" />
-        )}
-      </S.Background>
-      <Avatar profile={user.profile} />
+      <S.AvatarContainer>
+        <S.Background>
+          {user.profile.background ? (
+            <img src={user.profile.background} />
+          ) : (
+            <div></div>
+          )}
+        </S.Background>
+        <Avatar profile={user.profile} />
+      </S.AvatarContainer>
       <S.Buttons>
         {isUser ? (
           <Button onClick={openDialog}>Edit profile</Button>
@@ -128,7 +132,9 @@ function ProfileHeader({ user, isUser }) {
         {user.profile.website && (
           <S.UserDetail>
             <img src={link} alt="" />
-            <a href={user.profile.website} />
+            <a href={user.profile.website}>
+              {user.profile.website.split('://')[1]}
+            </a>
           </S.UserDetail>
         )}
         <S.UserDetail>
@@ -138,10 +144,10 @@ function ProfileHeader({ user, isUser }) {
       </S.UserDetails>
       <S.Connections>
         <Link to={`/${user.id}/connections`}>
-          {user.following.length} Following
+          <S.Number>{user.following.length}</S.Number> Following
         </Link>
         <Link to={`/${user.id}/connections`}>
-          {user.followers.length} Followers
+          <S.Number>{user.followers.length}</S.Number> Followers
         </Link>
       </S.Connections>
     </S.ProfileHeader>
