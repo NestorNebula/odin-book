@@ -15,16 +15,18 @@ function Post() {
 
   return (
     <S.Post>
-      <S.Header>
-        <div>Post</div>
-      </S.Header>
-      {error ? (
-        <Error>{error}</Error>
-      ) : loading ? (
-        <Loading data="post" />
-      ) : (
-        <PostDetails post={data.post} update={doUpdate} />
-      )}
+      <S.Content>
+        <S.Header>
+          <div>Post</div>
+        </S.Header>
+        {error ? (
+          <Error>{error}</Error>
+        ) : loading ? (
+          <Loading data="post" />
+        ) : (
+          <PostDetails post={data.post} update={doUpdate} />
+        )}
+      </S.Content>
       <DefaultSidebar />
     </S.Post>
   );
