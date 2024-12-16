@@ -4,9 +4,10 @@ import { useInput } from '@hooks';
 import { Button, Input } from '@components/forms';
 import { validationChains } from '@services';
 import PropTypes from 'prop-types';
+import { close as closeIcon } from '@assets/icons';
 import * as S from './SettingsForm.styles';
 
-function SettingsForm({ type, onSubmit }) {
+function SettingsForm({ type, onSubmit, close }) {
   const { user } = useContext(Context);
   const {
     value: username,
@@ -56,6 +57,9 @@ function SettingsForm({ type, onSubmit }) {
   return (
     <S.SettingsForm>
       <S.Header>
+        <S.CloseButton aria-label={`close ${type} form`} onClick={close}>
+          <img src={closeIcon} alt="" />
+        </S.CloseButton>
         <div>
           {type === 'user'
             ? 'Change your username/email'
@@ -91,10 +95,10 @@ function SettingsForm({ type, onSubmit }) {
             type="email"
           />
           {user.loginMethod === 'GITHUB' && (
-            <div>
+            <S.Information>
               You are connected with your Github email address. Trying to update
               this email will not be accepted.
-            </div>
+            </S.Information>
           )}
           <Button
             type={userIsValid ? 'submit' : 'button'}
@@ -122,7 +126,7 @@ function SettingsForm({ type, onSubmit }) {
             name="newPassword"
             value={newPassword}
             updateValue={updatePassword}
-            validation={currentValidation}
+            validation={passwordValidation}
             label="New Password"
             type="password"
           />
@@ -134,7 +138,16 @@ function SettingsForm({ type, onSubmit }) {
             label="Confirm Password"
             type="password"
           />
-          {!passwordMatch && <div>{"Passwords don't match."}</div>}
+          {!passwordMatch && !!newPassword && !!confirmPassword && (
+            <S.Error>{"Passwords don't match."}</S.Error>
+          )}
+          {user.loginMethod === 'GITHUB' && (
+            <S.Information>
+              {
+                "You are connected with your Github account. You don't have a password."
+              }
+            </S.Information>
+          )}
           <Button
             type={passwordIsValid ? 'submit' : 'button'}
             disabled={user.loginMethod !== 'PASSWORD'}
@@ -150,6 +163,9 @@ function SettingsForm({ type, onSubmit }) {
           }}
         >
           <Button type="submit">Log Out</Button>
+          <S.Information>
+            You will need to reconnect yourself after logging out.
+          </S.Information>
         </S.Form>
       ) : null}
     </S.SettingsForm>
@@ -159,6 +175,7 @@ function SettingsForm({ type, onSubmit }) {
 SettingsForm.propTypes = {
   type: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 export default SettingsForm;

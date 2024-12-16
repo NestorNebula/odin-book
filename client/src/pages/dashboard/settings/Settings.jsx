@@ -13,7 +13,7 @@ function Settings() {
     'Log out',
     'Logged out',
   ];
-  const [activeSection, setActiveSection] = useState(-1);
+  const [activeSection, setActiveSection] = useState(null);
 
   const submitUser = async ({ username, email }) => {
     const fetch = await fetchAPI({
@@ -33,7 +33,7 @@ function Settings() {
       });
     } else {
       updateUser();
-      setActiveSection(-1);
+      setActiveSection(null);
     }
   };
 
@@ -68,33 +68,55 @@ function Settings() {
       setActiveSection(sections.length - 1);
     }
   };
+  console.log(activeSection);
 
   return (
     <S.Settings>
-      <S.Header>
-        <div>Settings</div>
-      </S.Header>
-      <S.Navbar>
-        <ul>
-          {sections.map(
-            (s, index) =>
-              index !== sections.length - 1 && (
-                <li key={s}>
-                  <button onClick={() => setActiveSection(index)}>{s}</button>
-                </li>
-              )
-          )}
-        </ul>
-      </S.Navbar>
-      {sections[activeSection] === 'Change username/email' ? (
-        <SettingsForm type="user" onSubmit={submitUser} />
-      ) : sections[activeSection] === 'Change password' ? (
-        <SettingsForm type="password" onSubmit={submitPassword} />
-      ) : sections[activeSection] === 'Log out' ? (
-        <SettingsForm type="logout" onSubmit={logOut} />
-      ) : sections[activeSection] === 'Logged out' ? (
-        <Navigate to={'/signin'} />
-      ) : null}
+      <S.Content $sectionActive={activeSection !== null}>
+        <S.Header>
+          <div>Settings</div>
+        </S.Header>
+        <S.Navbar>
+          <ul>
+            {sections.map(
+              (s, index) =>
+                index !== sections.length - 1 && (
+                  <li key={s}>
+                    <S.NavbarButton
+                      onClick={() => setActiveSection(index)}
+                      $active={index === activeSection}
+                    >
+                      {s}
+                    </S.NavbarButton>
+                  </li>
+                )
+            )}
+          </ul>
+        </S.Navbar>
+      </S.Content>
+      <S.Sidebar $sectionActive={activeSection !== null}>
+        {sections[activeSection] === 'Change username/email' ? (
+          <SettingsForm
+            type="user"
+            onSubmit={submitUser}
+            close={() => setActiveSection(null)}
+          />
+        ) : sections[activeSection] === 'Change password' ? (
+          <SettingsForm
+            type="password"
+            onSubmit={submitPassword}
+            close={() => setActiveSection(null)}
+          />
+        ) : sections[activeSection] === 'Log out' ? (
+          <SettingsForm
+            type="logout"
+            onSubmit={logOut}
+            close={() => setActiveSection(null)}
+          />
+        ) : sections[activeSection] === 'Logged out' ? (
+          <Navigate to={'/signin'} />
+        ) : null}
+      </S.Sidebar>
     </S.Settings>
   );
 }
