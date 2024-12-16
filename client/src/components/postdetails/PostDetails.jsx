@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Context } from '@context';
 import { Post, CommentDialog } from '@components';
@@ -71,7 +71,6 @@ function PostDetails({ post, update }) {
       }
     }
     if (!postToUpdate) return;
-    console.log(postToUpdate.interactions);
     const result = await postInteraction.interact({
       structure,
       interaction,
@@ -105,8 +104,36 @@ function PostDetails({ post, update }) {
       parents.push(actual.next);
       actual = actual.next;
     }
+    parents.reverse();
     return parents;
   };
+  const parentPosts = getParentPosts();
+
+  const parentRef = useRef();
+  const mainRef = useRef();
+  const [lineHeight, setLineHeight] = useState(0);
+  useLayoutEffect(() => {
+    const updateLineHeight = () => {
+      setLineHeight(
+        !mainRef.current || !parentRef.current
+          ? 0
+          : mainRef.current.getBoundingClientRect().y -
+              parentRef.current.getBoundingClientRect().y
+      );
+    };
+    updateLineHeight();
+
+    window.addEventListener('resize', updateLineHeight);
+    const interval = setInterval(() => {
+      if (lineHeight || !parentPosts.length) clearInterval(interval);
+      updateLineHeight();
+    }, 1000);
+
+    return () => {
+      window.removeEventListener('resize', updateLineHeight);
+      clearInterval(interval);
+    };
+  }, [lineHeight, parentPosts]);
 
   return (
     <S.PostDetails>
@@ -117,9 +144,9 @@ function PostDetails({ post, update }) {
         update={update}
       />
       <S.ParentPosts>
-        {getParentPosts().map((parent) => (
+        {parentPosts.map((parent, index) => (
           <S.ParentPost
-            key={`${parent.id}parent`}
+            key={`${parent.main.id}parent`}
             onClick={() => setPostUrl(`/posts/${parent.main.id}`)}
           >
             <Post
@@ -129,6 +156,9 @@ function PostDetails({ post, update }) {
               onLikeClick={() => onPostClick('LIKE', parent.id)}
               onBookmarkClick={() => onPostClick('BOOKMARK', parent.id)}
               onPostDelete={() => onPostDelete(parent.id)}
+              parent={true}
+              parentRef={index === 0 ? parentRef : null}
+              lineHeight={index === 0 ? lineHeight : null}
             />
           </S.ParentPost>
         ))}
@@ -141,6 +171,8 @@ function PostDetails({ post, update }) {
         onLikeClick={() => onPostClick('LIKE', post.main.id)}
         onBookmarkClick={() => onPostClick('BOOKMARK', post.main.id)}
         onPostDelete={() => onPostDelete(post.main.id, true)}
+        main={true}
+        mainRef={mainRef}
       />{' '}
       <PostForm
         onSubmit={submitComment}
