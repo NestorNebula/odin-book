@@ -47,6 +47,7 @@ function SearchBar({ onSubmit }) {
         e.preventDefault();
         if (!value) return;
         await onSubmit({ value });
+        setValue('');
       }}
     >
       <img src={explore} alt="" />
