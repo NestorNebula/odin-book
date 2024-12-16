@@ -6,8 +6,27 @@ import { close, extend } from '@assets/icons';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledSidebar = styled.aside``;
-const StyledHeader = styled.header``;
+const StyledSidebar = styled.aside`
+  padding: 1rem;
+`;
+const StyledHeader = styled.header`
+  display: flex;
+  font-size: 2rem;
+  font-weight: 700;
+  gap: 3rem;
+
+  & > button {
+    & > img {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(71%)
+        saturate(762%) hue-rotate(167deg) brightness(112%) contrast(91%);
+      width: 2rem;
+    }
+  }
+
+  & > button:last-child {
+    margin-left: auto;
+  }
+`;
 const StyledButton = styled.button``;
 
 function BookmarksSidebar({ postId, setPostId }) {
@@ -17,7 +36,7 @@ function BookmarksSidebar({ postId, setPostId }) {
   };
   const { data, error, loading } = useData({
     path: `posts/${postId}`,
-    dependencies: [update],
+    dependencies: [postId, update],
   });
   const [extendPost, setExtendPost] = useState(false);
 

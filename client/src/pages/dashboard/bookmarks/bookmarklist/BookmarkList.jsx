@@ -61,8 +61,9 @@ function BookmarkList({ bookmarks, onBookmarkClick, update }) {
             onReplyClick={() => onPostClick('COMMENT', bookmark.postId)}
             onRepostClick={() => onPostClick('REPOST', bookmark.postId)}
             onLikeClick={() => onPostClick('LIKE', bookmark.postId)}
-            onBookmarkClick={() => onPostClick('COMMENT', bookmark.postId)}
+            onBookmarkClick={() => onPostClick('BOOKMARK', bookmark.postId)}
             onPostDelete={() => onPostDelete(bookmark.postId)}
+            noPostLink={true}
           />
         </div>
       ))}
