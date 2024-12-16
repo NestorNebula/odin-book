@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Context } from '@context';
-import { Post } from '@components';
+import { NavbarButton, Post } from '@components';
 import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import { lock, repost } from '@assets/icons';
@@ -79,6 +79,23 @@ function ProfileContent({ content, update, isUser }) {
     }
   };
 
+  const contentRef = useRef();
+
+  const [contentWidth, setContentWidth] = useState(0);
+  useLayoutEffect(() => {
+    const updateWidth = () => {
+      setContentWidth(contentRef.current ? contentRef.current.offsetWidth : 0);
+    };
+    window.addEventListener('DOMContentLoaded', updateWidth);
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+
+    return () => {
+      window.removeEventListener('resize', updateWidth);
+      window.removeEventListener('DOMContentLoaded', updateWidth);
+    };
+  }, []);
+
   return (
     <S.ProfileContent>
       {postLink && <Navigate to={postLink} />}
@@ -86,93 +103,109 @@ function ProfileContent({ content, update, isUser }) {
         <ul>
           {sections.map((section, index) => (
             <li key={section}>
-              <S.SectionButton onClick={() => setActiveSection(index)}>
+              <NavbarButton
+                onClick={() => setActiveSection(index)}
+                selected={index === activeSection}
+              >
                 {section}
-              </S.SectionButton>
+              </NavbarButton>
             </li>
           ))}
         </ul>
       </S.Navbar>
       <S.SectionContent>
         {sections[activeSection] === 'Posts' ? (
-          postsAndReposts.map(
-            (p) =>
-              p.post.type !== 'COMMENT' && (
-                <S.Post key={`${p.post.id}${p.type}`}>
-                  {p.type === 'REPOST' && (
-                    <div>
-                      <img src={repost} alt="" />
-                      <div>{p.user.profile.displayName} reposted</div>
-                    </div>
-                  )}
-                  <Post
-                    post={p.post}
-                    onReplyClick={() =>
-                      onPostClick('COMMENT', p.post.id, p.type)
-                    }
-                    onRepostClick={() =>
-                      onPostClick('REPOST', p.post.id, p.type)
-                    }
-                    onLikeClick={() => onPostClick('LIKE', p.post.id, p.type)}
-                    onBookmarkClick={() =>
-                      onPostClick('BOOKMARK', p.post.id, p.type)
-                    }
-                    onPostDelete={() => onPostDelete(p.post.id, p.type)}
-                  />
-                </S.Post>
-              )
-          )
+          <S.Posts ref={contentRef}>
+            {postsAndReposts.map(
+              (p) =>
+                p.post.type !== 'COMMENT' && (
+                  <S.Post key={`${p.post.id}${p.type}`}>
+                    {p.type === 'REPOST' && (
+                      <div>
+                        <img src={repost} alt="" />
+                        <div>{p.user.profile.displayName} reposted</div>
+                      </div>
+                    )}
+                    <Post
+                      post={p.post}
+                      onReplyClick={() =>
+                        onPostClick('COMMENT', p.post.id, p.type)
+                      }
+                      onRepostClick={() =>
+                        onPostClick('REPOST', p.post.id, p.type)
+                      }
+                      onLikeClick={() => onPostClick('LIKE', p.post.id, p.type)}
+                      onBookmarkClick={() =>
+                        onPostClick('BOOKMARK', p.post.id, p.type)
+                      }
+                      onPostDelete={() => onPostDelete(p.post.id, p.type)}
+                    />
+                  </S.Post>
+                )
+            )}
+          </S.Posts>
         ) : sections[activeSection] === 'Replies' ? (
-          postsAndReposts.map((p) => (
-            <S.Reply key={`${p.post.id}${p.type}`}>
-              {p.type === 'REPOST' && (
-                <div>
-                  <img src={repost} alt="" />
-                  <div>{p.post.userId} reposted</div>
-                </div>
-              )}
-              <Post
-                post={p.post}
-                onReplyClick={() => onPostClick('COMMENT', p.post.id, p.type)}
-                onRepostClick={() => onPostClick('REPOST', p.post.id, p.type)}
-                onLikeClick={() => onPostClick('LIKE', p.post.id, p.type)}
-                onBookmarkClick={() =>
-                  onPostClick('BOOKMARK', p.post.id, p.type)
-                }
-                onPostDelete={() => onPostDelete(p.post.id, p.type)}
-              />
-            </S.Reply>
-          ))
+          <S.Replies ref={contentRef}>
+            {' '}
+            {postsAndReposts.map((p) => (
+              <S.Reply key={`${p.post.id}${p.type}`}>
+                {p.type === 'REPOST' && (
+                  <div>
+                    <img src={repost} alt="" />
+                    <div>{p.post.userId} reposted</div>
+                  </div>
+                )}
+                <Post
+                  post={p.post}
+                  onReplyClick={() => onPostClick('COMMENT', p.post.id, p.type)}
+                  onRepostClick={() => onPostClick('REPOST', p.post.id, p.type)}
+                  onLikeClick={() => onPostClick('LIKE', p.post.id, p.type)}
+                  onBookmarkClick={() =>
+                    onPostClick('BOOKMARK', p.post.id, p.type)
+                  }
+                  onPostDelete={() => onPostDelete(p.post.id, p.type)}
+                />
+              </S.Reply>
+            ))}{' '}
+          </S.Replies>
         ) : sections[activeSection] === 'Media' ? (
-          posts.map(
-            (post) =>
-              post.file && (
-                <Link key={post.id} to={`posts/${post.id}`}>
-                  <img src={post.file} alt="" />
-                </Link>
-              )
-          )
+          <S.Medias ref={contentRef} $width={contentWidth}>
+            {posts.map(
+              (post) =>
+                post.file && (
+                  <Link key={post.id} to={`/posts/${post.id}`}>
+                    <img src={post.file} alt="" />
+                  </Link>
+                )
+            )}
+          </S.Medias>
         ) : sections[activeSection] === 'Likes' ? (
           <>
-            <div>
+            <S.LikeMessage>
               <img src={lock} alt="" />
               Your likes are private. Only you can see them.
-            </div>
-            {likes.map((l) => (
-              <S.Like key={l.post.id}>
-                <Post
-                  key={l.post.id}
-                  post={l.post}
-                  onReplyClick={() => onPostClick('COMMENT', l.post.id, 'LIKE')}
-                  onRepostClick={() => onPostClick('REPOST', l.post.id, 'LIKE')}
-                  onLikeClick={() => onPostClick('LIKE', l.post.id, 'LIKE')}
-                  onBookmarkClick={() =>
-                    onPostClick('BOOKMARK', l.post.id, 'LIKE')
-                  }
-                  onPostDelete={() => onPostDelete(l.post.id, 'LIKE')}
-                />
-              </S.Like>
-            ))}
+            </S.LikeMessage>
+            <S.Likes ref={contentRef}>
+              {likes.map((l) => (
+                <S.Like key={l.post.id}>
+                  <Post
+                    key={l.post.id}
+                    post={l.post}
+                    onReplyClick={() =>
+                      onPostClick('COMMENT', l.post.id, 'LIKE')
+                    }
+                    onRepostClick={() =>
+                      onPostClick('REPOST', l.post.id, 'LIKE')
+                    }
+                    onLikeClick={() => onPostClick('LIKE', l.post.id, 'LIKE')}
+                    onBookmarkClick={() =>
+                      onPostClick('BOOKMARK', l.post.id, 'LIKE')
+                    }
+                    onPostDelete={() => onPostDelete(l.post.id, 'LIKE')}
+                  />
+                </S.Like>
+              ))}
+            </S.Likes>
           </>
         ) : null}
       </S.SectionContent>
