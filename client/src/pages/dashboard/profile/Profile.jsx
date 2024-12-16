@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Context } from '@context';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useData, usePosts } from '@hooks';
 import { DefaultSidebar, Error, Loading } from '@components';
 import ProfileHeader from './profileheader/ProfileHeader';
@@ -29,6 +29,9 @@ function Profile() {
 
   return (
     <S.Profile>
+      {(!+userId || isNaN(+userId) || (data && !data.user)) && (
+        <Navigate to="/home" />
+      )}
       <S.Content>
         {data && <S.Title>{data.user.profile.displayName}</S.Title>}
         {error ? (
