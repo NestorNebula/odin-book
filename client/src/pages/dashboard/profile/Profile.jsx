@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Context } from '@context';
 import { useParams } from 'react-router-dom';
 import { useData, usePosts } from '@hooks';
-import { Error, Loading } from '@components';
+import { DefaultSidebar, Error, Loading } from '@components';
 import ProfileHeader from './profileheader/ProfileHeader';
 import ProfileContent from './profilecontent/ProfileContent';
 import * as S from './Profile.styles';
@@ -29,27 +29,30 @@ function Profile() {
 
   return (
     <S.Profile>
-      {data && <S.Title>{data.user.profile.displayName}</S.Title>}
-      {error ? (
-        <Error>{error}</Error>
-      ) : loading ? (
-        <Loading data="profile" />
-      ) : (
-        <ProfileHeader user={data.user} isUser={isUser} />
-      )}
-      <ProfileContent
-        content={{
-          posts,
-          reposts,
-          likes: likesData ? likesData.interactions : [],
-        }}
-        update={{
-          post: updatePost,
-          repost: updateRepost,
-          likes: doUpdateLikes,
-        }}
-        isUser={isUser}
-      />
+      <S.Content>
+        {data && <S.Title>{data.user.profile.displayName}</S.Title>}
+        {error ? (
+          <Error>{error}</Error>
+        ) : loading ? (
+          <Loading data="profile" />
+        ) : (
+          <ProfileHeader user={data.user} isUser={isUser} />
+        )}
+        <ProfileContent
+          content={{
+            posts,
+            reposts,
+            likes: likesData ? likesData.interactions : [],
+          }}
+          update={{
+            post: updatePost,
+            repost: updateRepost,
+            likes: doUpdateLikes,
+          }}
+          isUser={isUser}
+        />
+      </S.Content>
+      <DefaultSidebar />
     </S.Profile>
   );
 }
