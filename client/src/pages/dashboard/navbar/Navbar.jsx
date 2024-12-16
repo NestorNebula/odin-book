@@ -67,16 +67,18 @@ function Navbar({ openNewPost }) {
           }
           active={pathname === '/bookmarks'}
         />
-        <NavbarLink
-          link={user.loginMethod !== 'GUEST' ? `${user.id}` : 'guest'}
-          iconSrc={
-            Number.isInteger(+pathname.split('/')[1])
-              ? icons.profile
-              : icons.emptyProfile
-          }
-          title="profile"
-          active={Number.isInteger(+pathname.split('/')[1])}
-        />
+        {!!user.id && (
+          <NavbarLink
+            link={`${user.id}`}
+            iconSrc={
+              Number.isInteger(+pathname.split('/')[1])
+                ? icons.profile
+                : icons.emptyProfile
+            }
+            title="profile"
+            active={Number.isInteger(+pathname.split('/')[1])}
+          />
+        )}
         <NavbarLink
           link="settings"
           iconSrc={icons.settings}
