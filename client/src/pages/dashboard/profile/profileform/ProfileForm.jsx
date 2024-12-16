@@ -56,70 +56,78 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
         onSubmit({ displayName, bio, location, website });
       }}
     >
-      <S.FileContainer>
-        {backgroundFile.url ||
-          (profile.background && (
-            <S.File src={backgroundFile.url || profile.background} alt="" />
-          ))}
-        {backgroundFile.url && (
-          <button
-            onClick={backgroundFile.remove}
-            aria-label="remove background"
-          >
-            <img src={close} alt="" />
-          </button>
+      <S.BackgroundContainer>
+        {backgroundFile.url || profile.background ? (
+          <S.File src={backgroundFile.url || profile.background} alt="" />
+        ) : (
+          <div></div>
         )}
-        <FileInput
-          onChange={(e) =>
-            backgroundFile.update(user, e.target.files[0], 'backgrounds')
-          }
-          image={photo}
-        />
-      </S.FileContainer>
-      <S.FileContainer>
-        {avatarFile.url ||
-          (profile.avatar && (
-            <Avatar profile={{ avatar: avatarFile.url || profile.avatar }} />
-          ))}
+        <S.ImgButtons>
+          {backgroundFile.url && (
+            <button
+              onClick={() => backgroundFile.remove(user, 'backgrounds')}
+              aria-label="remove background"
+              type="button"
+            >
+              <img src={close} alt="" />
+            </button>
+          )}
+          <FileInput
+            onChange={(e) =>
+              backgroundFile.update(user, e.target.files[0], 'backgrounds')
+            }
+            image={photo}
+          />
+        </S.ImgButtons>
+      </S.BackgroundContainer>
+      <S.AvatarContainer>
+        {avatarFile.url || profile.avatar ? (
+          <Avatar profile={{ avatar: avatarFile.url || profile.avatar }} />
+        ) : (
+          <div></div>
+        )}
         <FileInput
           onChange={(e) =>
             avatarFile.update(user, e.target.files[0], 'avatars')
           }
           image={photo}
         />
-      </S.FileContainer>
-      <Input
-        name="displayName"
-        value={displayName}
-        updateValue={updateDisplayName}
-        validation={displayNameValidation}
-        maxLength={50}
-        label="Name"
-      />
-      <TextArea
-        name="bio"
-        value={bio}
-        updateValue={updateBio}
-        validation={bioValidation}
-        label="Bio"
-        maxLength={160}
-      />
-      <Input
-        name="location"
-        value={location}
-        updateValue={updateLocation}
-        validation={locationValidation}
-        maxLength={30}
-        optional={true}
-      />
-      <Input
-        name="website"
-        value={website}
-        updateValue={updateWebsite}
-        validation={websiteValidation}
-        maxLength={100}
-        optional={true}
-      />
+      </S.AvatarContainer>
+      <S.Inputs>
+        <Input
+          name="displayName"
+          value={displayName}
+          updateValue={updateDisplayName}
+          validation={displayNameValidation}
+          maxLength={50}
+          label="Name"
+        />
+        <TextArea
+          name="bio"
+          value={bio}
+          updateValue={updateBio}
+          validation={bioValidation}
+          label="Bio"
+          maxLength={160}
+          placeholder=""
+        />
+        <Input
+          name="location"
+          value={location}
+          updateValue={updateLocation}
+          validation={locationValidation}
+          maxLength={30}
+          optional={true}
+        />
+        <Input
+          name="website"
+          value={website}
+          updateValue={updateWebsite}
+          validation={websiteValidation}
+          maxLength={100}
+          optional={true}
+        />
+      </S.Inputs>
       <Button
         type={isValid ? 'submit' : 'button'}
         disabled={user.loginMethod === 'GUEST'}
