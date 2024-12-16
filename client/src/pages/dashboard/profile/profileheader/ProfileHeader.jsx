@@ -10,6 +10,7 @@ import MessageButton from '../messagebutton/MessageButton';
 import ProfileForm from '../profileform/ProfileForm';
 import PropTypes from 'prop-types';
 import { map, link, calendar } from '@assets/icons';
+import { theme } from '@styles';
 import * as S from './ProfileHeader.styles';
 
 function ProfileHeader({ user, isUser }) {
@@ -109,7 +110,13 @@ function ProfileHeader({ user, isUser }) {
       </S.AvatarContainer>
       <S.Buttons>
         {isUser ? (
-          <Button onClick={openDialog}>Edit profile</Button>
+          <Button
+            onClick={openDialog}
+            color={theme.secondaryWhite}
+            backgroundColor={theme.black}
+          >
+            Edit profile
+          </Button>
         ) : (
           <>
             <MessageButton displayedUser={user} />
