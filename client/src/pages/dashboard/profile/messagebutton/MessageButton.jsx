@@ -6,7 +6,20 @@ import PropTypes from 'prop-types';
 import { message } from '@assets/icons';
 import styled from 'styled-components';
 
-const StyledMessageButton = styled.button``;
+const StyledMessageButton = styled.button`
+  border: ${(props) => `1px solid ${props.theme.secondaryGray}`};
+  border-radius: 5rem;
+  width: 5rem;
+  display: grid;
+  place-content: center;
+  padding: 0.5rem;
+
+  & > img {
+    width: 2rem;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7488%)
+      hue-rotate(32deg) brightness(112%) contrast(91%);
+  }
+`;
 
 function MessageButton({ displayedUser }) {
   const { user } = useContext(Context);
