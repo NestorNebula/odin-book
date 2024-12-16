@@ -17,7 +17,6 @@ function TextArea({
 
   return (
     <S.Container>
-      {label && <label htmlFor={name}>{label}</label>}
       <S.TextArea
         id={name}
         name={name}
@@ -27,6 +26,7 @@ function TextArea({
         onInput={updateAreaHeight}
         rows={1}
       ></S.TextArea>
+      {label && <label htmlFor={name}>{label}</label>}
       {!!maxLength && (
         <S.MaxLength>
           {value.length} / {maxLength}
