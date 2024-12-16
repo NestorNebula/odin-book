@@ -14,6 +14,7 @@ import {
   settings,
   trash,
 } from '@assets/icons';
+import { theme } from '@styles';
 import * as S from './Post.styles';
 
 function Post({
@@ -24,6 +25,8 @@ function Post({
   onLikeClick,
   onBookmarkClick,
   onPostDelete,
+  noPostLink,
+  ...props
 }) {
   const { user } = useContext(Context);
   const hasReposted = !!post.interactions.find(
@@ -39,16 +42,19 @@ function Post({
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <S.Post $details={details}>
-      {post.type === 'COMMENT' && post.commentedPost && (
-        <S.Repost>
-          Replying to{' '}
-          <Link to={`/posts/${post.commentedPost.id}`}>
-            @{post.commentedPost.user.username}
-          </Link>
-        </S.Repost>
-      )}
-      <Link to={`/${post.userId}`}>
+    <S.Post $details={details} $parent={props.parent} $main={props.main}>
+      {post.type === 'COMMENT' &&
+        post.commentedPost &&
+        !props.main &&
+        !props.parent && (
+          <S.Repost>
+            Replying to{' '}
+            <Link to={`/posts/${post.commentedPost.id}`}>
+              @{post.commentedPost.user.username}
+            </Link>
+          </S.Repost>
+        )}
+      <Link to={`/${post.userId}`} ref={props.parentRef || props.mainRef}>
         <Avatar profile={post.user.profile} />
       </Link>
       <S.Header $details={details}>
@@ -76,10 +82,18 @@ function Post({
         )}
       </S.Header>
       <S.Content $details={details}>
-        <Link to={`/posts/${post.id}`}>
-          {!!post.content && <div>{post.content}</div>}
-          {!!post.file && <img src={post.file} />}
-        </Link>
+        {noPostLink ? (
+          <S.PostContent>
+            {' '}
+            {!!post.content && <div>{post.content}</div>}
+            {!!post.file && <img src={post.file} />}
+          </S.PostContent>
+        ) : (
+          <Link to={`/posts/${post.id}`}>
+            {!!post.content && <div>{post.content}</div>}
+            {!!post.file && <img src={post.file} />}
+          </Link>
+        )}
         {!!details && (
           <S.FullDate>{date.getFullDate(post.creationDate)}</S.FullDate>
         )}
@@ -117,6 +131,23 @@ function Post({
           )}
         </S.Button>
       </S.Buttons>
+      {props.parent && props.lineHeight && (
+        <S.Svg
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+          height={props.lineHeight}
+          $marginLeft="3.2rem"
+        >
+          <line
+            x1="0"
+            y1={window.innerWidth > 1000 ? '10' : '0'}
+            x2="0"
+            y2={props.lineHeight}
+            stroke={theme.fifthGray}
+            strokeWidth="3"
+          />
+        </S.Svg>
+      )}
     </S.Post>
   );
 }
@@ -129,6 +160,12 @@ Post.propTypes = {
   onLikeClick: PropTypes.func.isRequired,
   onBookmarkClick: PropTypes.func.isRequired,
   onPostDelete: PropTypes.func.isRequired,
+  noPostLink: PropTypes.bool,
+  parent: PropTypes.bool,
+  main: PropTypes.bool,
+  parentRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  mainRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  lineHeight: PropTypes.number,
 };
 
 export default Post;

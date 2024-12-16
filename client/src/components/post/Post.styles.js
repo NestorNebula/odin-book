@@ -19,12 +19,14 @@ const Post = styled.div`
   gap: 0 1rem;
   padding: 1.5rem;
   border-bottom: ${(props) =>
-    !props.$details && `1px solid ${props.theme.fifthGray}`};
+    !props.$details && !props.$parent && `1px solid ${props.theme.fifthGray}`};
+  background-color: ${(props) => props.$main && props.theme.black};
 
   & > a {
     position: absolute;
     left: 1rem;
     top: 0.75rem;
+    z-index: 1;
   }
 `;
 const Header = styled.header`
@@ -81,6 +83,16 @@ const Content = styled.div`
   grid-column: ${(props) => (props.$details ? '1 / 3' : '2 / 3')};
 
   & > a > img {
+    border-radius: 15px;
+    padding-top: 1rem;
+    width: 100%;
+  }
+`;
+const PostContent = styled.button`
+  color: inherit;
+  text-align: start;
+
+  & > img {
     border-radius: 15px;
     padding-top: 1rem;
     width: 100%;
@@ -151,6 +163,11 @@ const Button = styled.button`
       hue-rotate(346deg) brightness(97%) contrast(97%);
   }
 `;
+const Svg = styled.svg`
+  position: absolute;
+  top: 1rem;
+  left: ${(props) => props.$marginLeft && props.$marginLeft};
+`;
 
 export {
   Repost,
@@ -159,7 +176,9 @@ export {
   Settings,
   DeleteButton,
   Content,
+  PostContent,
   FullDate,
   Buttons,
   Button,
+  Svg,
 };
