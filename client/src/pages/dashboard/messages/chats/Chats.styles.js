@@ -38,7 +38,7 @@ const Button = styled.button`
     props.$active ? `2px solid ${props.theme.mainBlue}` : 'none'};
 
   &:hover {
-    background-color: '#16181C';
+    background-color: ${(props) => props.theme.mainGray};
   }
 `;
 
