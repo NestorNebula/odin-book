@@ -51,6 +51,7 @@ function FollowButton({ userId }) {
             if (!fetch.error) updateUser();
           }}
           disabled={user.loginMethod === 'GUEST'}
+          $noDisplay={user.id === userId}
         >
           Follow
         </S.FollowButton>

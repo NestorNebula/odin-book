@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const FollowButton = styled.button`
+  display: ${(props) => props.$noDisplay && 'none'};
   background-color: ${(props) => props.theme.mainWhite};
   color: ${(props) => props.theme.black};
   border-radius: 2.5rem;
