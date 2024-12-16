@@ -114,6 +114,7 @@ function ProfileHeader({ user, isUser }) {
             onClick={openDialog}
             color={theme.secondaryWhite}
             backgroundColor={theme.black}
+            noHover={true}
           >
             Edit profile
           </Button>
