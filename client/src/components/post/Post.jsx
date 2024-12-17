@@ -86,7 +86,7 @@ function Post({
           <S.PostContent>
             {' '}
             {!!post.content && <div>{post.content}</div>}
-            {!!post.file && <img src={post.file} />}
+            {!!post.file && <img src={post.file} alt="" />}
           </S.PostContent>
         ) : (
           <Link to={`/posts/${post.id}`}>
