@@ -9,6 +9,10 @@ const Dashboard = styled.main`
 
   & > main {
     overflow-y: scroll;
+
+    @media (max-width: 500px) {
+      height: 90%;
+    }
   }
 
   @media (min-width: 501px) {
