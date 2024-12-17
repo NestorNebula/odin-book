@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { fetchAPI } from '@services';
 
-const useAuth = () => {
+const useAuth = (setInformation) => {
   const [done, setDone] = useState(false);
   const [method, setMethod] = useState(null);
-  const [errors, setErrors] = useState([]);
 
   const signUp = async ({ username, email, password }) => {
     const fetch = await fetchAPI({
@@ -13,11 +12,18 @@ const useAuth = () => {
       path: 'auth/signup',
     });
     if (fetch.error) {
-      setErrors(
-        fetch.result.error ? [fetch.result.error] : fetch.result.errors
-      );
+      setInformation({
+        error: true,
+        message: fetch.result.error
+          ? fetch.result.error.msg
+          : fetch.result.errors[0].msg,
+      });
     } else {
       setMethod('login');
+      setInformation({
+        error: null,
+        message: 'Account created.',
+      });
     }
   };
 
@@ -28,9 +34,12 @@ const useAuth = () => {
       path: 'auth/login',
     });
     if (fetch.error) {
-      setErrors(
-        fetch.result.error ? [fetch.result.error] : fetch.result.errors
-      );
+      setInformation({
+        error: true,
+        message: fetch.result.error
+          ? fetch.result.error.msg
+          : fetch.result.errors[0].msg,
+      });
     } else {
       localStorage.setItem('id', fetch.result.id);
       setDone(true);
@@ -40,7 +49,7 @@ const useAuth = () => {
   const guest = async () => {
     const fetch = await fetchAPI({ method: 'get', path: 'auth/signin/guest' });
     if (fetch.error) {
-      setErrors(fetch.result.error);
+      setInformation({ error: true, message: fetch.result.error.msg });
     } else {
       localStorage.setItem('id', fetch.result.id);
       setDone(true);
@@ -53,7 +62,7 @@ const useAuth = () => {
       path: 'auth/signin/github/success',
     });
     if (fetch.error) {
-      setErrors(fetch.result.error);
+      setInformation({ error: true, message: fetch.result.error.msg });
     } else {
       localStorage.setItem('id', fetch.result.id);
       setDone(true);
@@ -62,7 +71,7 @@ const useAuth = () => {
 
   const methods = { signUp, logIn, guest, github };
 
-  return { done, method, setMethod, errors, methods };
+  return { done, method, setMethod, methods };
 };
 
 export default useAuth;

@@ -9,6 +9,10 @@ const SignIn = styled.main`
   align-items: center;
   padding: 2.5rem;
 
+  & > dialog {
+    display: grid;
+  }
+
   @media (min-width: 700px) {
     grid-template-columns: 1fr 1fr;
   }
@@ -85,11 +89,11 @@ const Method = styled.div`
   text-align: center;
   width: 300px;
 `;
-const Errors = styled.div`
+const Information = styled.div`
   position: fixed;
   bottom: 5vh;
-  z-index: 2;
-  background-color: ${(props) => props.theme.red};
+  background-color: ${(props) =>
+    props.$error ? props.theme.red : props.theme.mainBlue};
   padding: 1rem;
   border-radius: 5px;
   display: flex;
@@ -119,6 +123,6 @@ export {
   Methods,
   OtherMethods,
   Method,
-  Errors,
+  Information,
   DialogHeaderContent,
 };

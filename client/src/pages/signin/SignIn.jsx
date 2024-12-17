@@ -1,4 +1,4 @@
-import { useAuth, useDialog } from '@hooks';
+import { useAuth, useDialog, useInformation } from '@hooks';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { Button, Dialog } from '@components/elements';
 import SignUpForm from './signupform/SignUpForm';
@@ -10,7 +10,8 @@ import ghIcon from '@assets/icons/github.svg';
 const API_URL = import.meta.env.VITE_API_URL;
 
 function SignIn() {
-  const { done, method, setMethod, errors, methods } = useAuth();
+  const { information, updateInformation } = useInformation();
+  const { done, method, setMethod, methods } = useAuth(updateInformation);
   const { dialogRef, open, close } = useDialog();
   const updateMethod = (m, openForm) => {
     setMethod(m);
@@ -55,6 +56,12 @@ function SignIn() {
             </>
           ) : null
         ) : null}
+        {(information.message || fail) && (
+          <S.Information $error={information.error || fail}>
+            {information.message && <div>{information.message}</div>}
+            {fail && <div>Error during Github signin.</div>}
+          </S.Information>
+        )}
       </Dialog.Main>
       <S.Icon src={icon} alt="Odin-Book" />
       <S.Section>
@@ -103,15 +110,11 @@ function SignIn() {
           </S.OtherMethods>
         </S.Methods>
       </S.Section>
-      {((errors && errors.length) || fail) && (
-        <S.Errors>
-          <>
-            {errors.map((e) => (
-              <div key={e.msg}>{e.msg}</div>
-            ))}
-            {fail && <div>Error during Github signin.</div>}
-          </>
-        </S.Errors>
+      {(information.message || fail) && (
+        <S.Information $error={information.error || fail}>
+          {information.message && <div>{information.message}</div>}
+          {fail && <div>Error during Github signin.</div>}
+        </S.Information>
       )}
     </S.SignIn>
   );
