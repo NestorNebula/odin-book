@@ -73,6 +73,10 @@ const Notification = {
       & > div:nth-child(4) {
         color: ${(props) => props.theme.secondaryGray};
       }
+
+      & > div:nth-child(5) {
+        white-space: pre-wrap;
+      }
     }
   `,
   Post: styled.div`
