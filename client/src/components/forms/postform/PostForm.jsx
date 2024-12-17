@@ -55,7 +55,7 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
       />
       <SubmitButton
         type={postIsValid ? 'submit' : 'button'}
-        disabled={user.loginMethod === 'GUEST'}
+        disabled={user.loginMethod === 'GUEST' || !postIsValid}
       >
         {post ? 'Reply' : 'Post'}
       </SubmitButton>
