@@ -13,6 +13,10 @@ const FollowButton = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.fourthGray};
   }
+
+  &:disabled {
+    background-color: ${(props) => props.theme.thirdGray};
+  }
 `;
 const FollowingButton = styled(FollowButton)`
   background-color: ${(props) => props.theme.black};
