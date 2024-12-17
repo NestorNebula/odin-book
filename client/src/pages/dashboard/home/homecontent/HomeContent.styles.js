@@ -5,6 +5,10 @@ const HomeContent = styled.section`
   border-right: ${(props) => `1px solid ${props.theme.fifthGray}`};
 `;
 const Navbar = styled.nav`
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.black};
+  z-index: 2;
   border-bottom: ${(props) => `1px solid ${props.theme.fifthGray}`};
   & > ul {
     display: grid;

@@ -14,6 +14,10 @@ const Title = styled.header`
   padding: 1rem;
   font-size: 2rem;
   font-weight: 800;
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.black};
+  z-index: 2;
 `;
 const Content = styled.div`
   display: flex;

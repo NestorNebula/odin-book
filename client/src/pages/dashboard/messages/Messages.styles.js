@@ -26,6 +26,10 @@ const Header = styled.header`
   font-size: 2.25rem;
   font-weight: 700;
   padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.black};
+  z-index: 2;
 
   & img {
     width: 2.5rem;

@@ -25,6 +25,10 @@ const Header = styled.header`
   font-size: 2.25rem;
   font-weight: 700;
   padding: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.black};
+  z-index: 2;
 `;
 const EmptyBookmarks = styled.div`
   place-self: center;

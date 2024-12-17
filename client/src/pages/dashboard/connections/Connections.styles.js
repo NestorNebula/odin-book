@@ -34,6 +34,10 @@ const Header = styled.header`
   }
 `;
 const Navbar = styled.nav`
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.black};
+  z-index: 2;
   & > ul {
     display: flex;
 
