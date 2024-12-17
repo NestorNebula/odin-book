@@ -102,7 +102,6 @@ function Post({
       <S.Content $details={details}>
         {noPostLink ? (
           <S.PostContent>
-            {' '}
             {!!post.content && <div>{post.content}</div>}
             {!!post.file && <img src={post.file} alt="" />}
           </S.PostContent>
