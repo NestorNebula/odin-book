@@ -10,7 +10,7 @@ const useInformation = () => {
     if (!information.error && !information.message) return;
     const timeout = setTimeout(() => {
       setInformation({ error: null, message: '' });
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timeout);
   }, [information]);
