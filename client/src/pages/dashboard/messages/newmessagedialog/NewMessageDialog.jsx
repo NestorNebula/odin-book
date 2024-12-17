@@ -47,6 +47,7 @@ function NewMessageDialog({ dialog, onSubmit, chats }) {
               setSelectedUserId(null);
             }
           }}
+          disabled={!selectedUserId || user.loginMethod === 'GUEST'}
         >
           Next
         </Button>
