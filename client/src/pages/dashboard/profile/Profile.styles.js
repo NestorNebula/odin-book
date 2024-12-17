@@ -21,6 +21,10 @@ const Content = styled.div`
   border-left: ${(props) => `1px solid ${props.theme.fifthGray}`};
   border-right: ${(props) => `1px solid ${props.theme.fifthGray}`};
   width: clamp(40vw, 600px, 80vw);
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 
 export { Profile, Title, Content };

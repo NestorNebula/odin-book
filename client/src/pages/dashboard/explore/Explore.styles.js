@@ -12,6 +12,10 @@ const Content = styled.div`
   & > form {
     margin: 0.5rem 1.5rem;
   }
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const Sidebar = styled.aside`
   border: ${(props) => `1px solid ${props.theme.fifthGray}`};

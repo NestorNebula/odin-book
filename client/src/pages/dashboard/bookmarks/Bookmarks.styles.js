@@ -16,6 +16,10 @@ const Content = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   width: clamp(40vw, 600px, 80vw);
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const Header = styled.header`
   font-size: 2.25rem;

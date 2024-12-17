@@ -15,6 +15,10 @@ const StyledHome = styled.main`
       display: none;
     }
   }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 function Home() {

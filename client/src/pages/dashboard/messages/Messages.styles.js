@@ -15,6 +15,10 @@ const Content = styled.div`
     display: ${(props) => props.$activeChat && 'none'};
     width: clamp(30vw, 600px, 80vw);
   }
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const Header = styled.header`
   display: flex;
@@ -60,6 +64,10 @@ const Sidebar = styled.aside`
   @media (max-width: 1000px) {
     display: ${(props) => !props.$activeChat && 'none'};
     width: clamp(40vw, 600px, 80vw);
+  }
+
+  @media (max-width: 500px) {
+    width: 100vw;
   }
 `;
 

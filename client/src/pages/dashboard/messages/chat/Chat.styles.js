@@ -3,6 +3,10 @@ import styled, { keyframes } from 'styled-components';
 const Chat = styled.section`
   display: grid;
   grid-template-rows: auto 1fr auto;
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const CloseButton = styled.button`
   display: none;

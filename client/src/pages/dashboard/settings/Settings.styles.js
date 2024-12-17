@@ -12,6 +12,10 @@ const Content = styled.div`
     display: ${(props) => props.$sectionActive && 'none'};
     width: clamp(40vw, 600px, 80vw);
   }
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const Header = styled.header`
   font-size: 2rem;
@@ -44,6 +48,10 @@ const Sidebar = styled.div`
   @media (max-width: 1000px) {
     display: ${(props) => !props.$sectionActive && 'none'};
     width: clamp(40vw, 600px, 80vw);
+  }
+
+  @media (max-width: 500px) {
+    width: 100vw;
   }
 `;
 
