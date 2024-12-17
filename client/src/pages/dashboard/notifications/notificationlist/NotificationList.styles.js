@@ -54,29 +54,27 @@ const Notification = {
     padding: 1rem 2rem;
     width: clamp(30vw, 80%, 600px);
 
-    & > a {
-      display: grid;
-      grid-template-columns: 1fr 10rem;
+    display: grid;
+    grid-template-columns: 1fr 10rem;
 
-      & > div:nth-child(3),
-      & > div:nth-child(4),
-      & > div:nth-child(5) {
-        grid-column: 1 / 2;
-        max-width: 50ch;
-        overflow-x: hidden;
-      }
+    & > div:nth-child(3),
+    & > div:nth-child(4),
+    & > div:nth-child(5) {
+      grid-column: 1 / 2;
+      max-width: 50ch;
+      overflow-x: hidden;
+    }
 
-      & > div:nth-child(3) {
-        font-weight: 700;
-      }
+    & > div:nth-child(3) {
+      font-weight: 700;
+    }
 
-      & > div:nth-child(4) {
-        color: ${(props) => props.theme.secondaryGray};
-      }
+    & > div:nth-child(4) {
+      color: ${(props) => props.theme.secondaryGray};
+    }
 
-      & > div:nth-child(5) {
-        white-space: pre-wrap;
-      }
+    & > div:nth-child(5) {
+      white-space: pre-wrap;
     }
   `,
   Post: styled.div`

@@ -65,11 +65,11 @@ function NotificationList({ notifications }) {
                     profile={notifier.profile}
                     width="3.5rem !important"
                   />
-                  <FollowButton userId={notifier.id} />
-                  <div>{notifier.profile.displayName}</div>
-                  <div>{`@${notifier.username}`}</div>
-                  <div>{notifier.profile.bio}</div>
                 </Link>
+                <FollowButton userId={notifier.id} />
+                <div>{notifier.profile.displayName}</div>
+                <div>{`@${notifier.username}`}</div>
+                <div>{notifier.profile.bio}</div>
               </S.Notification.Profile>
             )}
           </S.Notification.Main>
