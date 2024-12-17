@@ -83,6 +83,7 @@ function ProfileContent({ content, update, isUser }) {
         : type === 'REPOST'
         ? update.repost(postId, fetch.result.post, true, user.id)
         : update.post(postId, fetch.result.post, true);
+      update.all();
     }
   };
 

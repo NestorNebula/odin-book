@@ -16,10 +16,12 @@ function Profile() {
     path: `users/${userId}`,
     dependencies: [user, userId],
   });
-  const { posts, reposts, updatePost, updateRepost } = usePosts({
-    postsPath: `users/${userId}/posts`,
-    fetchReposts: true,
-  });
+  const { posts, reposts, updatePost, updateRepost, updateAllPosts } = usePosts(
+    {
+      postsPath: `users/${userId}/posts`,
+      fetchReposts: true,
+    }
+  );
   const [updateLikes, setUpdateLikes] = useState(false);
   const doUpdateLikes = () => setUpdateLikes(!updateLikes);
   const { data: likesData } = useData({
@@ -51,6 +53,7 @@ function Profile() {
             post: updatePost,
             repost: updateRepost,
             likes: doUpdateLikes,
+            all: updateAllPosts,
           }}
           isUser={isUser}
         />

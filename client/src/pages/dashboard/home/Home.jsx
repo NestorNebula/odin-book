@@ -28,6 +28,7 @@ function Home() {
     updatePost,
     error: postsError,
     loading: postsLoading,
+    updateAllPosts,
   } = usePosts({ postsPath: 'posts' });
   const {
     posts: followingPosts,
@@ -36,6 +37,7 @@ function Home() {
     updateRepost,
     error: followingError,
     loading: followingLoading,
+    updateAllPosts: updateAllFollowingPosts,
   } = usePosts({
     postsPath: `users/${user.id}/following/posts`,
     fetchReposts: true,
@@ -54,6 +56,10 @@ function Home() {
             posts: updatePost,
             followingPosts: updateFollowinPost,
             reposts: updateRepost,
+            all: () => {
+              updateAllPosts();
+              updateAllFollowingPosts();
+            },
           }}
         />
       )}

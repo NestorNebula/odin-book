@@ -50,6 +50,7 @@ function HomeContent({ content, updateContent }) {
     } else {
       updateInformation({ error: null, message: 'Post created.' });
       setFileUrl(null);
+      updateContent.all();
     }
   };
 
@@ -103,6 +104,7 @@ function HomeContent({ content, updateContent }) {
         : type === 'followingPost'
         ? updateContent.followingPosts(postId, fetch.result.post, true)
         : updateContent.reposts(postId, fetch.result.post, true, user.id);
+      updateContent.all();
     }
   };
 
