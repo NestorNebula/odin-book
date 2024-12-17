@@ -36,7 +36,7 @@ const Information = styled.div`
   bottom: 5vh;
   z-index: 3;
   background-color: ${(props) =>
-    props.$error ? props.theme.red : props.theme.green};
+    props.$error ? props.theme.red : props.theme.mainBlue};
   padding: 1rem;
   border-radius: 5px;
   justify-self: center;
