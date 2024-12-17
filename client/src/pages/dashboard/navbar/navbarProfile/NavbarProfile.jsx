@@ -21,6 +21,10 @@ const StyledNavbarProfile = styled.li`
       font-weight: 700;
     }
 
+    & > div:nth-child(3) {
+      color: ${(props) => props.theme.secondaryGray};
+    }
+
     &:hover {
       background-color: ${(props) => props.theme.secondaryBlack};
     }
