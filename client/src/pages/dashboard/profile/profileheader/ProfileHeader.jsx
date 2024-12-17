@@ -140,7 +140,11 @@ function ProfileHeader({ user, isUser }) {
         {user.profile.website && (
           <S.UserDetail>
             <img src={link} alt="" />
-            <a href={user.profile.website}>
+            <a
+              href={user.profile.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {user.profile.website.split('://')[1]}
             </a>
           </S.UserDetail>
