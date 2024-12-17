@@ -23,6 +23,7 @@ function HomeContent({ content, updateContent }) {
     .concat(
       reposts.map((repost) => ({
         type: 'REPOST',
+        user: repost.user,
         post: repost.post,
         creationDate: repost.creationDate,
       }))
@@ -139,10 +140,15 @@ function HomeContent({ content, updateContent }) {
           : sections[displayedSection] === 'Following'
           ? followingPostsReposts.map((fpost) =>
               fpost.type === 'REPOST' ? (
-                <div key={`${fpost.post.id}repost`}>
+                <S.Repost key={`${fpost.post.id}repost${fpost.user.id}`}>
                   <div>
                     <img src={repost} />
-                    <div>{fpost.post.user.profile.displayName} reposted</div>
+                    <div>
+                      {user.id === fpost.user.id
+                        ? 'You'
+                        : fpost.user.profile.displayName}{' '}
+                      reposted
+                    </div>
                   </div>
                   <Post
                     post={fpost.post}
@@ -160,7 +166,7 @@ function HomeContent({ content, updateContent }) {
                     }
                     onPostDelete={() => onPostDelete(fpost.post.id, 'repost')}
                   />
-                </div>
+                </S.Repost>
               ) : (
                 <Post
                   key={`${fpost.post.id}post`}

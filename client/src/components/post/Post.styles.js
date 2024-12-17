@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 const Repost = styled.div`
   grid-column: 1 / 3;
-  padding: 0 1rem 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+  top: -0.75rem;
 
   & > a {
     color: ${(props) => props.theme.mainBlue};

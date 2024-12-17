@@ -17,6 +17,18 @@ const Posts = styled.div``;
 const Post = styled.div``;
 const Replies = styled.div``;
 const Reply = styled.div``;
+const Repost = styled.div`
+  padding: 1rem 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  filter: brightness(0) saturate(100%) invert(47%) sepia(3%) saturate(575%)
+    hue-rotate(162deg) brightness(95%) contrast(92%);
+
+  & > img {
+    width: 2rem;
+  }
+`;
 const Medias = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
@@ -55,6 +67,7 @@ export {
   Post,
   Replies,
   Reply,
+  Repost,
   Medias,
   Likes,
   Like,

@@ -121,10 +121,15 @@ function ProfileContent({ content, update, isUser }) {
                 p.post.type !== 'COMMENT' && (
                   <S.Post key={`${p.post.id}${p.type}`}>
                     {p.type === 'REPOST' && (
-                      <div>
+                      <S.Repost>
                         <img src={repost} alt="" />
-                        <div>{p.user.profile.displayName} reposted</div>
-                      </div>
+                        <div>
+                          {user.id === p.user.id
+                            ? 'You'
+                            : p.user.profile.displayName}{' '}
+                          reposted
+                        </div>
+                      </S.Repost>
                     )}
                     <Post
                       post={p.post}
@@ -150,10 +155,15 @@ function ProfileContent({ content, update, isUser }) {
             {postsAndReposts.map((p) => (
               <S.Reply key={`${p.post.id}${p.type}`}>
                 {p.type === 'REPOST' && (
-                  <div>
+                  <S.Repost>
                     <img src={repost} alt="" />
-                    <div>{p.post.userId} reposted</div>
-                  </div>
+                    <div>
+                      {user.id === p.user.id
+                        ? 'You'
+                        : p.user.profile.displayName}{' '}
+                      reposted
+                    </div>
+                  </S.Repost>
                 )}
                 <Post
                   post={p.post}
