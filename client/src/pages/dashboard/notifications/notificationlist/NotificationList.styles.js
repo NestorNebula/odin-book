@@ -77,10 +77,15 @@ const Notification = {
   `,
   Post: styled.div`
     color: ${(props) => props.theme.secondaryGray};
+    margin: 0 3rem;
     & > a {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+
+      & > div {
+        word-wrap: break-word;
+      }
     }
   `,
 };
