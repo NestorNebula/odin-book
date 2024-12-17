@@ -75,6 +75,7 @@ const UserDetails = styled.div`
   display: flex;
   gap: 1rem;
   padding: 0 1rem;
+  color: ${(props) => props.theme.secondaryGray};
 
   @media (max-width: 700px) {
     flex-direction: column;
