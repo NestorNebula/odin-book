@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
+  & > label,
+  & > input {
+    display: ${(props) => props.$hidden && 'none'};
+  }
 `;
 const Label = styled.label`
   filter: brightness(0) saturate(100%) invert(61%) sepia(55%) saturate(5111%)
