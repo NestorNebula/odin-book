@@ -647,6 +647,29 @@ const updateNotifications = async (userId) => {
   return notifications;
 };
 
+const deleteNotification = async (type, notifierId, notifiedId, postId) => {
+  if (postId) {
+    const notification = await prisma.notification.deleteMany({
+      where: {
+        postId,
+        notificationType: type,
+        notifierUserId: notifierId,
+        notifiedUserId: notifiedId,
+      },
+    });
+    return notification;
+  } else {
+    const notification = await prisma.notification.deleteMany({
+      where: {
+        notificationType: type,
+        notifierUserId: notifierId,
+        notifiedUserId: notifiedId,
+      },
+    });
+    return notification;
+  }
+};
+
 // Table resets (only for test db)
 
 const __deleteUsers = async () => {
@@ -696,5 +719,6 @@ module.exports = {
   createNotification,
   findNotifications,
   updateNotifications,
+  deleteNotification,
   __deleteUsers,
 };
