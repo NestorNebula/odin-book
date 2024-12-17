@@ -17,8 +17,8 @@ const Users = styled.div`
   gap: 1.5rem;
 `;
 const User = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 10rem;
 
   & > a {
     display: grid;
