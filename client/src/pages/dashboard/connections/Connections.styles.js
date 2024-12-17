@@ -3,10 +3,21 @@ import styled from 'styled-components';
 const Connections = styled.main`
   display: grid;
   grid-template-columns: 2.5fr 2fr;
+
+  & > aside {
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  }
 `;
 const Content = styled.div`
   border-left: ${(props) => `1px solid ${props.theme.fifthGray}`};
   border-right: ${(props) => `1px solid ${props.theme.fifthGray}`};
+  width: clamp(40vw, 600px, 80vw);
+
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 const Header = styled.header`
   display: flex;
