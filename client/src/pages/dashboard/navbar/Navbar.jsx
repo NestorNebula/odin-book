@@ -31,66 +31,74 @@ function Navbar({ openNewPost }) {
         <S.LogoItem>
           <img src={icons.icon} alt="Odin-Book" />
         </S.LogoItem>
-        <NavbarLink
-          link="home"
-          iconSrc={pathname === '/home' ? icons.fullHome : icons.home}
-          active={pathname === '/home'}
-        />
-        <NavbarLink
-          link="explore"
-          iconSrc={icons.explore}
-          active={pathname === '/explore'}
-        />
-        <NavbarLink
-          link="notifications"
-          iconSrc={
-            pathname === '/notifications'
-              ? icons.fullNotifications
-              : icons.notification
-          }
-          notificationsNum={user.notifications.reduce(
-            (num, notification) =>
-              notification.seen ? num : num === null ? 1 : ++num,
-            null
-          )}
-          active={pathname === '/notifications'}
-        />
-        <NavbarLink
-          link="messages"
-          iconSrc={pathname === '/messages' ? icons.fullMessage : icons.message}
-          active={pathname === '/messages'}
-        />
-        <NavbarLink
-          link="bookmarks"
-          iconSrc={
-            pathname === '/bookmarks' ? icons.bookmark : icons.emptyBookmark
-          }
-          active={pathname === '/bookmarks'}
-        />
-        {!!user.id && (
-          <NavbarLink
-            link={`${user.id}`}
-            iconSrc={
-              Number.isInteger(+pathname.split('/')[1])
-                ? icons.profile
-                : icons.emptyProfile
-            }
-            title="profile"
-            active={Number.isInteger(+pathname.split('/')[1])}
-          />
-        )}
-        <NavbarLink
-          link="settings"
-          iconSrc={icons.settings}
-          active={pathname === '/settings'}
-        />
-        <Button onClick={openNewPost}>
-          {width >= 1275 ? (
-            'Post'
-          ) : (
-            <S.PostIcon src={icons.write} alt="new post" />
-          )}
-        </Button>
+        <S.Links>
+          <ul>
+            <NavbarLink
+              link="home"
+              iconSrc={pathname === '/home' ? icons.fullHome : icons.home}
+              active={pathname === '/home'}
+            />
+            <NavbarLink
+              link="explore"
+              iconSrc={icons.explore}
+              active={pathname === '/explore'}
+            />
+            <NavbarLink
+              link="notifications"
+              iconSrc={
+                pathname === '/notifications'
+                  ? icons.fullNotifications
+                  : icons.notification
+              }
+              notificationsNum={user.notifications.reduce(
+                (num, notification) =>
+                  notification.seen ? num : num === null ? 1 : ++num,
+                null
+              )}
+              active={pathname === '/notifications'}
+            />
+            <NavbarLink
+              link="messages"
+              iconSrc={
+                pathname === '/messages' ? icons.fullMessage : icons.message
+              }
+              active={pathname === '/messages'}
+            />
+            <NavbarLink
+              link="bookmarks"
+              iconSrc={
+                pathname === '/bookmarks' ? icons.bookmark : icons.emptyBookmark
+              }
+              active={pathname === '/bookmarks'}
+            />
+            {!!user.id && (
+              <NavbarLink
+                link={`${user.id}`}
+                iconSrc={
+                  Number.isInteger(+pathname.split('/')[1])
+                    ? icons.profile
+                    : icons.emptyProfile
+                }
+                title="profile"
+                active={Number.isInteger(+pathname.split('/')[1])}
+              />
+            )}
+            <NavbarLink
+              link="settings"
+              iconSrc={icons.settings}
+              active={pathname === '/settings'}
+            />
+          </ul>
+        </S.Links>
+        <li>
+          <Button onClick={openNewPost}>
+            {width >= 1275 ? (
+              'Post'
+            ) : (
+              <S.PostIcon src={icons.write} alt="new post" />
+            )}
+          </Button>
+        </li>
         <NavbarProfile username={user.username} profile={user.profile} />
       </ul>
     </S.Navbar>

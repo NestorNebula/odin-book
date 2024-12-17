@@ -4,11 +4,15 @@ const Dashboard = styled.main`
   height: 100vh;
   font-size: 1.5rem;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   justify-content: center;
 
   & > main {
     overflow-y: scroll;
+  }
+
+  @media (min-width: 501px) {
+    grid-template-columns: auto 1fr;
   }
 
   @media (min-width: 600px) {

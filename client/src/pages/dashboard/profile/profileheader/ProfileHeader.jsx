@@ -101,7 +101,7 @@ function ProfileHeader({ user, isUser }) {
       <S.AvatarContainer>
         <S.Background>
           {user.profile.background ? (
-            <img src={user.profile.background} />
+            <img src={user.profile.background} alt="" />
           ) : (
             <div></div>
           )}
@@ -146,7 +146,7 @@ function ProfileHeader({ user, isUser }) {
           </S.UserDetail>
         )}
         <S.UserDetail>
-          <img src={calendar} />
+          <img src={calendar} alt="" />
           <div>Joined {format(user.profile.creationDate, 'MMMM, yyy')}</div>
         </S.UserDetail>
       </S.UserDetails>
