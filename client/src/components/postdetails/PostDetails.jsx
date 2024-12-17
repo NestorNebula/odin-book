@@ -55,17 +55,17 @@ function PostDetails({ post, update }) {
     }
     let postToUpdate = postId === post.main.id ? post.main : null;
     let actual = post;
-    while (!postToUpdate && actual.next) {
+    while (!postToUpdate && actual) {
       if (actual.main.id === postId) {
-        postToUpdate = actual;
+        postToUpdate = actual.main;
       } else {
-        actual = actual.next;
+        actual = actual.next ? actual.next : null;
       }
     }
     if (!postToUpdate) {
       for (let i = 0; i < post.main.comments.length; i++) {
         if (post.main.comments[i].id === postId) {
-          postToUpdate = post.comments[i];
+          postToUpdate = post.main.comments[i];
           break;
         }
       }
@@ -151,11 +151,11 @@ function PostDetails({ post, update }) {
           >
             <Post
               post={parent.main}
-              onReplyClick={() => onPostClick('COMMENT', parent.id)}
-              onRepostClick={() => onPostClick('REPOST', parent.id)}
-              onLikeClick={() => onPostClick('LIKE', parent.id)}
-              onBookmarkClick={() => onPostClick('BOOKMARK', parent.id)}
-              onPostDelete={() => onPostDelete(parent.id)}
+              onReplyClick={() => onPostClick('COMMENT', parent.main.id)}
+              onRepostClick={() => onPostClick('REPOST', parent.main.id)}
+              onLikeClick={() => onPostClick('LIKE', parent.main.id)}
+              onBookmarkClick={() => onPostClick('BOOKMARK', parent.main.id)}
+              onPostDelete={() => onPostDelete(parent.main.id)}
               parent={true}
               parentRef={index === 0 ? parentRef : null}
               lineHeight={index === 0 ? lineHeight : null}
