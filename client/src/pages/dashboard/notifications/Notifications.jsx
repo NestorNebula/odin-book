@@ -9,24 +9,20 @@ import * as S from './Notifications.styles';
 function Notifications() {
   const { user, updateUser } = useContext(Context);
   const [seen, setSeen] = useState(false);
-  const [updateNotifications, setUpdateNotifications] = useState(false);
   const { data, error, loading } = useData({
     path: `users/${user.id}/notifications`,
-    dependencies: [updateNotifications],
+    dependencies: [],
   });
   if (!error && !loading && data && !seen) {
     setSeen(true);
-    if (!data.notifications.every((n) => n.seen)) {
-      fetchAPI({
-        method: 'PUT',
-        path: `users/${user.id}/notifications`,
-        statusOnly: true,
-      }).then((fetch) => {
-        if (fetch.error) return;
-        setUpdateNotifications(true);
-        updateUser();
-      });
-    }
+    fetchAPI({
+      method: 'PUT',
+      path: `users/${user.id}/notifications`,
+      statusOnly: true,
+    }).then((fetch) => {
+      if (fetch.error) return;
+      updateUser();
+    });
   }
 
   return (
