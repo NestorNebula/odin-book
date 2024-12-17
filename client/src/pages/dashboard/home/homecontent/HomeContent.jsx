@@ -132,8 +132,9 @@ function HomeContent({ content, updateContent }) {
         removeFile={removeFile}
       />
       <S.Posts>
-        {sections[displayedSection] === 'All'
-          ? posts.map((post) => (
+        {sections[displayedSection] === 'All' ? (
+          posts.length ? (
+            posts.map((post) => (
               <Post
                 key={`${post.id}post`}
                 post={post}
@@ -144,8 +145,18 @@ function HomeContent({ content, updateContent }) {
                 onPostDelete={() => onPostDelete(post.id, 'post')}
               />
             ))
-          : sections[displayedSection] === 'Following'
-          ? followingPostsReposts.map((fpost) =>
+          ) : (
+            <S.Empty>
+              <div>No posts to display.</div>
+              <div>
+                Be the first one to post or wait for other people to share
+                something!
+              </div>
+            </S.Empty>
+          )
+        ) : sections[displayedSection] === 'Following' ? (
+          followingPostsReposts.length ? (
+            followingPostsReposts.map((fpost) =>
               fpost.type === 'REPOST' ? (
                 <S.Repost key={`${fpost.post.id}repost${fpost.user.id}`}>
                   <div>
@@ -196,7 +207,13 @@ function HomeContent({ content, updateContent }) {
                 />
               )
             )
-          : null}
+          ) : (
+            <S.Empty>
+              <div>No posts to display.</div>
+              <div>Follow users to see their posts here!</div>
+            </S.Empty>
+          )
+        ) : null}
       </S.Posts>
     </S.HomeContent>
   );

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Empty } from '@pages/dashboard/connections/Connections.styles';
 
 const HomeContent = styled.section`
   border-right: ${(props) => `1px solid ${props.theme.fifthGray}`};
@@ -32,4 +33,4 @@ const Repost = styled.div`
   }
 `;
 
-export { HomeContent, Navbar, Posts, Repost };
+export { HomeContent, Navbar, Posts, Repost, Empty };
