@@ -10,7 +10,7 @@ const useInput = ({ initialValue, validate }) => {
     );
     if (!preSuccess) return;
     setValue(preUpdatedValue);
-    const { success, message } = validate.after(e.target.value);
+    const { success, message } = validate.after(preUpdatedValue);
     setValidation(success ? { isValid: true } : { isValid: false, message });
   };
 
