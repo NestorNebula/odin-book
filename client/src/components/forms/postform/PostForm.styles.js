@@ -15,6 +15,10 @@ const PostForm = styled.form`
     justify-self: end;
     padding: 1rem 2rem;
   }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 const Content = styled.div`
   grid-column: 2 / 3;
