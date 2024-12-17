@@ -75,7 +75,7 @@ const validateUserUpdate = [
     .trim()
     .custom(async (currentPassword, { req }) => {
       const user = await prisma.findLoggedUserById(req.user.id);
-      if (bcrypt.hashSync(currentPassword, 10) !== user.password) {
+      if (!bcrypt.compareSync(currentPassword, user.password)) {
         throw new Error('Your current password is incorrect.');
       }
       return true;
