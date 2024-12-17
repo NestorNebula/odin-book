@@ -81,7 +81,14 @@ function HomeContent({ content, updateContent }) {
     } else if (postType === 'followingPost') {
       updateContent.followingPosts(postId, result.post);
     } else {
-      updateContent.reposts(postId, result.post);
+      updateContent.reposts(
+        postId,
+        result.post,
+        postToUpdate.interactions.some(
+          (i) => i.type === 'REPOST' && i.userId === user.id
+        ),
+        user.id
+      );
     }
   };
 
@@ -95,7 +102,7 @@ function HomeContent({ content, updateContent }) {
         ? updateContent.posts(postId, fetch.result.post, true)
         : type === 'followingPost'
         ? updateContent.followingPosts(postId, fetch.result.post, true)
-        : updateContent.reposts(postId, fetch.result.post, true);
+        : updateContent.reposts(postId, fetch.result.post, true, user.id);
     }
   };
 

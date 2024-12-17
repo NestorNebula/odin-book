@@ -58,7 +58,14 @@ function ProfileContent({ content, update, isUser }) {
       if (postType === 'LIKE') {
         update.likes();
       } else if (postType === 'REPOST') {
-        update.repost(postToUpdate.id, result.post);
+        update.repost(
+          postToUpdate.id,
+          result.post,
+          postToUpdate.interactions.some(
+            (i) => i.type === 'REPOST' && i.userId === user.id
+          ),
+          user.id
+        );
       } else {
         update.post(postToUpdate.id, result.post);
       }
@@ -74,7 +81,7 @@ function ProfileContent({ content, update, isUser }) {
       type === 'LIKE'
         ? update.likes()
         : type === 'REPOST'
-        ? update.repost(postId, fetch.result.post, true)
+        ? update.repost(postId, fetch.result.post, true, user.id)
         : update.post(postId, fetch.result.post, true);
     }
   };

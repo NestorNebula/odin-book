@@ -13,9 +13,11 @@ const usePosts = ({ postsPath, fetchReposts }) => {
       : setPosts(posts.map((p) => (p.id === postId ? post : p)));
   };
 
-  const updateRepost = (postId, post, deleted) => {
+  const updateRepost = (postId, post, deleted, userId) => {
     deleted
-      ? setReposts(reposts.filter((r) => r.postId !== postId))
+      ? setReposts(
+          reposts.filter((r) => r.postId !== postId || r.userId !== userId)
+        )
       : setReposts(
           reposts.map((r) => (r.postId === postId ? { ...r, post } : r))
         );
