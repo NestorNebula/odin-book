@@ -22,7 +22,6 @@ const Post = styled.div`
   padding: 1.5rem;
   border-bottom: ${(props) =>
     !props.$details && !props.$parent && `1px solid ${props.theme.fifthGray}`};
-  background-color: ${(props) => props.$main && props.theme.black};
 
   & > a {
     position: absolute;

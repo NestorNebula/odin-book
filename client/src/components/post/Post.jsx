@@ -177,11 +177,12 @@ function Post({
         >
           <line
             x1="0"
-            y1={window.innerWidth > 1000 ? '10' : '0'}
+            y1="0"
             x2="0"
-            y2={props.lineHeight}
+            y2={props.lineHeight + 10}
             stroke={theme.fifthGray}
-            strokeWidth="3"
+            strokeWidth="5px"
+            vectorEffect="non-scaling-stroke"
           />
         </S.Svg>
       )}
