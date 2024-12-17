@@ -29,6 +29,12 @@ const postInteraction = async (req, res, next) => {
   );
   if (req.body.type !== 'BOOKMARK') {
     if (req.user.id !== post.userId) {
+      await prisma.deleteNotification(
+        req.body.type,
+        req.user.id,
+        post.userId,
+        post.id
+      );
       await prisma.createNotification(
         req.user.id,
         post.userId,

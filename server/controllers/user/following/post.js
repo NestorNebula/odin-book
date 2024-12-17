@@ -15,6 +15,7 @@ const postFollowing = async (req, res, next) => {
     req.user.id,
     userToFollow.id
   );
+  await prisma.deleteNotification('FOLLOW', req.user.id, userToFollow.id);
   await prisma.createNotification(req.user.id, userToFollow.id, 'FOLLOW');
   const io = req.io;
   if (io) {

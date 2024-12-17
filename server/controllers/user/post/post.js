@@ -35,6 +35,12 @@ const postPost = [
         req.body.file ? req.body.file : null
       );
       if (req.user.id !== post.userId) {
+        await prisma.deleteNotification(
+          'COMMENT',
+          req.user.id,
+          post.userId,
+          post.id
+        );
         await prisma.createNotification(
           req.user.id,
           post.userId,
