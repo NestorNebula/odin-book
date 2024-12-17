@@ -68,7 +68,6 @@ function Settings() {
       setActiveSection(sections.length - 1);
     }
   };
-  console.log(activeSection);
 
   return (
     <S.Settings>
