@@ -14,6 +14,7 @@ const useSearchData = (search) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (!search) {
       setPosts([]);
       setUsers([]);
