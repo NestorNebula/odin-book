@@ -91,6 +91,7 @@ function HomeContent({ content, updateContent }) {
         user.id
       );
     }
+    updateInformation({ error: null, message: result.msg });
   };
 
   const onPostDelete = async (postId, type) => {

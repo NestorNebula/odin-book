@@ -38,6 +38,7 @@ function ExploreResult({ posts, updatePost, users, search }) {
       updateInformation({ error: true, message: result.msg });
     } else {
       updatePost(result.post);
+      updateInformation({ error: null, message: result.msg });
     }
   };
 
