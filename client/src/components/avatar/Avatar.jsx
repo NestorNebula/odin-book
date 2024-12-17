@@ -3,8 +3,10 @@ import { avatar } from '@assets/icons';
 import styled from 'styled-components';
 
 const StyledAvatar = styled.img`
+  height: ${(props) => props.$width ?? '5rem'};
   width: ${(props) => props.$width ?? '5rem'};
   border-radius: ${(props) => props.$width ?? '5rem'};
+  object-fit: cover;
 `;
 
 function Avatar({ profile, ...props }) {

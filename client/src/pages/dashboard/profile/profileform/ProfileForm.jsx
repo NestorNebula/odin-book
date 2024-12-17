@@ -84,7 +84,7 @@ function ProfileForm({ profile, onSubmit, backgroundFile, avatarFile }) {
         {avatarFile.url || profile.avatar ? (
           <Avatar profile={{ avatar: avatarFile.url || profile.avatar }} />
         ) : (
-          <div></div>
+          <Avatar profile={user.profile} />
         )}
         <FileInput
           onChange={(e) =>

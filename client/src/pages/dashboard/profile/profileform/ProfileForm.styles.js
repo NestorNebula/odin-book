@@ -18,6 +18,7 @@ const AvatarContainer = styled.div`
   width: fit-content;
 
   & > img {
+    height: 10rem;
     width: 10rem;
     border: ${(props) => `5px solid ${props.theme.black}`};
   }
@@ -45,6 +46,7 @@ const AvatarContainer = styled.div`
     top: -3.5rem;
 
     & > img {
+      height: 7rem;
       width: 7rem;
     }
   }

@@ -19,6 +19,7 @@ const Background = styled.div`
   }
 
   & + img {
+    height: 15rem;
     width: 15rem;
     border-radius: 15rem;
     border: ${(props) => `5px solid ${props.theme.black}`};
@@ -28,18 +29,21 @@ const Background = styled.div`
     background-color: ${(props) => props.theme.black};
 
     @media (max-width: 1000px) {
+      height: 12.5rem;
       width: 12.5rem;
       border-radius: 12.5rem;
       bottom: -6.5rem;
     }
 
     @media (max-width: 500px) {
+      height: 10rem;
       width: 10rem;
       border-radius: 10rem;
       bottom: -5rem;
     }
 
     @media (max-width: 300px) {
+      height: 7.5rem;
       width: 7.5rem;
       border-radius: 7.5rem;
       bottom: -3.75rem;
