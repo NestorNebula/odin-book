@@ -73,11 +73,11 @@ const Settings = styled.div`
 `;
 const DeleteButton = styled.button`
   position: absolute;
-  left: -8rem;
-  top: 0rem;
+  left: -3rem;
+  top: 0.5rem;
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.25rem;
   filter: brightness(0) saturate(100%) invert(23%) sepia(82%) saturate(4849%)
     hue-rotate(346deg) brightness(97%) contrast(97%);
 

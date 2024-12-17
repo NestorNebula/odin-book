@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from '@context';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@components';
@@ -40,6 +40,19 @@ function Post({
   );
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+  useEffect(() => {
+    const handleEscapeClick = (e) => {
+      if (e.code === 'Escape') setSettingsOpen(false);
+    };
+    const handleClick = () => setSettingsOpen(false);
+    window.addEventListener('keydown', handleEscapeClick);
+    window.addEventListener('click', handleClick);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeClick);
+      window.removeEventListener('click', handleClick);
+    };
+  }, []);
 
   return (
     <S.Post $details={details} $parent={props.parent} $main={props.main}>
@@ -73,9 +86,14 @@ function Post({
               <img src={settings} alt="" />
             </button>
             {settingsOpen && (
-              <S.DeleteButton onClick={() => onPostDelete(post.id)}>
+              <S.DeleteButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPostDelete(post.id);
+                }}
+                aria-label="delete post"
+              >
                 <img src={trash} alt="" />
-                <div>Delete</div>
               </S.DeleteButton>
             )}
           </S.Settings>
