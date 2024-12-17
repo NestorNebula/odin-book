@@ -170,7 +170,7 @@ function Post({
       </S.Buttons>
       {props.parent && props.lineHeight && (
         <S.Svg
-          viewBox="0 0 100 100"
+          viewBox="0 0 5 100"
           xmlns="http://www.w3.org/2000/svg"
           height={props.lineHeight}
           $marginLeft="3.2rem"
