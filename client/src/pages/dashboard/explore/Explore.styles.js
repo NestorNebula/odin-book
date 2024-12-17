@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Empty } from '../connections/Connections.styles';
 
 const Explore = styled.main`
   display: grid;
@@ -28,4 +29,4 @@ const Sidebar = styled.aside`
   }
 `;
 
-export { Explore, Content, Sidebar };
+export { Explore, Content, Sidebar, Empty };

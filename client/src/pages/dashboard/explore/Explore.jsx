@@ -24,8 +24,8 @@ function Explore() {
     <S.Explore>
       <S.Content>
         <SearchBar onSubmit={({ value }) => setSearch(value)} />
-        {search &&
-          (error ? (
+        {search ? (
+          error ? (
             <Error>{error}</Error>
           ) : loading ? (
             <Loading data="search results" />
@@ -34,8 +34,15 @@ function Explore() {
               posts={posts}
               updatePost={updatePost}
               users={users}
+              search={search}
             />
-          ))}
+          )
+        ) : (
+          <S.Empty>
+            <div>Search posts/users</div>
+            <div>{"Your search's result will be displayed here."}</div>
+          </S.Empty>
+        )}
       </S.Content>
       <S.Sidebar>
         {sidebarError ? (

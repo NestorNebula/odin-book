@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Empty } from '../Explore.styles';
 
 const ExploreResult = styled.section`
   display: flex;
@@ -33,4 +34,4 @@ const Media = styled.div`
   }
 `;
 
-export { ExploreResult, Navbar, Posts, Media };
+export { ExploreResult, Navbar, Posts, Media, Empty };

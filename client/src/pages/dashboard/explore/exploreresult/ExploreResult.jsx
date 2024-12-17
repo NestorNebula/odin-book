@@ -6,10 +6,13 @@ import { deletePost, postInteraction } from '@services';
 import PropTypes from 'prop-types';
 import * as S from './ExploreResult.styles';
 
-function ExploreResult({ posts, updatePost, users }) {
+function ExploreResult({ posts, updatePost, users, search }) {
   const { user, updateInformation } = useContext(Context);
   const sections = ['Top', 'Latest', 'People', 'Media'];
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState(
+    !posts.length && users.length ? 2 : 0
+  );
+
   const recentPosts = posts.toSorted(
     (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
   );
@@ -84,42 +87,70 @@ function ExploreResult({ posts, updatePost, users }) {
       </S.Navbar>
       {sections[activeSection] === 'Top' ? (
         <S.Posts ref={contentRef}>
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              post={post}
-              onReplyClick={() => onPostClick('COMMENT', post.id)}
-              onRepostClick={() => onPostClick('REPOST', post.id)}
-              onLikeClick={() => onPostClick('LIKE', post.id)}
-              onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
-              onPostDelete={() => onPostDelete(post.id)}
-            />
-          ))}
+          {posts.length ? (
+            posts.map((post) => (
+              <Post
+                key={post.id}
+                post={post}
+                onReplyClick={() => onPostClick('COMMENT', post.id)}
+                onRepostClick={() => onPostClick('REPOST', post.id)}
+                onLikeClick={() => onPostClick('LIKE', post.id)}
+                onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
+                onPostDelete={() => onPostDelete(post.id)}
+              />
+            ))
+          ) : (
+            <S.Empty>
+              <div>{`No results for "${search}"`}</div>
+              <div>Try searching for something else.</div>
+            </S.Empty>
+          )}
         </S.Posts>
       ) : sections[activeSection] === 'Latest' ? (
-        <S.Posts ref={contentRef}>
-          {recentPosts.map((post) => (
-            <Post
-              key={post.id}
-              post={post}
-              onReplyClick={() => onPostClick('COMMENT', post.id)}
-              onRepostClick={() => onPostClick('REPOST', post.id)}
-              onLikeClick={() => onPostClick('LIKE', post.id)}
-              onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
-              onPostDelete={() => onPostDelete(post.id)}
-            />
-          ))}
-        </S.Posts>
+        recentPosts.length ? (
+          <S.Posts ref={contentRef}>
+            {recentPosts.map((post) => (
+              <Post
+                key={post.id}
+                post={post}
+                onReplyClick={() => onPostClick('COMMENT', post.id)}
+                onRepostClick={() => onPostClick('REPOST', post.id)}
+                onLikeClick={() => onPostClick('LIKE', post.id)}
+                onBookmarkClick={() => onPostClick('BOOKMARK', post.id)}
+                onPostDelete={() => onPostDelete(post.id)}
+              />
+            ))}
+          </S.Posts>
+        ) : (
+          <S.Empty>
+            <div>{`No results for "${search}"`}</div>
+            <div>Try searching for something else.</div>
+          </S.Empty>
+        )
       ) : sections[activeSection] === 'People' ? (
-        <UserList users={users} details={true} />
+        users.length ? (
+          <UserList users={users} details={true} />
+        ) : (
+          <S.Empty>
+            <div>{`No results for "${search}"`}</div>
+            <div>Try searching for something else.</div>
+          </S.Empty>
+        )
       ) : sections[activeSection] === 'Media' ? (
-        <S.Media ref={contentRef} $width={contentWidth}>
-          {mediaPosts.map((post) => (
-            <Link key={post.id} to={`/posts/${post.id}`}>
-              <img src={post.file} alt="" />
-            </Link>
-          ))}
-        </S.Media>
+        mediaPosts.length ? (
+          <S.Media ref={contentRef} $width={contentWidth}>
+            {mediaPosts.map((post) => (
+              <Link key={post.id} to={`/posts/${post.id}`}>
+                <img src={post.file} alt="" />
+              </Link>
+            ))}
+          </S.Media>
+        ) : (
+          <S.Empty>
+            <div>{`No results for "${search}"`}</div>
+            <div>Try searching for something else.</div>
+          </S.Empty>
+        )
       ) : null}
     </S.ExploreResult>
   );
@@ -129,6 +160,7 @@ ExploreResult.propTypes = {
   posts: PropTypes.array.isRequired,
   updatePost: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
+  search: PropTypes.string.isRequired,
 };
 
 export default ExploreResult;
