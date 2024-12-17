@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Empty } from '../connections/Connections.styles';
 
 const Notifications = styled.main`
   display: grid;
@@ -28,4 +29,4 @@ const Header = styled.header`
   padding: 1rem;
 `;
 
-export { Notifications, Content, Header };
+export { Notifications, Content, Header, Empty };

@@ -37,8 +37,16 @@ function Notifications() {
           <Error>{error}</Error>
         ) : loading ? (
           <Loading data="notifications" />
-        ) : (
+        ) : data.notifications && data.notifications.length ? (
           <NotificationList notifications={data.notifications} />
+        ) : (
+          <S.Empty>
+            <div>{"You don't have any notification"}</div>
+            <div>
+              Your notifications will be displayed here when someone will
+              interact with your account or with your posts.
+            </div>
+          </S.Empty>
         )}
       </S.Content>
       <DefaultSidebar />

@@ -11,7 +11,7 @@ function NotificationList({ notifications }) {
         const type = notification.notificationType;
         const notifier = notification.notifierUser;
         return (
-          <S.Notification.Main key={notification.id}>
+          <S.Notification.Main key={notification.id} $seen={notification.seen}>
             <S.Notification.Header>
               <img
                 src={

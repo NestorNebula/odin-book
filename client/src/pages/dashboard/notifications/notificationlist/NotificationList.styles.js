@@ -15,6 +15,8 @@ const Notification = {
     gap: 0.5rem;
     border-top: ${(props) => `1px solid ${props.theme.fifthGray}`};
     padding: 1rem 2rem 1rem 3rem;
+    background-color: ${(props) =>
+      !props.$seen ? 'rgba(29, 156, 240, 0.2);' : props.theme.black};
   `,
   Header: styled.header`
     display: grid;
