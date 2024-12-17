@@ -56,6 +56,7 @@ const UserInformations = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.5rem 1.5rem 0rem;
+  white-space: pre-wrap;
 
   & > div:first-child {
     font-size: 2.25rem;

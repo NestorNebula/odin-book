@@ -60,6 +60,7 @@ const Message = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  white-space: pre-wrap;
 
   & > div,
   & > img {

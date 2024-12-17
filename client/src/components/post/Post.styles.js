@@ -87,6 +87,7 @@ const DeleteButton = styled.button`
 `;
 const Content = styled.div`
   grid-column: ${(props) => (props.$details ? '1 / 3' : '2 / 3')};
+  white-space: pre-wrap;
 
   & > a > img {
     border-radius: 15px;
