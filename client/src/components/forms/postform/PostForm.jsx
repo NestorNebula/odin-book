@@ -22,9 +22,10 @@ function PostForm({ onSubmit, fileUrl, error, updateFile, removeFile, post }) {
   const postIsValid = contentValidation.isValid && (!!content || !!fileUrl);
   return (
     <S.PostForm
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        onSubmit({ content, file: fileUrl });
+        await onSubmit({ content, file: fileUrl });
+        updateContent({ target: { value: '' } });
       }}
     >
       <Avatar profile={user.profile} />
