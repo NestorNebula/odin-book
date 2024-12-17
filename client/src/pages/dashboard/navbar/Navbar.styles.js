@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
+  height: 100vh;
+
   & > ul {
     display: flex;
     flex-direction: column;
