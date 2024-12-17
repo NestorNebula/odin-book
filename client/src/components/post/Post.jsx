@@ -99,17 +99,34 @@ function Post({
         )}
       </S.Content>
       <S.Buttons $details={details}>
-        <S.Button onClick={() => onReplyClick(post.id)}>
+        <S.Button
+          onClick={(e) => {
+            e.stopPropagation();
+            onReplyClick(post.id);
+          }}
+        >
           <img src={comment} alt="reply" />
           <div>{post.comments.length}</div>
         </S.Button>
-        <S.Button onClick={() => onRepostClick(post.id)} $repost={hasReposted}>
+        <S.Button
+          onClick={(e) => {
+            e.stopPropagation();
+            onRepostClick(post.id);
+          }}
+          $repost={hasReposted}
+        >
           <img src={repost} alt={hasReposted ? 'undo repost' : 'repost'} />
           <div>
             {post.interactions.filter((i) => i.type === 'REPOST').length}
           </div>
         </S.Button>
-        <S.Button onClick={() => onLikeClick(post.id)} $like={hasLiked}>
+        <S.Button
+          onClick={(e) => {
+            e.stopPropagation();
+            onLikeClick(post.id);
+          }}
+          $like={hasLiked}
+        >
           <img
             src={hasLiked ? heart : emptyHeart}
             alt={hasLiked ? 'unlike' : 'like'}
@@ -117,7 +134,10 @@ function Post({
           <div>{post.interactions.filter((i) => i.type === 'LIKE').length}</div>
         </S.Button>
         <S.Button
-          onClick={() => onBookmarkClick(post.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onBookmarkClick(post.id);
+          }}
           $bookmark={hasBookmarked}
         >
           <img
