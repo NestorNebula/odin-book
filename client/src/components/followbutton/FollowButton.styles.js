@@ -8,7 +8,7 @@ const FollowButton = styled.button`
   font-weight: 700;
   width: min(100%, 10rem);
   height: fit-content;
-  padding: 0.75rem 0;
+  padding: 0.75rem 1rem;
 
   &:hover {
     background-color: ${(props) => props.theme.fourthGray};
