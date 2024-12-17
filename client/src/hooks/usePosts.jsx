@@ -6,6 +6,8 @@ const usePosts = ({ postsPath, fetchReposts }) => {
   const [reposts, setReposts] = useState(fetchReposts ? [] : null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [updateAll, setUpdateAll] = useState(false);
+  const updateAllPosts = () => setUpdateAll(!updateAll);
 
   const updatePost = (postId, post, deleted) => {
     deleted
@@ -39,9 +41,17 @@ const usePosts = ({ postsPath, fetchReposts }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [postsPath, fetchReposts]);
+  }, [postsPath, fetchReposts, updateAll]);
 
-  return { posts, reposts, updatePost, updateRepost, error, loading };
+  return {
+    posts,
+    reposts,
+    updatePost,
+    updateRepost,
+    error,
+    loading,
+    updateAllPosts,
+  };
 };
 
 export default usePosts;
