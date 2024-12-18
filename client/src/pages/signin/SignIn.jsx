@@ -27,6 +27,7 @@ function SignIn() {
 
   return (
     <S.SignIn>
+      <title>Happening now / Odin-Book</title>
       {!!done && <Navigate to="/home" />}
       <Dialog.Main dialogRef={dialogRef} close={() => close(setMethod(null))}>
         {open ? (
