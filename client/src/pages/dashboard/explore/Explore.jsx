@@ -22,6 +22,9 @@ function Explore() {
 
   return (
     <S.Explore>
+      <title>
+        {search ? `${search} - Explore / Odin-Book` : 'Explore / Odin-Book'}
+      </title>
       <S.Content>
         <SearchBar onSubmit={({ value }) => setSearch(value)} />
         {search ? (

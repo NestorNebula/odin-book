@@ -34,6 +34,7 @@ function Bookmarks() {
 
   return (
     <S.Bookmarks>
+      <title>Bookmarks / Odin-Book</title>
       {activeBookmark && width <= 1000 && (
         <Navigate to={`/posts/${activeBookmark}`} />
       )}

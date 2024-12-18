@@ -45,6 +45,7 @@ function Home() {
 
   return (
     <StyledHome>
+      <title>Home / Odin-Book</title>
       {postsError || followingError ? (
         <Error>Error when loading posts.</Error>
       ) : postsLoading || followingLoading ? (

@@ -15,6 +15,13 @@ function Post() {
 
   return (
     <S.Post>
+      <title>
+        {data && data.post
+          ? `${data.post.main.user.profile.displayName} on Odin-Book: "${
+              data.post.main.content ?? 'File'
+            }" / Odin-Book`
+          : 'Post / Odin-Book'}
+      </title>
       <S.Content>
         <S.Header>
           <div>Post</div>

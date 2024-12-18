@@ -57,6 +57,13 @@ function Messages() {
 
   return (
     <S.Messages>
+      <title>
+        {chat
+          ? `${
+              chat.users.find((u) => u.id !== user.id).profile.displayName
+            } - Messages / Odin-Book`
+          : 'Messages / Odin-Book'}
+      </title>
       <NewMessageDialog
         dialog={{ ref: dialogRef, open, close }}
         onSubmit={submitNewChat}

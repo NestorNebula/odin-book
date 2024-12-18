@@ -24,6 +24,15 @@ function Connections() {
 
   return (
     <S.Connections>
+      <title>
+        {data && data.user
+          ? sections[activeSection] === 'Followers'
+            ? `People following ${data.user.profile.displayName} (@${data.user.username}) / Odin-Book`
+            : sections[activeSection] === 'Following'
+            ? `People followed by ${data.user.profile.displayName} (@${data.user.username}) / Odin-Book`
+            : `${data.user.profile.displayName} (@${data.user.username}) Connections / Odin-Book`
+          : 'Connections / Odin-Book'}
+      </title>
       <S.Content>
         {!error && !loading && (
           <S.Header>

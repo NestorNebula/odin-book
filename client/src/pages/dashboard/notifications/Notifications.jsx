@@ -27,6 +27,7 @@ function Notifications() {
 
   return (
     <S.Notifications>
+      <title>Notifications / Odin-Book</title>
       <S.Content>
         <S.Header>Notifications</S.Header>
         {error ? (

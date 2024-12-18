@@ -71,6 +71,7 @@ function Settings() {
 
   return (
     <S.Settings>
+      <title>Settings / Odin-Book</title>
       <S.Content $sectionActive={activeSection !== null}>
         <S.Header>
           <div>Settings</div>

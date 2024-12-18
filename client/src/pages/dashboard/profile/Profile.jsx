@@ -31,6 +31,11 @@ function Profile() {
 
   return (
     <S.Profile>
+      <title>
+        {data && data.user
+          ? `${data.user.profile.displayName} (@${data.user.username}) / Odin-Book`
+          : 'Profile / Odin-Book'}
+      </title>
       {(!+userId || isNaN(+userId) || (data && !data.user)) && (
         <Navigate to="/home" />
       )}
