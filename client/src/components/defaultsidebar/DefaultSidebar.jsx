@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useData } from '@hooks';
-import { Error, Loading, SearchBar, UserList } from '@components';
+import { Credits, Error, Loading, SearchBar, UserList } from '@components';
 import * as S from './DefaultSidebar.styles';
 
 function DefaultSidebar() {
@@ -24,6 +24,7 @@ function DefaultSidebar() {
       ) : (
         <UserList title="Who to follow" users={data.users} />
       )}
+      <Credits />
     </S.Sidebar>
   );
 }

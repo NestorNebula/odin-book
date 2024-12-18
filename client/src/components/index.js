@@ -1,5 +1,6 @@
 import Avatar from './avatar/Avatar';
 import CommentDialog from './commentdialog/CommentDialog';
+import Credits from './credits/Credits';
 import DefaultSidebar from './defaultsidebar/DefaultSidebar';
 import Error from './Error';
 import FollowButton from './followbutton/FollowButton';
@@ -14,6 +15,7 @@ export {
   Avatar,
   DefaultSidebar,
   CommentDialog,
+  Credits,
   Error,
   FollowButton,
   Loading,
