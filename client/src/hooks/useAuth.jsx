@@ -42,18 +42,21 @@ const useAuth = (setInformation) => {
       });
     } else {
       localStorage.setItem('id', fetch.result.id);
-      setDone(true);
     }
+    setDone(true);
   };
 
   const guest = async () => {
     const fetch = await fetchAPI({ method: 'get', path: 'auth/signin/guest' });
     if (fetch.error) {
-      setInformation({ error: true, message: fetch.result.error.msg });
+      setInformation({
+        error: true,
+        message: 'Error during guest connection.',
+      });
     } else {
       localStorage.setItem('id', fetch.result.id);
-      setDone(true);
     }
+    setDone(true);
   };
 
   const github = async () => {
@@ -62,11 +65,14 @@ const useAuth = (setInformation) => {
       path: 'auth/signin/github/success',
     });
     if (fetch.error) {
-      setInformation({ error: true, message: fetch.result.error.msg });
+      setInformation({
+        error: true,
+        message: 'Error during GitHub connection.',
+      });
     } else {
       localStorage.setItem('id', fetch.result.id);
-      setDone(true);
     }
+    setDone(true);
   };
 
   const methods = { signUp, logIn, guest, github };

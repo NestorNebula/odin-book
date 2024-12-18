@@ -26,11 +26,12 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     secureProxy: true,
     sameSite: 'none',
-    partitioned: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: '/',
     cookie: {
       secure: true,
       httpOnly: true,
+      path: '/',
     },
   })
 );
