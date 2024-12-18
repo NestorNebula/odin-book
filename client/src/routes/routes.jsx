@@ -10,6 +10,7 @@ import Settings from '@pages/dashboard/settings/Settings';
 import Post from '@pages/dashboard/post/Post';
 import SignIn from '@pages/signin/SignIn';
 import { dashboardLoader, signInLoader } from '@loaders';
+import { redirect } from 'react-router-dom';
 
 const routes = [
   {
@@ -52,6 +53,12 @@ const routes = [
       {
         path: ':userId/connections',
         element: <Connections />,
+      },
+      {
+        path: '*',
+        loader: () => {
+          return redirect('/home');
+        },
       },
     ],
   },
