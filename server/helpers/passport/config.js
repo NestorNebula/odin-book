@@ -2,6 +2,7 @@ const passport = require('passport');
 require('./github');
 require('./local');
 require('./guest');
+require('./jwt');
 const prisma = require('../../models/queries');
 
 passport.serializeUser((user, done) => {
