@@ -85,6 +85,7 @@ The website also supports private messages and real-time updates for notificatio
    TEST_DATABASE_URL (another DB, needed for testing)
 
    COOKIE_SECRET=<secret>
+   TOKEN_SECRET=<secret>
    PORT=<PORT>
    ORIGIN=<client_url>
    ```
