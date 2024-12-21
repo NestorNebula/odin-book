@@ -42,8 +42,8 @@ const useAuth = (setInformation) => {
       });
     } else {
       localStorage.setItem('id', fetch.result.id);
+      setDone(true);
     }
-    setDone(true);
   };
 
   const guest = async () => {
