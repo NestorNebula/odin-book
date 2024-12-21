@@ -34,7 +34,8 @@ function Messages() {
   const submitNewChat = async (userId) => {
     if (
       !data.chats ||
-      data.chats.some((c) => c.users.some((u) => u.id === userId))
+      data.chats.some((c) => c.users.some((u) => u.id === userId)) ||
+      user.loginMethod === 'GUEST'
     )
       return;
     const fetch = await fetchAPI({
