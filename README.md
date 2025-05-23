@@ -58,10 +58,10 @@ The website also supports private messages and real-time updates for notificatio
 
    ```
    # SSH:
-   git remote add upstream git@github.com:odin-book/<repo name>.git
+   git remote add upstream git@github.com:NestorNebula/odin-book.git
 
    # HTTPS:
-   git remote add upstream https://github.com/odin-book/<repo name>.git
+   git remote add upstream https://github.com/NestorNebula/odin-book.git
    ```
 
 4. Go to the server directory
