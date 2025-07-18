@@ -23,6 +23,17 @@ passport.use(
         existingUser = await prisma.findUserByUsername(username);
         count++;
       }
+      if (!profile._json.email) {
+        const response = await fetch('https://api.github.com/user/emails', {
+          headers: {
+            Authorization: `token ${accessToken}`,
+          },
+        });
+        if (response.status >= 400) return done(null, false);
+        const data = await response.json();
+        if (!data.length) return done(null, false);
+        profile._json.email = data[0].email;
+      }
       const user = await prisma.findOrCreateUser(
         username.toLowerCase(),
         profile._json.email.toLowerCase(),
